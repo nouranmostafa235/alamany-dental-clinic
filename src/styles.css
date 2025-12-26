@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --dark-color : #13526A;
+  --light-color : #1496C3;
+  --gray-color : #4A5565;
+  --light-bg-color : #F4F9FD;
+  --blue-bg-color : #F1F7FC;
+  --dark-bg-color : #042D3C;
+}
+.title {
+  color: var(--dark-color);
+  font-weight: bold;
+}
+.small-title{
+  color: var(--light-color);
+  font-size: 12px;
+}
+
+.description {
+  color: var(--gray-color);
+  font-size: 12px;
+}
+.small-shadow{
+  box-shadow: 0px 15px 30px -11px rgba(0,0,0,0.10);
+}
+.btn-gradiant{
+  background: #00B7DB;
+  background: linear-gradient(90deg,rgba(0, 183, 219, 1) 0%, rgba(16, 98, 251, 1) 100%);
+}

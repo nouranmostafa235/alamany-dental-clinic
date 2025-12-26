@@ -1,0 +1,26 @@
+.cover img{
+  width: 100%;
+}
+.about-us{
+  font-size: 12px;
+  color: var(--light-color);
+  margin: 0;
+}
+.who-we-are{
+  color: var(--dark-color);
+  margin: 0;
+  font-weight: bold;
+}
+.description{
+  color: var(--gray-color);
+  font-size: 12px;
+}
+.btn{
+  background-color: var(--light-color);
+  color: white;
+  transition: all 0.3s ease-in-out;
+  width: 30%;
+}
+.btn:hover{
+  background-color: var(--dark-color);
+}

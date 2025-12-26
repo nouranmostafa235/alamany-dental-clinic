@@ -1,0 +1,68 @@
+.sideImg{
+  width: 90%;
+}
+.logo{
+  width: 10%;
+}
+.layer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.3);
+}
+.text-muted{
+  font-size: 12px !important;
+}
+.input-group-text{
+  background-color: transparent !important;
+}
+label{
+  font-size: 14px;
+}
+.form-control::placeholder {
+  font-size: 12px !important;
+  color: var(--gray-color) !important;
+}
+.eye-icon{
+  right: 0px;
+  top: 70%;
+  cursor: pointer;
+  user-select: none;
+}
+.submit-btn{
+  background: #00B7DB;
+  background: linear-gradient(90deg,rgba(0, 183, 219, 1) 0%, rgba(16, 98, 251, 1) 100%);
+}
+.or-section{
+  color: var(--dark-color);
+}
+.or-section::before{
+  content: "";
+  position: absolute;
+  top: 55%;
+ left: 5px;
+  background: rgba(0,0,0,.3);
+  width: 45%;
+  height: 1px;
+}
+.or-section::after{
+  content: "";
+  position: absolute;
+  top: 55%;
+  right: 5px;
+  background: rgba(0,0,0,.3);
+  width: 45%;
+  height: 1px;
+}
+.btn img{
+  width: 10%;
+}
+.google-btn{
+  border: 1px solid var(--light-color);
+  width: 40%;
+}
+.create-account{
+  cursor: pointer;
+}

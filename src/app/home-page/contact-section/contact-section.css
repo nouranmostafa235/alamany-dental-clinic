@@ -1,0 +1,41 @@
+.title {
+  color: var(--dark-color);
+  font-weight: bold;
+}
+.our-service{
+  color: var(--light-color);
+  font-size: 14px;
+}
+
+.description {
+  color: var(--gray-color);
+  font-size: 14px;
+}
+
+.service-wrapper{
+  background-color: var(--blue-bg-color);
+}
+.form-check-label{
+  color: var(--dark-color);
+  margin-bottom: 7px;
+}
+.form-control{
+  background-color: #F3F3F5;
+}
+.btn{
+  background-color: var(--light-color);
+  color: white;
+  width: 100%;
+}
+.icon{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--blue-bg-color);
+}
+.contact-card{
+  box-shadow: 0px 15px 30px -11px rgba(0,0,0,0.10);
+}
+.contact-form{
+  box-shadow: 0px 15px 30px -11px rgba(0,0,0,0.10);
+}

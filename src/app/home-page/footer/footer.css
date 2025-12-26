@@ -1,0 +1,31 @@
+.footer {
+  background-color: var(--dark-bg-color);
+}
+.logo {
+  width: 15%;
+  margin-bottom: 10px;
+}
+.description {
+  color: var(--gray-color);
+}
+li{
+  color: #A2AFB8;
+  font-weight: normal;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+li:hover{
+  color: var(--light-color);
+}
+.clinic{
+  color: #A2AFB8;
+  font-weight: normal;
+}
+.divider{
+  background-color: #A2AFB8;
+  height: 1px;
+  width: 100%;
+  transform: scaleY(0.3);
+  transform-origin: top;
+}

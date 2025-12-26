@@ -1,0 +1,53 @@
+.homePage{
+  background-color: var(--blue-bg-color);
+  margin-top: 90px;
+}
+.homeImg img{
+  width: 90%;
+}
+.welcome{
+  background-color: #DEEFF7;
+  color: var(--light-color);
+  width: 52%;
+}
+.title{
+  color: var(--dark-color);
+}
+.description{
+  color: var(--gray-color);
+  font-size: 12px;
+}
+.book-appointment{
+  background-color: var(--light-color);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+.book-appointment:hover{
+  background-color: var(--dark-color);
+}
+.learn-more{
+  color: var(--dark-color);
+  border: 1px solid var(--dark-color);
+  transition: all 0.3s ease-in-out;
+}
+.learn-more:hover{
+  background-color: #e3e3ec;
+}
+.phone-icon{
+  background-color: #DEEFF7;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+.call-us{
+  color: var(--gray-color);
+}
+.phone-num{
+  color: var(--dark-color);
+}
+.contact{
+  background-color: white;
+  box-shadow: -10px 21px 30px -18px rgba(0,0,0,0.41);
+  bottom: -15px;
+  left: 25px;
+}

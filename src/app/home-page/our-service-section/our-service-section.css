@@ -1,0 +1,51 @@
+.service-wrapper{
+  background-color: var(--blue-bg-color);
+}
+.service{
+  background-color: white;
+  transition: all 0.6s ease;
+
+}
+.service:hover{
+  box-shadow: -31px 29px 50px -33px rgba(0,0,0,0.41);
+  cursor: pointer;
+}
+.tooth-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--blue-bg-color);
+}
+
+.learn-more {
+  color: var(--light-color);
+  transition: all 0.6s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.learn-more:hover {
+  color: var(--dark-color);
+}
+
+.learn-more:hover::after {
+  content: "";
+  background-color: var(--dark-color);
+  height: 2px;
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 0.6s ease-in-out;
+}
+
+.learn-more::after {
+  content: "";
+  background-color: var(--dark-color);
+  height: 2px;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 0.6s ease-in-out, background-color 0.6s ease-in-out;
+}

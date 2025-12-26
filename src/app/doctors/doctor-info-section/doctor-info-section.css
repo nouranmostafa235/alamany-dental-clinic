@@ -1,0 +1,32 @@
+.info{
+  /*background-color: var(--blue-bg-color);*/
+}
+.doctor-img{
+  width: 70%;
+}
+.doctor-name{
+  color: var(--dark-color);
+}
+.doctor-major{
+  color: var(--dark-color);
+  font-size: 14px;
+}
+.experience{
+  color: var(--light-color);
+  font-size: 14px;
+}
+.btn{
+  background: #14566F;
+  background: linear-gradient(90deg,rgba(20, 86, 111, 1) 0%, rgba(20, 146, 189, 1) 83%);
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+i{
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover i{
+  transform: rotate(20deg);
+}

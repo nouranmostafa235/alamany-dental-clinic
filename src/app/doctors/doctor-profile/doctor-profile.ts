@@ -1,0 +1,26 @@
+import { Component } from '@angular/core';
+import {NavBar} from '../../nav-bar/nav-bar';
+import {DoctorInfoSection} from '../doctor-info-section/doctor-info-section';
+import {DoctorAboutSection} from '../doctor-about-section/doctor-about-section';
+import {DoctorCertificates} from '../doctor-certificates/doctor-certificates';
+import {DoctorMaterial} from '../doctor-material/doctor-material';
+import {DoctorOfficeHourSection} from '../doctor-office-hour-section/doctor-office-hour-section';
+import {Footer} from '../../home-page/footer/footer';
+
+@Component({
+  selector: 'app-doctor-profile',
+  imports: [
+    NavBar,
+    DoctorInfoSection,
+    DoctorAboutSection,
+    DoctorCertificates,
+    DoctorMaterial,
+    DoctorOfficeHourSection,
+    Footer
+  ],
+  templateUrl: './doctor-profile.html',
+  styleUrl: './doctor-profile.css',
+})
+export class DoctorProfile {
+
+}
