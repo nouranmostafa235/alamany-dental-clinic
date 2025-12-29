@@ -1,0 +1,28 @@
+.image{
+  width: 100%;
+}
+.apply{
+  font-size: 9px;
+}
+button{
+  border: 1px solid #e9ebed;
+  background-color: transparent;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+button:hover{
+  background-color: #cccdcd;
+}
+.doctor-list{
+  transition: all 0.3s ease-in-out;
+  /*border: 1px solid #e9ebed;*/
+}
+.doctor-list:hover{
+  box-shadow: 10px 10px 14px -3px rgba(0,0,0,0.41);
+}
+.viewBtn{
+  width: 80%;
+}
+.deleteBtn{
+  width: 10%;
+}

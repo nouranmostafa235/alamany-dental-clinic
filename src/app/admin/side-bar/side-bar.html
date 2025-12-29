@@ -1,0 +1,56 @@
+
+  <!-- Sidebar -->
+  <nav
+    class="sidebar d-flex flex-column"
+    [class.collapsed]="isCollapsed"
+  >
+    <!-- Header -->
+    <div class="sidebar-header d-flex align-items-center justify-content-between">
+      <span class="logo-text d-flex gap-2 align-items-center">
+        <img class="rounded-3" src="img/logo.jpeg">
+        Alamany Clinic
+      </span>
+      <button class="btn toggle-btn" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+<hr>
+    <!-- Menu -->
+    <ul class="nav nav-pills align-items-center flex-column gap-3 mt-3">
+      <li class="nav-item" >
+        <a class="nav-link " routerLinkActive="active" routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fas fa-home"></i>
+          <span class="link-text">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item"  >
+        <a class="nav-link" routerLink="doctors" routerLinkActive="active">
+          <i class="fas fa-user-doctor"></i>
+          <span class="link-text">Doctors</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="patients" routerLinkActive="active">
+          <i class="fas fa-user"></i>
+          <span class="link-text">Patients</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <i class="fas fa-calendar"></i>
+          <span class="link-text">Appointments</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <i class="fas fa-file"></i>
+          <span class="link-text">Blog Posts</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+

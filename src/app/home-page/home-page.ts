@@ -7,6 +7,7 @@ import {OurServiceSection} from './our-service-section/our-service-section';
 import {TeamSection} from './team-section/team-section';
 import {ContactSection} from './contact-section/contact-section';
 import {Footer} from './footer/footer';
+import {SideBar} from '../admin/side-bar/side-bar';
 
 @Component({
   selector: 'app-home-page',
@@ -18,7 +19,8 @@ import {Footer} from './footer/footer';
     OurServiceSection,
     TeamSection,
     ContactSection,
-    Footer
+    Footer,
+    SideBar
   ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',

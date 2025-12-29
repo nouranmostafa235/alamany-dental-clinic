@@ -6,6 +6,7 @@ import {DoctorCertificates} from '../doctor-certificates/doctor-certificates';
 import {DoctorMaterial} from '../doctor-material/doctor-material';
 import {DoctorOfficeHourSection} from '../doctor-office-hour-section/doctor-office-hour-section';
 import {Footer} from '../../home-page/footer/footer';
+import {DoctorReview} from '../doctor-review/doctor-review';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -16,7 +17,8 @@ import {Footer} from '../../home-page/footer/footer';
     DoctorCertificates,
     DoctorMaterial,
     DoctorOfficeHourSection,
-    Footer
+    Footer,
+    DoctorReview
   ],
   templateUrl: './doctor-profile.html',
   styleUrl: './doctor-profile.css',

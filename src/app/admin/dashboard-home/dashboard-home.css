@@ -1,0 +1,58 @@
+
+.icon{
+  width:35px;
+  height:35px;
+}
+.first-card{
+  background-color: #2B7FFF ;
+}
+.sec-card{
+  background-color: #00BBA7 ;
+}
+.third-card{
+  background-color: #AD46FF
+}
+.summary{
+  transition: all 0.3s ease-in-out;
+}
+.summary:hover{
+  box-shadow: 10px 10px 14px -3px rgba(0,0,0,0.41);
+  transform: scale(1.01);
+}
+.apply{
+  font-size: 9px;
+}
+.img-thumbnail{
+  width: 12%;
+}
+.doctor-btn{
+  background-color: #00C951;
+  color: #fff;
+}
+.user-btn{
+  background-color: #E5E7EB;
+
+}
+.pending{
+  background-color: #F0FAFD;
+}
+.pending-container{
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #F0FAFD transparent;
+}
+
+.pending-container::-webkit-scrollbar {
+  width: 3px;
+}
+.pending-container::-webkit-scrollbar-thumb {
+  background-color: #F0FAFD;
+  border-radius: 10px !important;
+}
+
+.pending-container::-webkit-scrollbar-track {
+  background: transparent;
+}
