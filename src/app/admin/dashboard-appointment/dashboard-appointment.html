@@ -1,0 +1,27 @@
+<div class="container-fluid ">
+  <h2 class="title">Appointments</h2>
+  <p class="description">View and manage patient appointments.</p>
+  <input class="form-control mb-3 " placeholder="search appointment...">
+
+  <div class="container w-75 mx-auto card">
+    <ul class="nav nav-tabs w-100 border-0 justify-content-center rounded-3 mt-4" style="background-color: var(--blue-bg-color)">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/appointments"
+           [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" aria-current="page" >All</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="confirmed" routerLinkActive="active">Confirmed</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="cancelled" routerLinkActive="active">Cancelled</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="pending" routerLinkActive="active">Pending</a>
+      </li>
+    </ul>
+     <div class="mt-5 container">
+       <router-outlet></router-outlet>
+     </div>
+  </div>
+
+</div>

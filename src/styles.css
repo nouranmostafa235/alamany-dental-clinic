@@ -2,7 +2,7 @@
 :root {
   --dark-color : #13526A;
   --light-color : #1496C3;
-  --gray-color : #4A5565;
+  --gray-color : #a9b1bc;
   --light-bg-color : #F4F9FD;
   --blue-bg-color : #F1F7FC;
   --dark-bg-color : #042D3C;
@@ -26,4 +26,26 @@
 .btn-gradiant{
   background: #00B7DB;
   background: linear-gradient(90deg,rgba(0, 183, 219, 1) 0%, rgba(16, 98, 251, 1) 100%);
+}
+.confirmed-badge{
+  background-color: #DBFCE7;
+  color: #349F60;
+}
+.cancel-badge{
+  background-color: #edc8ca;
+  color:#ED3F47 ;
+}
+.pending-badge{
+  background-color: #FEF9C2;
+  color: #C79949;
+}
+.date-card{
+  background: #0F69F8;
+  background: linear-gradient(180deg,rgba(15, 105, 248, 1) 0%, rgba(0, 183, 219, 1) 100%);
+}
+.date-card p {
+  font-size: small;
+}
+.cancel{
+  border: 1px solid #d1d0d0;
 }

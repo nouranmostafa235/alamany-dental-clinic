@@ -1,0 +1,7 @@
+.nav-link{
+  color: var(--dark-color) !important;
+}
+
+.active{
+  color: var(--light-color) !important;
+}

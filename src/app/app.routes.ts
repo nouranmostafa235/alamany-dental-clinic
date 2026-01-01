@@ -8,6 +8,12 @@ import {Dashboard} from './admin/dashboard/dashboard';
 import {DashboardHome} from './admin/dashboard-home/dashboard-home';
 import {DashboardDoctors} from './admin/dashboard-doctors/dashboard-doctors';
 import {PatientDashboard} from './admin/patient-dashboard/patient-dashboard';
+import {DashboardAppointment} from './admin/dashboard-appointment/dashboard-appointment';
+import {AllAppointments} from './admin/all-appointments/all-appointments';
+import {ConfirmedAppointments} from './admin/confirmed-appointments/confirmed-appointments';
+import {CancelledAppointment} from './admin/cancelled-appointment/cancelled-appointment';
+import {PendingApointment} from './admin/pending-apointment/pending-apointment';
+import {BlogPost} from './admin/blog-post/blog-post';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -22,6 +28,17 @@ export const routes: Routes = [
       {
         path:'doctors' , component:DashboardDoctors
       },
-      {path:'patients' , component:PatientDashboard}
-    ]}
+      {path:'patients' , component:PatientDashboard},
+      {path:'appointments' , component:DashboardAppointment,
+      children:[
+        {path:'', component:AllAppointments},
+        {path:'confirmed', component:ConfirmedAppointments},
+        {path:'cancelled', component:CancelledAppointment},
+        {path:'pending', component:PendingApointment}
+      ]},
+      {
+        path:'blog-posts' ,component:BlogPost
+      }
+    ]},
+
 ];
