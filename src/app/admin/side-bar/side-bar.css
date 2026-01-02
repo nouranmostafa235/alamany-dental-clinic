@@ -1,8 +1,8 @@
 .sidebar {
   width: 250px;
   height: 100vh;
-  background: #0F69F8;
-  background: linear-gradient(180deg,rgba(15, 105, 248, 1) 0%, rgba(0, 183, 219, 1) 100%);
+  background: #158FBE;
+  background: linear-gradient(180deg,rgba(21, 143, 190, 1) 65%, rgba(8, 196, 215, 1) 100%);
   transition: width 0.3s ease;
   position: sticky;
   top: 0;
@@ -33,7 +33,7 @@ img{
 .nav-link.active,
 .nav-link:hover {
   background-color: #ffffff;
-  color: #0F69F8;
+  color: #08C4D7;
 }
 
 .sidebar i {

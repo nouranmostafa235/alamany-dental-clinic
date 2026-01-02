@@ -1,9 +1,8 @@
 <div class="container-fluid ">
   <h2 class="title">Appointments</h2>
   <p class="description">View and manage patient appointments.</p>
-  <input class="form-control mb-3 " placeholder="search appointment...">
 
-  <div class="container w-75 mx-auto card">
+  <div class="container  card">
     <ul class="nav nav-tabs w-100 border-0 justify-content-center rounded-3 mt-4" style="background-color: var(--blue-bg-color)">
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/appointments"
@@ -20,6 +19,7 @@
       </li>
     </ul>
      <div class="mt-5 container">
+       <input class="form-control mb-4 " placeholder="search appointment...">
        <router-outlet></router-outlet>
      </div>
   </div>
