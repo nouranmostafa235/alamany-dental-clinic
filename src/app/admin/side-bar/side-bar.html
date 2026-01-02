@@ -5,14 +5,17 @@
     [class.collapsed]="isCollapsed"
   >
     <!-- Header -->
-    <div class="sidebar-header d-flex align-items-center justify-content-between">
+    <div class="sidebar-header d-flex align-items-center " [ngClass]="isCollapsed?'':'justify-content-between'">
       <span class="logo-text d-flex gap-2 align-items-center">
         <img class="rounded-3" src="img/logo.jpeg">
         Alamany Clinic
       </span>
-      <button class="btn toggle-btn" (click)="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-      </button>
+      <div [ngClass]="isCollapsed? 'w-100 d-flex justify-content-center ' : ''" (click)="toggleSidebar()">
+        <button class="btn toggle-btn" >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
     </div>
 <hr>
     <!-- Menu -->
