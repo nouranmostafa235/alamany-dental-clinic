@@ -27,3 +27,6 @@ button:hover{
 .deleteBtn{
   padding: 16px;
 }
+.description{
+  font-size: 10px;
+}

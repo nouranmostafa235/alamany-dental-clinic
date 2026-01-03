@@ -7,7 +7,6 @@ import {OurServiceSection} from './our-service-section/our-service-section';
 import {TeamSection} from './team-section/team-section';
 import {ContactSection} from './contact-section/contact-section';
 import {Footer} from './footer/footer';
-import {SideBar} from '../admin/side-bar/side-bar';
 import {BlogPost} from '../admin/blog-post/blog-post';
 
 @Component({
@@ -21,7 +20,6 @@ import {BlogPost} from '../admin/blog-post/blog-post';
     TeamSection,
     ContactSection,
     Footer,
-    SideBar,
     BlogPost
   ],
   templateUrl: './home-page.html',

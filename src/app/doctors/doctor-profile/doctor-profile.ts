@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {NavBar} from '../../nav-bar/nav-bar';
 import {DoctorInfoSection} from '../doctor-info-section/doctor-info-section';
-import {DoctorAboutSection} from '../doctor-about-section/doctor-about-section';
 import {DoctorCertificates} from '../doctor-certificates/doctor-certificates';
 import {DoctorMaterial} from '../doctor-material/doctor-material';
 import {DoctorOfficeHourSection} from '../doctor-office-hour-section/doctor-office-hour-section';
@@ -13,7 +12,6 @@ import {DoctorReview} from '../doctor-review/doctor-review';
   imports: [
     NavBar,
     DoctorInfoSection,
-    DoctorAboutSection,
     DoctorCertificates,
     DoctorMaterial,
     DoctorOfficeHourSection,
