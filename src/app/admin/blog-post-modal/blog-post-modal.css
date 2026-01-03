@@ -1,0 +1,11 @@
+.image-wrapper{
+  height: 440px;
+  overflow: hidden;
+}
+
+img{
+  width: 100%;
+}
+.rounded-pill{
+  border: 1px solid #e1dddd;
+}

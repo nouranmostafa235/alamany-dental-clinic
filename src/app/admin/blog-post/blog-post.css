@@ -6,12 +6,14 @@ img{
 }
 .card-img-top{
   overflow: hidden;
-
 }
 .rounded-pill{
   border: 1px solid #e1dddd;
 }
 button{
+  border: 1px solid #e1e1e1;
+}
+button:hover{
   border: 1px solid #e1e1e1;
 }
 .card{

@@ -1,30 +1,32 @@
 <nav class="navbar fixed-top navbar-expand-lg bg-white">
   <div class="container">
-
-      <img class="navbar-brand logo" routerLink="home" src="img/logo.jpeg" alt="" srcset="">
-
+    <img class="navbar-brand logo" routerLink="home" src="img/logo.jpeg" alt="" srcset="">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav w-75 justify-content-center gap-3  mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="scrollTo('home')" routerLink="home">Home</a>
+          <a class="nav-link" [class.active]="activeSection === 'home'" aria-current="page"
+             (click)="scrollTo('home')">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="scrollTo('about')">About</a>
+          <a class="nav-link" [class.active]="activeSection === 'about'" (click)="scrollTo('about')">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="scrollTo('services')">Services</a>
-        </li>
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link">Blog Posts</a>-->
-<!--        </li>-->
-        <li class="nav-item">
-          <a class="nav-link" (click)="scrollTo('team')">Team</a>
+          <a class="nav-link"
+             [class.active]="activeSection === 'blog'" (click)="scrollTo('blog')"
+          >Blog Posts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="scrollTo('contact')">Contact</a>
+          <a class="nav-link"
+             [class.active]="activeSection === 'services'" (click)="scrollTo('services')">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeSection === 'team'" (click)="scrollTo('team')">Team</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeSection === 'contact'" (click)="scrollTo('contact')">Contact</a>
         </li>
       </ul>
       <div class="d-flex gap-3">
