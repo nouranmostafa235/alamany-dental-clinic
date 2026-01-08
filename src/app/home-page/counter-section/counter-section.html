@@ -1,17 +1,28 @@
-<div class=" counter py-5">
-  <div class=" container d-flex justify-content-evenly">
-    <div class="text-center">
-      <p class="m-0 light">10+</p>
-      <p class="m-0 dark">Years of Experience</p>
-    </div>
-    <div class="text-center">
-      <p class="m-0 light">1000+</p>
-      <p class="m-0 dark">Happy Patients</p>
-    </div>
-    <div class="text-center">
-      <p class="m-0 light">15+</p>
-      <p class="m-0 dark">Expert Doctors</p>
+<section class="svg-section py-3 mt-5" #svgSection>
+  <div class="container">
+    <div class="row justify-content-center gap-4">
+      @for (svg of svgs; track $index){
+        <div class="col-2">
+          <div class=" text-center ">
+            <svg
+              [attr.viewBox]="svg.viewBox"
+              class="animated-svg"
+              [attr.data-index]="$index">
+              <path
+                [attr.d]="svg.path"
+                [attr.stroke]="svg.stroke"
+                fill="none"
+                stroke-width="0.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="svg-path"/>
+            </svg>
+          </div>
+
+          <p class=" text-center">{{ svg.description }}</p>
+        </div>
+      }
+
     </div>
   </div>
-
-</div>
+</section>

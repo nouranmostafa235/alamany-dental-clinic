@@ -1,0 +1,373 @@
+<div class="container">
+  <div class="d-flex justify-content-center align-items-center">
+    <img src="img/logo.jpeg">
+  </div>
+  <form>
+    <div class="card mb-2 p-3">
+      <p class="card-title title">1- Personal Info</p>
+      <div class="card-body row gy-4">
+        <div class="col-3">
+          <label class="form-label">First Name</label>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Last Name</label>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Age</label>
+          <input class="form-control" type="number" min="0"
+                 (keydown)="preventInvalidKeys($event)"
+                 (input)="fixNegative($event)">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Date of birth</label>
+          <input class="form-control" type="date">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Phone Number</label>
+          <input class="form-control" type="tel">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Address</label>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Occupation</label>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-3">
+          <label class="form-label">Gender</label>
+          <select class="form-select">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-2">
+      <p class="card-title title m-0">2- Medical History</p>
+      <p class="card-title small-title m-0 ">Please Check Any of the Following Conditions That Apply to You:</p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                   AIDS/HIV Positive
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Anemia
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Heart Failure
+                </label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Artificial Heart Valve
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Asthma
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Liver diseases
+                </label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  	Cancer
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Chemo/Radio Therapy
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  	Bleeding Disorder
+                </label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  	Diabetes
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Blood Pressure
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Kidney diseases
+                </label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Thyroid Diseases
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Psychiatric illness
+                </label>
+              </td>
+              <td>
+                <label class="text-muted checkbox-modern">
+                  <input class="form-check" type="checkbox">
+                  <span></span>
+                  Virus A, B, C
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-2">
+      <p class="card-title title m-0">3- Are you allergic to any of the following?</p>
+      <p class="card-title small-title m-0 ">Please Check Any of the Following allergies That Apply to You:</p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Aspirin
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Penicillin
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Acrylic
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Local Anesthesia
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Eugenol
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Metal
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Latex
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Sulfa Drugs
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" >
+              <div class="d-flex  align-items-center">
+                <label class="text-muted me-2 ">
+                  <span></span>
+                  others:
+                </label>
+                <input class="form-control" type="text">
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-2">
+      <p class="card-title title m-0">4- For Women: Are you </p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <td>
+              <label class="text-muted">
+                Pregnant
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Yes
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                No
+              </label>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+              <label class="text-muted">
+                Nursing
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Yes
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                No
+              </label>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-2">
+      <p class="card-title title m-0">5- Habits</p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Smoking
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Bruxism
+              </label>
+            </td>
+            <td>
+              <label class="text-muted checkbox-modern">
+                <input class="form-check" type="checkbox">
+                <span></span>
+                Alcoholic
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" >
+              <div class="d-flex  align-items-center">
+                <label class="text-muted me-2 ">
+                  <span></span>
+                  others:
+                </label>
+                <input class="form-control" type="text">
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card p-3 mb-2">
+      <div class="card-body">
+        <label class="text-muted checkbox-modern">
+          <input class="form-check" type="checkbox">
+          <span></span>
+          The information is accurate and complete to the best of my knowledge.
+          I will not hold the Doctor or his staff responsible for any error or omission that
+          I may have made completing this form.
+        </label>
+      </div>
+    </div>
+    <div class="row mb-3 justify-content-center align-items-center gap-3">
+      <button class="col-2 btn px-4">Submit</button>
+      <button class="col-2 btn px-4" (click)="openPreview()">Preview</button>
+    </div>
+  </form>
+</div>

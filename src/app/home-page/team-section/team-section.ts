@@ -16,11 +16,15 @@ export class TeamSection {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
-    pullDrag: false,
+    pullDrag: true,
     margin: 16,
     stagePadding: 30,
-    dots: true,
-    navSpeed: 700,
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut',
+    navSpeed: 500,
+    autoplay: true,
+    autoplaySpeed: 300,
+    dots: false,
     navText: ['<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>', '<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>'],
     responsive: {
       0: {
@@ -30,10 +34,10 @@ export class TeamSection {
         items: 1
       },
       740: {
-        items: 2
+        items: 4
       },
       940: {
-        items: 2
+        items: 4
       }
     },
     nav: false

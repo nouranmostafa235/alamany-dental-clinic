@@ -14,11 +14,13 @@ import {ConfirmedAppointments} from './admin/confirmed-appointments/confirmed-ap
 import {CancelledAppointment} from './admin/cancelled-appointment/cancelled-appointment';
 import {PendingApointment} from './admin/pending-apointment/pending-apointment';
 import {BlogPost} from './admin/blog-post/blog-post';
+import {PatientForm} from './book-appointment/patient-form/patient-form';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
   {path:'' , redirectTo:'home',pathMatch:'full'},
   {path:'book-appointment' , component:BookAppointment},
+  {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
   {path:'doctor-profile', component:DoctorProfile},

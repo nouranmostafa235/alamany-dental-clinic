@@ -1,32 +1,66 @@
-<div class="homePage pb-5">
-  <div class="container d-flex py-5">
-    <div class="py-5 d-flex flex-column gap-3">
-      <div class="welcome text-center rounded-4 py-2">
-        Welcome to Alamany Dental Clinic
+<div class="homePage">
+  <div class="layer">
+      <div class="text-white container p-5 h-100 gap-3 d-flex flex-column justify-content-center">
+        <h1 class="clinicName">
+          Alamany Dental Clinic
+        </h1>
+        <h2 class="clinicdesc">
+          Redefining your dental care experience
+        </h2>
+        <button class="btn rounded-2">
+          Book Online
+        </button>
+        <a class="text-white text-decoration-none" href="tel:+201092184470">Or Call (+20) 1092184470</a>
       </div>
-      <p class="title">Your Smile, Our Priority</p>
-      <p class="description">
-        Experience world-class dental care with our team of expert dentists. We're committed to providing
-        you with the highest quality treatment in a comfortable, modern environment.
-      </p>
-      <div class="d-flex gap-3">
-        <button class="book-appointment btn" routerLink="/book-appointment">Book Appointment <span> <i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i> </span></button>
-        <button class="learn-more btn">Learn More</button>
-      </div>
-    </div>
-
-    <div class="homeImg  text-end position-relative">
-      <img class="rounded-4" src="img/homeImg.jpg">
-      <div class="p-3 text-start rounded-4 d-flex justify-content-center align-items-center gap-3 position-absolute contact">
-        <div class="phone-icon d-flex justify-content-center align-items-center">
-          <i class="fa-solid fa-phone" style="color: #1496c3;"></i>
-        </div>
-        <div class="d-flex flex-column gap-1">
-          <p class="call-us p-0 m-0">Call US Now</p>
-          <p class="phone-num p-0 m-0">+20 1092184470</p>
-        </div>
-      </div>
-    </div>
-
   </div>
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide>
+        <img src="img/home1.jpeg" class="card-img-top" alt="...">
+    </ng-template>
+    <ng-template carouselSlide>
+      <img src="img/home2.jpeg" class="card-img-top" alt="...">
+    </ng-template>
+    <ng-template carouselSlide>
+      <img src="img/home3.jpeg" class="card-img-top" alt="...">
+    </ng-template>
+    <ng-template carouselSlide>
+      <img src="img/home5.png" class="card-img-top" alt="...">
+    </ng-template>
+    <ng-template carouselSlide>
+      <img src="img/home4.png" class="card-img-top" alt="...">
+    </ng-template>
+    <ng-template carouselSlide>
+      <img src="img/home6.png" class="card-img-top" alt="...">
+    </ng-template>
+  </owl-carousel-o>
 </div>
+<!--<div class="container d-flex py-5">-->
+<!--  <div class="py-5 d-flex flex-column gap-3">-->
+<!--    <div class="welcome text-center rounded-4 py-2">-->
+<!--      Welcome to Alamany Dental Clinic-->
+<!--    </div>-->
+<!--    <p class="title">Your Smile, Our Priority</p>-->
+<!--    <p class="description">-->
+<!--      Experience world-class dental care with our team of expert dentists. We're committed to providing-->
+<!--      you with the highest quality treatment in a comfortable, modern environment.-->
+<!--    </p>-->
+<!--    <div class="d-flex gap-3">-->
+<!--      <button class="book-appointment btn" routerLink="/book-appointment">Book Appointment <span> <i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i> </span></button>-->
+<!--      <button class="learn-more btn">Learn More</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="homeImg  text-end position-relative">-->
+<!--    <img class="rounded-4" src="img/homeImg.jpg">-->
+<!--    <div class="p-3 text-start rounded-4 d-flex justify-content-center align-items-center gap-3 position-absolute contact">-->
+<!--      <div class="phone-icon d-flex justify-content-center align-items-center">-->
+<!--        <i class="fa-solid fa-phone" style="color: #1496c3;"></i>-->
+<!--      </div>-->
+<!--      <div class="d-flex flex-column gap-1">-->
+<!--        <p class="call-us p-0 m-0">Call US Now</p>-->
+<!--        <p class="phone-num p-0 m-0">+20 1092184470</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->

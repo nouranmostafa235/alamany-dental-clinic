@@ -16,3 +16,6 @@
 .card-img-top:hover{
   transform: scale(1.05);
 }
+.wrapper{
+  background-color: var(--dark-bg-color);
+}

@@ -7,6 +7,9 @@
   --blue-bg-color : #F1F7FC;
   --dark-bg-color : #042D3C;
 }
+body{
+  font-family: Nunito, sans-serif;
+}
 .title {
   color: var(--dark-color);
   font-weight: bold;

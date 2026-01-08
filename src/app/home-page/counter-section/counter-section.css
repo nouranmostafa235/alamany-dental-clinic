@@ -1,9 +1,52 @@
-.light{
-  color: var(--light-color);
+.svg-section {
+  background-color: white;
 }
-.dark{
-  color: var(--dark-color);
+
+
+.svg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  align-items: start;
 }
-.counter{
-  border: 1px solid #f1f1f1;
+
+.svg-item {
+  text-align: center;
+  padding: 30px;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.animated-svg {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.svg-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+p {
+  color: var(--dark-bg-color);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .svg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
 }
