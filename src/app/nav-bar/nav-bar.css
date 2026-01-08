@@ -4,6 +4,7 @@
 }
 .logo{
   width: 7%;
+  cursor: pointer;
 }
 .active{
   color: white !important;
@@ -54,4 +55,7 @@
 }
 a{
   cursor: pointer;
+}
+.collapse{
+  margin-left: 6% !important;
 }

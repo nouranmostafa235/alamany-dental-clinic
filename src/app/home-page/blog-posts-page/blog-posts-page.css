@@ -1,0 +1,47 @@
+.blog-post-page{
+  margin-top: 30vh;
+}
+h2{
+  font-weight: 600;
+  font-size: 53px;
+  color: var(--dark-bg-color);
+}
+.service-description{
+  color: var(--dark-bg-color);
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  width: 80%;
+  line-height: 28px;
+}
+img{
+  width: 100%;
+  object-fit: cover;
+}
+.nav-link {
+  color: var(--dark-bg-color);
+  transition: color 0.3s ease-in-out;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--light-color);
+  transition: width 0.4s ease-in-out;
+}
+.nav-link.active::after {
+  width: 100%;
+}
+.nav-link.active {
+  color: var(--dark-bg-color) !important;
+}

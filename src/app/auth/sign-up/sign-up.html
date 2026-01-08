@@ -4,27 +4,28 @@
       <img class="logo rounded-4 small-shadow" src="img/logo.jpeg">
       <p class="small-title mb-1">Create your account</p>
       <small class="text-muted d-block mb-4">Join Alamany Dental Clinic today</small>
-      <form>
+      <form [formGroup]="signUpForm" (ngSubmit)="submitForm(signUpForm)">
         <div class="row">
           <div class="col-6">
             <label class="mb-1 " style="color: var(--dark-color)">First Name</label>
-            <input class="form-control rounded-3 mb-3" placeholder="John" type="text">
+            <input class="form-control rounded-3 mb-3" formControlName="firstName" placeholder="John" type="text">
           </div>
           <div class="col-6">
             <label class="mb-1 " style="color: var(--dark-color)">Last Name</label>
-            <input class="form-control rounded-3 mb-3" placeholder="Doe" type="text">
+            <input class="form-control rounded-3 mb-3" formControlName="lastName" placeholder="Doe" type="text">
           </div>
         </div>
         <label class="mb-1 " style="color: var(--dark-color)">Email Address</label>
-        <input class="form-control rounded-3 mb-3" placeholder="your.email@example.com" type="email">
+        <input class="form-control rounded-3 mb-3" formControlName="email" placeholder="your.email@example.com" type="email">
         <label class="mb-1 " style="color: var(--dark-color)">Phone number</label>
-        <input class="form-control rounded-3 mb-3" placeholder="+20114848332" type="tel">
+        <input class="form-control rounded-3 mb-3" formControlName="phone" placeholder="+20114848332" type="tel">
         <div class="row">
           <div class="col-md-6 position-relative">
             <label class="form-check-label" style="color: var(--dark-color)">
               Password
             </label>
             <input
+              formControlName="password"
               class="form-control rounded-3"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Create a strong password"/>

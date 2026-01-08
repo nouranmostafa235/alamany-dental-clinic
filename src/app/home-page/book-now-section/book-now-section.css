@@ -1,0 +1,47 @@
+.service-wrapper{
+  background-color: var(--dark-bg-color);
+}
+.promise{
+  font-weight: 500;
+  font-size: 53px;
+  color: white;
+}
+.service-description{
+  color: white;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  width: 85%;
+  line-height: 30px;
+}
+.description{
+  color: var(--dark-bg-color);
+
+}
+.background-layer{
+  z-index: 1;
+  height: 125%;
+  width: 60%;
+  top: -17%;
+  background-color: var(--blue-bg-color);
+}
+.cover img{
+  width: 75%;
+  z-index: 2;
+}
+.text-decoration-none{
+  color: var(--gray-color);
+  transition: color 0.6s ease;
+}
+.text-decoration-none:hover{
+  color: white;
+}
+.btn{
+  background-color: var(--light-color);
+  color: white;
+  font-size: 12px;
+  width: 35%;
+  transition: all 0.6s ease;
+}
+.btn:hover{
+  transform: scale(1.04);
+}

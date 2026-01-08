@@ -15,6 +15,7 @@ import {CancelledAppointment} from './admin/cancelled-appointment/cancelled-appo
 import {PendingApointment} from './admin/pending-apointment/pending-apointment';
 import {BlogPost} from './admin/blog-post/blog-post';
 import {PatientForm} from './book-appointment/patient-form/patient-form';
+import {BlogPostsPage} from './home-page/blog-posts-page/blog-posts-page';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -24,6 +25,7 @@ export const routes: Routes = [
   {path:'login', component:Login,data: { animation: 'login' }},
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
   {path:'doctor-profile', component:DoctorProfile},
+  {path:'blog-posts' , component:BlogPostsPage},
   {path:'admin',component:Dashboard , children:[{
     path:'' , component:DashboardHome
     },

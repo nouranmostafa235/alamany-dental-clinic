@@ -1,0 +1,20 @@
+.wrapper{
+  background-color: var(--blue-bg-color);
+}
+h2{
+  font-size: 52px;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+.quote-icon{
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  border: 1px solid var(--dark-bg-color);
+}
+.review{
+  border: 1px solid var(--dark-bg-color);
+}
+.review p {
+  color: var(--dark-bg-color);
+}

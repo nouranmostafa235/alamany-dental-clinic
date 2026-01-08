@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import {NavBar} from '../nav-bar/nav-bar';
 import {HomeSection} from './home-section/home-section';
 import {CounterSection} from './counter-section/counter-section';
-import {AboutSection} from './about-section/about-section';
 import {OurServiceSection} from './our-service-section/our-service-section';
 import {TeamSection} from './team-section/team-section';
 import {ContactSection} from './contact-section/contact-section';
 import {Footer} from './footer/footer';
-import {BlogPost} from '../admin/blog-post/blog-post';
+import {ReviewsSection} from './reviews-section/reviews-section';
+import {BookNowSection} from './book-now-section/book-now-section';
 
 @Component({
   selector: 'app-home-page',
@@ -15,12 +15,12 @@ import {BlogPost} from '../admin/blog-post/blog-post';
     NavBar,
     HomeSection,
     CounterSection,
-    AboutSection,
     OurServiceSection,
     TeamSection,
     ContactSection,
     Footer,
-    BlogPost
+    ReviewsSection,
+    BookNowSection
   ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',

@@ -1,0 +1,73 @@
+<app-nav-bar></app-nav-bar>
+<div class="blog-post-page ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 py-5">
+        <h2 class="mb-5">blog</h2>
+        <p class="service-description">
+          bringing you the latest & greatest on oral care health.
+          your source for all news & information to keep you healthy from the inside out
+        </p>
+      </div>
+      <div class="col-md-6">
+      <img src="img/home2.jpeg">
+      </div>
+    </div>
+     <div class="mt-5 mb-5">
+       <ul class="navbar-nav d-flex flex-row flex-wrap mx-auto w-75 justify-content-center gap-4 mb-2 mb-lg-0">
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'all' "
+              aria-current="page"
+              (click)="setActive('all')">All</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'dentalHealth' "
+              (click)="setActive('dentalHealth')">Dental Hygiene</a>
+         </li>
+
+         <li class="nav-item">
+           <a class="nav-link"
+              [class.active]="activeTag === 'services'"
+              (click)="setActive('services')">Dental Services</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link"
+              [class.active]="activeTag === 'flossing'"
+              (click)="setActive('flossing')"
+           >Flossing</a>
+         </li>
+
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'health' "
+              (click)="setActive('health')">Health</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'oralCare' "
+              (click)="setActive('oralCare')">Oral Care</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'teeth' "
+              (click)="setActive('teeth')">Sensitive Teeth</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'whitening' "
+              (click)="setActive('whitening')">Teeth Whitening</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'sensitive' "
+              (click)="setActive('sensitive')">Sensitive Teeth</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" [class.active]="activeTag === 'uncategorized' "
+              (click)="setActive('uncategorized')">Uncategorized</a>
+         </li>
+       </ul>
+     </div>
+    <div class="mb-5">
+      <app-blog-post></app-blog-post>
+    </div>
+
+  </div>
+
+</div>
+<app-footer></app-footer>

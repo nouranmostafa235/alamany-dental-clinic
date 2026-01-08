@@ -19,9 +19,9 @@
 }
 .background-layer{
   z-index: 1;
-  height: 125%;
+  height: 130%;
   width: 60%;
-  top: 0;
+  top: -17%;
   background-color: var(--blue-bg-color);
 }
 .cover img{
@@ -36,6 +36,9 @@
 .service:hover{
   box-shadow: -31px 29px 50px -33px rgba(0,0,0,0.41);
   cursor: pointer;
+}
+.slider{
+  margin-top: 80px;
 }
 .tooth-icon {
   width: 45px;

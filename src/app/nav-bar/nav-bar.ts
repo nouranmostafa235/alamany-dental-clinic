@@ -1,5 +1,5 @@
-import {Component, HostListener} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -11,9 +11,14 @@ import {CommonModule} from '@angular/common';
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 })
-export class NavBar {
+export class NavBar implements OnInit {
+  constructor(private router: Router) {
+  }
+  ngOnInit() {
+    this.url=this.router.url.split('/')[1]
+  }
   activeSection: string = 'home';
-
+  url:string='';
   sections = ['home', 'about', 'services','blog', 'team', 'contact'];
 
   scrollTo(sectionId: string) {
