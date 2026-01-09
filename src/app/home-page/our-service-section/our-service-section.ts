@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, AfterViewInit, Inject, PLATFORM_ID, OnInit, OnDestroy} from '@angular/core';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { gsap } from 'gsap';
@@ -11,7 +11,7 @@ import {isPlatformBrowser} from '@angular/common';
   templateUrl: './our-service-section.html',
   styleUrl: './our-service-section.css',
 })
-export class OurServiceSection implements AfterViewInit {
+export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   customOptions: OwlOptions = {
     loop: true,
@@ -42,32 +42,46 @@ export class OurServiceSection implements AfterViewInit {
     },
     nav: false
   }
-  ngAfterViewInit() {
+  private ctx!: gsap.Context;
+  ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
-    gsap.from('.gsap-title', {
-      scrollTrigger: {
-        trigger: '.service-wrapper',
-        start: 'top 70%',
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out'
-    });
-    gsap.from('.gsap-image', {
-      scrollTrigger: {
-        trigger: '.service-wrapper',
-        start: 'top 70%',
-      },
-      x: 80,
-      opacity: 0,
-      duration: 1.2,
-      delay: 0.2,
-      ease: 'power3.out'
-    });
+    this.ctx = gsap.context(()=>{
+      gsap.from('.gsap-title', {
+        scrollTrigger: {
+          trigger: '.service-wrapper',
+          start: 'top 70%',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+      gsap.from('.gsap-image', {
+        scrollTrigger: {
+          trigger: '.service-wrapper',
+          start: 'top 70%',
+        },
+        x: 80,
+        opacity: 0,
+        duration: 1.2,
+        delay: 0.2,
+        ease: 'power3.out'
+      });
+    })
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+  }
 
+  ngAfterViewInit() {
+
+
+  }
+
+  ngOnDestroy(): void {
+    this.ctx.revert();
   }
 }
