@@ -72,7 +72,7 @@ export class CounterSection implements AfterViewInit,OnDestroy {
     paths.forEach((path: SVGPathElement, index: number) => {
       gsap.to(path, {
         strokeDashoffset: 0,
-        duration: 7,
+        duration: 6,
         ease: 'power2.inOut',
         scrollTrigger: {
           trigger: path,
@@ -89,7 +89,7 @@ export class CounterSection implements AfterViewInit,OnDestroy {
     gsap.from(svgItems, {
       opacity: 0,
       y: 50,
-      duration: 0.8,
+      duration: 0.9,
       stagger: 0.2,
       scrollTrigger: {
         trigger: this.svgSection.nativeElement,

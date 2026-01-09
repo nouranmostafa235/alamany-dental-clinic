@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, AfterViewInit, Inject, PLATFORM_ID} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
-
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {isPlatformBrowser} from '@angular/common';
 @Component({
   selector: 'app-reviews-section',
     imports: [
@@ -9,7 +11,7 @@ import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
   templateUrl: './reviews-section.html',
   styleUrl: './reviews-section.css',
 })
-export class ReviewsSection {
+export class ReviewsSection implements AfterViewInit {
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -38,5 +40,23 @@ export class ReviewsSection {
       }
     },
     nav: false
+  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  }
+  ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.gsap-review', {
+      scrollTrigger: {
+        trigger: '.gsap-review',
+        start: 'top 70%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
   }
 }
