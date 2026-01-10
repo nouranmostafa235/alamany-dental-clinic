@@ -9,8 +9,4 @@ import {LoadingService} from '../../services/loading-service';
 })
 export class LoadingScreen {
   loading= inject(LoadingService);
-  constructor(private loadingService:LoadingService) {
-    console.log(this.loading)
-  }
-
 }
