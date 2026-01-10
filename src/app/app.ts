@@ -6,7 +6,7 @@ import {BookNowSection} from './home-page/book-now-section/book-now-section';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoadingScreen, BookNowSection],
+  imports: [RouterOutlet, LoadingScreen],
   templateUrl: './app.html',
   styleUrl: './app.css',
   animations: [routeAnimation]
