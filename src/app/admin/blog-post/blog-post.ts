@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {BlogPostModal} from '../blog-post-modal/blog-post-modal';
@@ -14,15 +14,16 @@ import {BlogPostService} from '../../services/blog-post-service';
 export class BlogPost implements OnInit{
   currentRoute: string = ''
   blogPost: any[]=[];
-  constructor(private router: Router, private blogService:BlogPostService) {
+  constructor(private router: Router, private blogService:BlogPostService, private cdr: ChangeDetectorRef) {
   }
 
  ngOnInit(){
+
    this.currentRoute = this.router.url.split('/')[2];
    this.blogService.getAll().subscribe({
      next: (data: any) => {
        this.blogPost = data.data.blogs;
-       console.log(this.blogPost);
+       this.cdr.detectChanges();
      }
    })
  }

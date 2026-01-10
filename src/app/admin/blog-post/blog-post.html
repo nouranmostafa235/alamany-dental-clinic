@@ -6,7 +6,7 @@
   }
 
   <div class="row g-4 container">
-    @for (blog of blogPost; track $index) {
+    @for (blog of blogPost; track blog.id) {
       <div class="card  border-0 col-md-6">
         <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
           <img [src]="blog.coverImage" class="w-100 h-100 object-fit-cover" alt="">
