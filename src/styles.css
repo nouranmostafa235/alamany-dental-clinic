@@ -52,3 +52,7 @@ body{
 .cancel{
   border: 1px solid #d1d0d0;
 }
+.err-msg{
+  color: red;
+  font-size: 10px;
+}

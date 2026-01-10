@@ -35,7 +35,6 @@ export class SignUp {
   submitForm(form:any){
     this.authService.signUp(form.value).subscribe({
       next: (value) => {
-        console.log(value);
       }
     });
   }

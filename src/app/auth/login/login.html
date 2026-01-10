@@ -15,21 +15,23 @@
     </div>
   </div>
   <div class="col-md-6  ">
-
     <div class="w-75 mx-auto">
       <img class="logo rounded-4 mb-3 small-shadow" src="img/logo.jpeg">
       <p class="small-title mb-1">Sign in to your account</p>
       <small class="text-muted d-block mb-4">Access your dental health portal</small>
-      <form>
-        <label class="mb-1 " style="color: var(--dark-color)">Email Address</label>
-        <input class="form-control rounded-3 mb-3" placeholder="your.email@example.com" type="email">
+      <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        <label class="mb-1 " style="color: var(--dark-color)">Email Address
+          <span style="color: red">*</span>
+        </label>
+        <input class="form-control rounded-3 mb-3" formControlName="email" placeholder="your.email@example.com" type="email">
         <div class="position-relative">
           <label class="form-check-label" style="color: var(--dark-color)">
             Password
+            <span style="color: red">*</span>
           </label>
-
           <input
             class="form-control rounded-3"
+            formControlName="password"
             [type]="showPassword ? 'text' : 'password'"
             placeholder="Enter Your Password"/>
           <span
@@ -48,7 +50,7 @@
           <a class="text-decoration-none" style="color: var(--light-color);
           cursor: pointer; font-size: 14px">Forgot Password?</a>
         </div>
-        <button type="submit" class="w-100 mt-3 rounded-3 py-2 btn submit-btn btn-sm text-white">Sign In</button>
+        <button type="submit" [disabled]="loginForm.invalid" class="w-100 mt-3 rounded-3 py-2 btn submit-btn btn-sm text-white">Sign In</button>
       </form>
       <div class="or-section position-relative d-flex mt-4 justify-content-center">
         or

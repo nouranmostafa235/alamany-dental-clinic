@@ -6,23 +6,42 @@
       <small class="text-muted d-block mb-4">Join Alamany Dental Clinic today</small>
       <form [formGroup]="signUpForm" (ngSubmit)="submitForm(signUpForm)">
         <div class="row">
-          <div class="col-6">
-            <label class="mb-1 " style="color: var(--dark-color)">First Name</label>
-            <input class="form-control rounded-3 mb-3" formControlName="firstName" placeholder="John" type="text">
+          <div class="col-6 mb-3">
+            <label class="mb-1 " style="color: var(--dark-color)">First Name <span style="color: red">*</span></label>
+            <input class="form-control rounded-3" formControlName="firstName" placeholder="John" type="text">
+            @if (signUpForm.get('firstName')?.touched && signUpForm.get('firstName')?.invalid){
+                  <small class="err-msg">this field is required</small>
+            }
           </div>
-          <div class="col-6">
-            <label class="mb-1 " style="color: var(--dark-color)">Last Name</label>
-            <input class="form-control rounded-3 mb-3" formControlName="lastName" placeholder="Doe" type="text">
+          <div class="col-6 mb-3">
+            <label class="mb-1 " style="color: var(--dark-color)">Last Name <span style="color: red">*</span></label>
+            <input class="form-control rounded-3" formControlName="lastName" placeholder="Doe" type="text">
+            @if (signUpForm.get('lastName')?.touched && signUpForm.get('lastName')?.invalid){
+              <small class="err-msg">this field is required</small>
+            }
           </div>
         </div>
-        <label class="mb-1 " style="color: var(--dark-color)">Email Address</label>
-        <input class="form-control rounded-3 mb-3" formControlName="email" placeholder="your.email@example.com" type="email">
-        <label class="mb-1 " style="color: var(--dark-color)">Phone number</label>
-        <input class="form-control rounded-3 mb-3" formControlName="phone" placeholder="+20114848332" type="tel">
+        <div class="mb-3">
+          <label class="mb-1 " style="color: var(--dark-color)">Email Address <span style="color: red">*</span></label>
+          <input class="form-control rounded-3" formControlName="email" placeholder="your.email@example.com"
+                 type="email">
+          @if (signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid){
+            <small class="err-msg">this field is required</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="mb-1 " style="color: var(--dark-color)">Phone number <span style="color: red">*</span></label>
+          <input class="form-control rounded-3" formControlName="phone" placeholder="+20114848332" type="tel">
+          @if (signUpForm.get('phone')?.touched && signUpForm.get('phone')?.invalid){
+            <small class="err-msg">this field is required</small>
+          }
+        </div>
+
         <div class="row">
           <div class="col-md-6 position-relative">
             <label class="form-check-label" style="color: var(--dark-color)">
-              Password
+              Password <span style="color: red">*</span>
             </label>
             <input
               formControlName="password"
@@ -37,14 +56,15 @@
                style="color: var(--gray-color)"></i>
            </span>
           </div>
+
           <div class="col-md-6 position-relative">
             <label class="form-check-label" style="color: var(--dark-color)">
-              Confirm password
+              Confirm password <span style="color: red">*</span>
             </label>
             <input
               class="form-control rounded-3"
               [type]="showPasswordConfirm ? 'text' : 'password'"
-              placeholder="Re-enter ypur password"/>
+              placeholder="Re-enter your password"/>
             <span
               class="position-absolute eye-icon translate-middle-y pe-3"
               style="cursor: pointer"
@@ -55,7 +75,7 @@
           </div>
         </div>
 
-        <button type="submit" class="w-100 mt-3 rounded-3 py-2 btn submit-btn btn-sm text-white">Create account</button>
+        <button [disabled]="signUpForm.invalid" type="submit" class="w-100 mt-3 rounded-3 py-2 btn submit-btn btn-sm text-white">Create account</button>
       </form>
       <div class="or-section position-relative d-flex mt-4 justify-content-center">
         or

@@ -12,4 +12,7 @@ export class AuthService {
   signUp(signUpFrom:any): Observable<any>{
     return this.http.post(this.baseApiUrl+'auth/register', signUpFrom);
   }
+  login(loginFrom:any): Observable<any>{
+    return this.http.post(this.baseApiUrl+'auth/login', loginFrom);
+  }
 }
