@@ -1,7 +1,7 @@
 <div class="py-5 service-wrapper">
   <div class="ps-5 justify-content-between row ">
     <div class="col-md-6 d-flex flex-column gap-2 pt-3 ps-5">
-      <h2 class="promise gsap-title" >our services</h2>
+      <h2 class="promise gsap-title" >Our Services</h2>
       <p class="service-description">
         You deserve the very best dental care—but the dental industry
         just doesn’t work for you. We are dntl bar—and
@@ -17,82 +17,25 @@
   </div>
   <div class="slider">
     <owl-carousel-o [options]="customOptions">
-      <ng-template carouselSlide>
-        <div class="container d-flex flex-column gap-3 p-5 rounded-4 service">
-          <div class="tooth-icon d-flex justify-content-center align-items-center">
-            <i class="fa-solid fa-tooth" style="color: #13526a;"></i>
-          </div>
-          <div class="title">General Dentistry</div>
-          <div class="description">Comprehensive dental care including check-ups,
-            cleanings, and preventive treatments to
-            maintain optimal oral health.</div>
-          <div class="learn-more">
-            <p class="m-0">
-              Learn More
-              <span>
+      @for (service of allServices; track $index) {
+        <ng-template carouselSlide>
+          <div class="container d-flex flex-column gap-3 p-5 rounded-4 service">
+            <div class="tooth-icon d-flex justify-content-center align-items-center">
+              <i class="fa-solid fa-tooth" style="color: #13526a;"></i>
+            </div>
+            <div class="title">{{service.category}}</div>
+            <div class="description">{{service.description}}</div>
+            <div class="learn-more">
+              <p class="m-0">
+                Learn More
+                <span>
                    <i class="fa-solid fa-angle-right fa-xs" style="color: var(--light-color);"></i>
                 </span>
-            </p>
+              </p>
+            </div>
           </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="d-flex flex-column gap-3 p-5 rounded-4 service">
-          <div class="tooth-icon d-flex justify-content-center align-items-center">
-            <i class="fa-solid fa-tooth" style="color: #13526a;"></i>
-          </div>
-          <div class="title">General Dentistry</div>
-          <div class="description">Comprehensive dental care including check-ups,
-            cleanings, and preventive treatments to
-            maintain optimal oral health.</div>
-          <div class="learn-more">
-            <p class="m-0">
-              Learn More
-              <span>
-                   <i class="fa-solid fa-angle-right fa-xs" style="color: var(--light-color);"></i>
-                </span>
-            </p>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="d-flex flex-column gap-3 p-5 rounded-4 service">
-          <div class="tooth-icon d-flex justify-content-center align-items-center">
-            <i class="fa-solid fa-tooth" style="color: #13526a;"></i>
-          </div>
-          <div class="title">General Dentistry</div>
-          <div class="description">Comprehensive dental care including check-ups,
-            cleanings, and preventive treatments to
-            maintain optimal oral health.</div>
-          <div class="learn-more">
-            <p class="m-0">
-              Learn More
-              <span>
-                   <i class="fa-solid fa-angle-right fa-xs" style="color: var(--light-color);"></i>
-                </span>
-            </p>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="d-flex flex-column gap-3 p-5 rounded-4 service">
-          <div class="tooth-icon d-flex justify-content-center align-items-center">
-            <i class="fa-solid fa-tooth" style="color: #13526a;"></i>
-          </div>
-          <div class="title">General Dentistry</div>
-          <div class="description">Comprehensive dental care including check-ups,
-            cleanings, and preventive treatments to
-            maintain optimal oral health.</div>
-          <div class="learn-more">
-            <p class="m-0">
-              Learn More
-              <span>
-                   <i class="fa-solid fa-angle-right fa-xs" style="color: var(--light-color);"></i>
-                </span>
-            </p>
-          </div>
-        </div>
-      </ng-template>
+        </ng-template>
+      }
     </owl-carousel-o>
   </div>
 </div>

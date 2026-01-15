@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth-service';
@@ -24,7 +24,7 @@ export class SignUp {
     password: new FormControl('', Validators.required),
     phone : new FormControl('', Validators.required),
   });
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService , private router: Router) {
   }
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -35,6 +35,9 @@ export class SignUp {
   submitForm(form:any){
     this.authService.signUp(form.value).subscribe({
       next: (value) => {
+        if (value.success == true) {
+          this.router.navigate(['/verify-email']);
+        }
       }
     });
   }

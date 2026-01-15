@@ -16,6 +16,7 @@ import {PendingApointment} from './admin/pending-apointment/pending-apointment';
 import {BlogPost} from './admin/blog-post/blog-post';
 import {PatientForm} from './book-appointment/patient-form/patient-form';
 import {BlogPostsPage} from './home-page/blog-posts-page/blog-posts-page';
+import {VerifyEmail} from './auth/verify-email/verify-email';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -26,6 +27,7 @@ export const routes: Routes = [
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
   {path:'doctor-profile', component:DoctorProfile},
   {path:'blog-posts' , component:BlogPostsPage},
+  {path:'verify-email' , component:VerifyEmail},
   {path:'admin',component:Dashboard , children:[{
     path:'' , component:DashboardHome
     },

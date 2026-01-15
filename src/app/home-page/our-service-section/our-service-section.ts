@@ -4,6 +4,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {isPlatformBrowser} from '@angular/common';
+import {OurServicesService} from '../../services/our-services-service';
 
 @Component({
   selector: 'app-our-service-section',
@@ -12,7 +13,7 @@ import {isPlatformBrowser} from '@angular/common';
   styleUrl: './our-service-section.css',
 })
 export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object , private service: OurServicesService) {}
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -34,19 +35,21 @@ export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
         items: 1
       },
       740: {
-        items: 3
+        items: 2
       },
       940: {
-        items: 3
+        items: 2
       }
     },
     nav: false
   }
+  allServices: any[] =[]
   private ctx!: gsap.Context;
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
+    this.getAll()
     gsap.registerPlugin(ScrollTrigger);
     this.ctx = gsap.context(()=>{
       gsap.from('.gsap-title', {
@@ -77,11 +80,17 @@ export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
   }
 
   ngAfterViewInit() {
-
-
   }
 
   ngOnDestroy(): void {
     this.ctx.revert();
+  }
+  getAll(){
+    this.service.getServices().subscribe({
+      next: data => {
+        this.allServices = data.data.services
+        console.log(this.allServices)
+      }
+    })
   }
 }

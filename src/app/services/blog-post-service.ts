@@ -14,7 +14,7 @@ export class BlogPostService {
   createBlogPost(blogPost:any):Observable<any>{
     return this.http.post(this.baseApiUrl+'blogs', blogPost)
   }
-  deleteBlogPosts(id:number):Observable<any>{
+  deleteBlogPosts(id:any):Observable<any>{
     return this.http.delete(this.baseApiUrl+'blogs/'+id)
   }
 }

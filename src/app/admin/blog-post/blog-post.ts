@@ -4,17 +4,21 @@ import {CommonModule} from '@angular/common';
 import {BlogPostModal} from '../blog-post-modal/blog-post-modal';
 import {AuthService} from '../../services/auth-service';
 import {BlogPostService} from '../../services/blog-post-service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-blog-post',
-  imports: [CommonModule, BlogPostModal],
+  imports: [CommonModule],
   templateUrl: './blog-post.html',
   styleUrl: './blog-post.css',
 })
 export class BlogPost implements OnInit{
   currentRoute: string = ''
   blogPost: any[]=[];
-  constructor(private router: Router, private blogService:BlogPostService, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router,
+              private blogService:BlogPostService,
+              private cdr: ChangeDetectorRef,
+              private dialog: MatDialog) {
   }
 
  ngOnInit(){
@@ -27,5 +31,18 @@ export class BlogPost implements OnInit{
      }
    })
  }
-
+  openModal(blogPost: any)
+  {
+    this.dialog.open(BlogPostModal, {
+      data : {blogPost: blogPost},
+      width: '900px',
+    })
+  }
+  deleteBlogPost(id:any){
+    this.blogService.deleteBlogPosts(id).subscribe({
+      next: (data: any) => {
+        this.cdr.detectChanges();
+      }
+    })
+  }
 }

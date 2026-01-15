@@ -45,3 +45,7 @@ img{
 .nav-link.active {
   color: var(--dark-bg-color) !important;
 }
+.btn{
+  background-color: var(--light-color);
+  color: white;
+}

@@ -6,7 +6,7 @@
   }
 
   <div class="row g-4 container">
-    @for (blog of blogPost; track blog.id) {
+    @for (blog of blogPost; track blog._id) {
       <div class="card  border-0 col-md-6">
         <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
           <img [src]="blog.coverImage" class="w-100 h-100 object-fit-cover" alt="">
@@ -29,19 +29,19 @@
           <hr>
           <p class="description"><i class="fa-solid fa-user-doctor"></i> {{ blog.author }}</p>
           <div class="d-flex gap-2 mb-3">
-            @for (tag of blog.tags; track tag.id) {
+            @for (tag of blog.tags; track $index) {
               <span class="badge fw-light rounded-pill" style="color: var(--light-color)"> {{ tag }}</span>
             }
 
           </div>
           <div class="d-flex gap-1">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <button type="button" (click)="openModal(blog)"
                     class="btn rounded-3 h-0 me-2" [ngClass]="currentRoute==='blog-posts'?'w-75':'w-100'" style="color: var(--dark-color)">
               <i class="fa fa-eye" style="color: var(--dark-color)"></i>
               Preview
             </button>
             @if (currentRoute === 'blog-posts'){
-              <button class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
+              <button (click)="deleteBlogPost(blog._id)" class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
                 <i class="fa fa-trash"></i>
                 Delete
               </button>
@@ -58,6 +58,6 @@
 
   </div>
 
-<div class="modal fade w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- <app-blog-post-modal></app-blog-post-modal>
-</div>
+<!--<div class="modal fade w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!-- <app-blog-post-modal></app-blog-post-modal>-->
+<!--</div>-->
