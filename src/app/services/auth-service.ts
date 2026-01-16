@@ -15,4 +15,9 @@ export class AuthService {
   login(loginFrom:any): Observable<any>{
     return this.http.post(this.baseApiUrl+'auth/login', loginFrom);
   }
+  verifyEmail(token:string): Observable<any>{
+    return this.http.post(this.baseApiUrl+'auth/verify-email', {
+      token
+    });
+  }
 }
