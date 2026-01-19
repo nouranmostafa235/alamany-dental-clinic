@@ -13,5 +13,8 @@ export class OurServicesService {
   getServices(): Observable<any> {
     return this.http.get(this.baseApiUrl+'services')
   }
+  createService(service:any): Observable<any> {
+    return this.http.post(this.baseApiUrl+'services', service)
+  }
 
 }

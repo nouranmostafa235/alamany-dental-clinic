@@ -1,0 +1,26 @@
+.calendar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--dark-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.clock{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--light-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.days{
+  color: var(--dark-color);
+}
+.office-hours{
+  background: white;
+  transition: all 0.3s ease-in-out;
+}
+

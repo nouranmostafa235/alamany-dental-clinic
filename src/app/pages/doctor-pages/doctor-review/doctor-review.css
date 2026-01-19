@@ -1,0 +1,47 @@
+.card{
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #dcdddf;
+  background-color: #F4F4F4;
+}
+.card img{
+  width: 12%;
+}
+.card-body{
+  background-color: white;
+}
+.card-img-top{
+  transition: all 0.3s ease-in-out;
+}
+.card-img-top:hover{
+  transform: scale(1.05);
+}
+.date{
+  font-size: 12px;
+  color: var(--gray-color);
+}
+
+.icon{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #dcdddf;
+}
+.rating{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-bg-color);
+  color: white;
+}
+.rate-no{
+  font-weight: bold;
+  color: var(--dark-color);
+}

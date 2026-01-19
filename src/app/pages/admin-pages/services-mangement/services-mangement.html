@@ -1,0 +1,55 @@
+<div class="container-fluid ">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h2 class="title">Services Management</h2>
+        <p class="description">Create, edit, and manage services for your dental clinic.</p>
+      </div>
+      <div>
+        <button (click)="openDialog()" class="btn create">Create new Service</button>
+      </div>
+    </div>
+
+    <input class="form-control mb-3 " placeholder="search services...">
+
+  <div class="row g-4 container">
+    @for (service of allServices; track service._id) {
+      <div class="card  border-0 col-md-6">
+        <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
+          <img [src]="service.coverImage" class="w-100 h-100 object-fit-cover" alt="">
+        </div>
+        <div class="card-body">
+          <div class="d-flex gap-3">
+            <p class="description">
+              <i class="fa-regular fa-bookmark" style="color:var(--gray-color);"></i>
+              {{ service.category }}
+            </p>
+            <p class="description">
+              <i class="fa-regular fa-calendar" style="color:var(--gray-color);"></i>
+              {{ service.createdAt | date:'medium' }}
+            </p>
+          </div>
+          <h5 class="card-title" style="color: var(--dark-color)">{{ service.name }}</h5>
+          <p class="card-text description">
+            {{service.description }}
+          </p>
+          <hr>
+          <div class="d-flex gap-1">
+            <button type="button"
+                    class="btn rounded-3 h-0 me-2 w-100" style="color: var(--dark-color)">
+              <i class="fa fa-pen" style="color: var(--dark-color)"></i>
+              Edit
+            </button>
+              <button  class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
+                <i class="fa fa-trash"></i>
+                Delete
+              </button>
+          </div>
+
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+</div>

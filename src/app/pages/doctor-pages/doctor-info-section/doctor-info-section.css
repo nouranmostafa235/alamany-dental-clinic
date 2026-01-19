@@ -1,0 +1,22 @@
+*{
+  margin: 0;
+}
+.description{
+  font-size: 17px;
+}
+.icon{
+  border: 1px solid #dcdddf;
+  width: 75px;
+}
+.btn{
+  background-color: white;
+  color: var(--dark-bg-color);
+  border: 1px solid #dcdddf;
+}
+img{
+  width: 115%;
+}
+.info{
+  background-color: rgba(228, 227, 227, 0.4);
+  bottom: -18%;
+}

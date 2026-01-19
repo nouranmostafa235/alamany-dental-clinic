@@ -20,4 +20,7 @@ export class AuthService {
       token
     });
   }
+  loginGmail(){
+    return this.http.post(this.baseApiUrl+'auth/login-gmail', {})
+  }
 }

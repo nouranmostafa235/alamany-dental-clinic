@@ -1,0 +1,45 @@
+<div class="wrapper d-flex justify-content-center mt-3" >
+  <nav class="navbar mx-auto rounded-4 px-2  navbar-expand-lg" [class.hide]="isHidden">
+    <div class="container ">
+      <img class="navbar-brand logo" routerLink="/home" src="img/logo2.png" alt="" srcset="">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse  justify-content-between navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto w-75 justify-content-center gap-3 mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeSection === 'home' && url !=='blog-posts'"
+               aria-current="page"
+               [routerLink]="url==='blog-posts'?'/home':''"
+               (click)="scrollTo('home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeSection === 'team' && url !=='blog-posts'"
+               (click)="scrollTo('team')" [routerLink]="url==='blog-posts'?'/home':''">Team</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"
+               [class.active]="activeSection === 'services' && url !=='blog-posts'"
+               (click)="scrollTo('services')" [routerLink]="url==='blog-posts'?'/home':''">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               [class.active]="url === 'blog-posts'" routerLink="/blog-posts"
+            >Blog Posts</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeSection === 'contact' && url !=='blog-posts'"
+               (click)="scrollTo('contact')" [routerLink]="url==='blog-posts'?'/home':''">Contact</a>
+          </li>
+        </ul>
+
+          <!--        <button routerLink="/login" class="btn rounded-pill px-4 doctorsBtn">Sign in </button>-->
+          <button class="btn join-usBtn rounded-pill  px-4" routerLink="/book-appointment"> <i class="fa-regular fa-calendar"></i> Book Now</button>
+
+      </div>
+    </div>
+  </nav>
+</div>
+

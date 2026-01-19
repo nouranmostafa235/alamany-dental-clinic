@@ -1,22 +1,28 @@
 import { Routes } from '@angular/router';
-import {HomePage} from './home-page/home-page';
-import {BookAppointment} from './book-appointment/book-appointment/book-appointment';
-import {Login} from './auth/login/login';
-import {SignUp} from './auth/sign-up/sign-up';
-import {DoctorProfile} from './doctors/doctor-profile/doctor-profile';
-import {Dashboard} from './admin/dashboard/dashboard';
-import {DashboardHome} from './admin/dashboard-home/dashboard-home';
-import {DashboardDoctors} from './admin/dashboard-doctors/dashboard-doctors';
-import {PatientDashboard} from './admin/patient-dashboard/patient-dashboard';
-import {DashboardAppointment} from './admin/dashboard-appointment/dashboard-appointment';
-import {AllAppointments} from './admin/all-appointments/all-appointments';
-import {ConfirmedAppointments} from './admin/confirmed-appointments/confirmed-appointments';
-import {CancelledAppointment} from './admin/cancelled-appointment/cancelled-appointment';
-import {PendingApointment} from './admin/pending-apointment/pending-apointment';
-import {BlogPost} from './admin/blog-post/blog-post';
-import {PatientForm} from './book-appointment/patient-form/patient-form';
-import {BlogPostsPage} from './home-page/blog-posts-page/blog-posts-page';
-import {VerifyEmail} from './auth/verify-email/verify-email';
+import {HomePage} from './pages/home-pages/home-page';
+import {BookAppointment} from './pages/appointments/book-appointment/book-appointment';
+import {Login} from './pages/Auth/login/login';
+import {SignUp} from './pages/Auth/sign-up/sign-up';
+import {DoctorProfile} from './pages/doctor-pages/doctor-profile/doctor-profile';
+import {Dashboard} from './pages/admin-pages/dashboard/dashboard';
+import {DashboardHome} from './pages/admin-pages/dashboard-home/dashboard-home';
+import {DashboardDoctors} from './pages/admin-pages/dashboard-doctors/dashboard-doctors';
+import {PatientDashboard} from './pages/admin-pages/patient-dashboard/patient-dashboard';
+import {DashboardAppointment} from './pages/admin-pages/dashboard-appointment/dashboard-appointment';
+import {AllAppointments} from './pages/admin-pages/all-appointments/all-appointments';
+import {ConfirmedAppointments} from './pages/admin-pages/confirmed-appointments/confirmed-appointments';
+import {CancelledAppointment} from './pages/admin-pages/cancelled-appointment/cancelled-appointment';
+import {PendingApointment} from './pages/admin-pages/pending-apointment/pending-apointment';
+import {BlogPost} from './pages/admin-pages/blog-post/blog-post';
+import {PatientForm} from './pages/appointments/patient-form/patient-form';
+import {BlogPostsPage} from './pages/home-pages/blog-posts-page/blog-posts-page';
+import {VerifyEmail} from './pages/Auth/verify-email/verify-email';
+import {ServicesMangement} from './pages/admin-pages/services-mangement/services-mangement';
+import {Messages} from './pages/admin-pages/messages/messages';
+import {DoctorAboutSection} from './pages/doctor-pages/doctor-about-section/doctor-about-section';
+import {DoctorCertificates} from './pages/doctor-pages/doctor-certificates/doctor-certificates';
+import {DoctorMaterial} from './pages/doctor-pages/doctor-material/doctor-material';
+import {DoctorOfficeHourSection} from './pages/doctor-pages/doctor-office-hour-section/doctor-office-hour-section';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -25,7 +31,12 @@ export const routes: Routes = [
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
-  {path:'doctor-profile', component:DoctorProfile},
+  {path:'doctor-profile', component:DoctorProfile , children:[
+      {path: '', component: DoctorAboutSection},
+      {path: 'material', component: DoctorMaterial},
+      {path: 'certificates', component: DoctorCertificates},
+      {path: 'office-hours', component: DoctorOfficeHourSection},
+    ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},
   {path:'admin',component:Dashboard , children:[{
@@ -44,6 +55,12 @@ export const routes: Routes = [
       ]},
       {
         path:'blog-posts' ,component:BlogPost
+      },
+      {
+        path:'services-management' ,component:ServicesMangement
+      },
+      {
+        path:'messages-management' ,component:Messages
       }
     ]},
 

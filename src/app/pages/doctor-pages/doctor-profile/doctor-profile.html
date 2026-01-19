@@ -1,0 +1,48 @@
+<!--<app-nav-bar></app-nav-bar>-->
+<div class="profile">
+  <div class="d-flex align-items-center gap-3 rounded-4 fixed-top p-4 bg-white return mx-auto">
+    <div class="icon" routerLink="/">
+      <i class="fa fa-arrow-left" style="color: var(--dark-bg-color)"></i>
+    </div>
+    <div><h4 class="m-0">Doctor Profile</h4></div>
+  </div>
+  <div class="wrapper">
+    <app-doctor-info-section></app-doctor-info-section>
+    <div class="mt-5 pt-5">
+      <ul class="navbar-nav d-flex flex-row flex-wrap mx-auto w-75 justify-content-center gap-4 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link"
+             aria-current="page"
+             routerLink="/doctor-profile"
+             [routerLinkActiveOptions]="{exact:true}"
+             routerLinkActive="active"
+             >About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active"
+             routerLink="certificates"
+          >Certificates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLinkActive="active"
+             routerLink="material"
+             >Material</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLinkActive="active"
+             routerLink="office-hours"
+             >Availability</a>
+        </li>
+      </ul>
+      <div class="tabs-line"></div>
+      <div class=" container rounded-3 mt-4 mb-4">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
+

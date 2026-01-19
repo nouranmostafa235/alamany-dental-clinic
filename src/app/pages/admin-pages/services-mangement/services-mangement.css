@@ -1,0 +1,35 @@
+img{
+  width: 100%;
+}
+.image{
+  overflow: hidden;
+}
+.card-img-top{
+  overflow: hidden;
+}
+.rounded-pill{
+  border: 1px solid #e1dddd;
+}
+button{
+  border: 1px solid #e1e1e1;
+}
+button:hover{
+  border: 1px solid #e1e1e1;
+}
+.card{
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+.card:hover{
+  box-shadow: 0px 15px 30px -11px rgba(0,0,0,0.10);
+}
+.img-wrapper{
+  transition: all 0.3s ease-in-out;
+}
+.img-wrapper:hover{
+  transform: scale(1.05);
+}
+.create{
+  background-color: var(--light-color);
+  color: white;
+}

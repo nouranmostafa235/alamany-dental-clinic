@@ -1,0 +1,14 @@
+.card{
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  width: 500px;
+}
+
+.card-body{
+  background-color: white;
+}
+.card-img-top{
+  transition: all 0.3s ease-in-out;
+
+}
