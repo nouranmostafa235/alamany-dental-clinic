@@ -16,7 +16,14 @@
 img{
   width: 115%;
 }
-.info{
-  background-color: rgba(228, 227, 227, 0.4);
+.info-wrapper{
   bottom: -18%;
+}
+.info{
+  width: 75%;
+  background-color: rgba(228, 227, 227, 0.6);
+
+}
+.doc-info{
+  padding: 0px 160px;
 }
