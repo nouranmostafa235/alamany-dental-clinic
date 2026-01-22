@@ -1,0 +1,43 @@
+.wrapper{
+  height: 100%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+h4,h5{
+  color: var(--dark-bg-color);
+  text-align: center;
+}
+p{
+  color: var(--dark-bg-color);
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
+.big{
+  color: var(--dark-bg-color);
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+}
+.serviceInfo{
+  width: 90%;
+  background-color: #F5F5F5;
+}
+.cls-1{
+  fill: var(--dark-bg-color);
+}
+.animated-svg{
+  width: 40px;
+  height: 40px;
+}
+.btn{
+  width: 90%;
+  border: 1px solid var(--dark-bg-color);
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover{
+  background-color: var(--dark-bg-color);
+  color: white;
+}

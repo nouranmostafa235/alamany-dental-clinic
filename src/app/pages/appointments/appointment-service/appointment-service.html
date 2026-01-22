@@ -5,7 +5,7 @@
   </div>
   <div class="container row justify-content-center gap-3 mt-4">
     @for (service of services; track service._id) {
-      <div (click)="nextStep(service.name)" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">
+      <div (click)="nextStep(service.name+','+service.duration)" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">
         <svg
           #svgSection
           class="animated-svg"

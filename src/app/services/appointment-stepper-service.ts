@@ -48,6 +48,7 @@ export class AppointmentStepperService {
     };
   }
   back() {
+    console.log(this.state.step)
     this.state = {
       ...this.state,
       step: Math.max(1, this.state.step - 1)
