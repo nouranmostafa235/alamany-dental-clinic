@@ -11,6 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([loadingInterceptor])
     ),
+    provideHttpClient(withFetch()),
     provideAnimations(),
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),

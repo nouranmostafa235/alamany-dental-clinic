@@ -1,0 +1,28 @@
+<div class="wrapper py-4">
+  <div class="content text-center">
+    <h4 class="fw-bold">We're looking forward to meeting you!</h4>
+    <p>Please choose a service type.</p>
+  </div>
+  <div class="container row justify-content-center gap-3 mt-4">
+    @for (service of services; track service._id) {
+      <div (click)="nextStep(service.name)" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">
+        <svg
+          #svgSection
+          class="animated-svg"
+          viewBox="0 0 12.82 15.98"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path fill="none" d="M-1-1h2.151v2.189H-1z"/>
+          <g>
+            <path
+              d="M5.16 13.64a5.93 5.93 0 01-.44 1.65 1.16 1.16 0 01-1.42.63c-.62-.31-.59-1.18-.55-1.88.11-2.33-.89-2.82-1.7-5S-.43 4.41.35 2.21a2.93 2.93 0 012-2 8 8 0 015 .58c.2.1.55-.13.73-.21A4.11 4.11 0 019 .25a3.15 3.15 0 012.29.28 3.5 3.5 0 011.23 1.68c.77 2.2.11 4.63-.7 6.82s-1.82 2.68-1.7 5c0 .7.07 1.57-.56 1.88a1.17 1.17 0 01-1.42-.63 8.55 8.55 0 01-.44-1.65 2.7 2.7 0 00-1.45-2.05 8 8 0 00-1.09 2.06z"
+              class="cls-1"
+            />
+          </g>
+        </svg>
+        <h6 class="bold mt-3">{{ service.name }}</h6>
+        <p>{{ service.duration }}</p>
+      </div>
+    }
+  </div>
+</div>

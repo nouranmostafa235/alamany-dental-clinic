@@ -1,0 +1,31 @@
+.buttons{
+  background-color: #F5F5F5;
+  width: 90%;
+}
+.btn{
+  border: 1px solid var(--dark-color);
+  color: var(--dark-bg-color);
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover{
+  background-color: var(--dark-bg-color);
+  color: white;
+}
+h4{
+  color: var(--dark-bg-color);
+}
+p{
+  color: var(--dark-bg-color);
+  margin: 0;
+}
+.name{
+  font-weight: bold;
+}
+.text-decoration-underline{
+  color: var(--dark-bg-color);
+  cursor: pointer;
+  font-weight: lighter;
+}
+.location {
+  font-weight: lighter;
+}

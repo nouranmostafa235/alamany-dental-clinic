@@ -1,0 +1,32 @@
+.wrapper{
+  background-color: #F5F5F5;
+  height: 100%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+h4{
+  color: var(--dark-bg-color);
+  text-align: center;
+}
+h6{
+  color: var(--dark-bg-color);
+  text-align: center;
+  font-size: 18px;
+}
+p{
+  color: var(--dark-bg-color);
+  margin: 0;
+  text-align: center;
+}
+.cls-1{
+  fill: var(--dark-bg-color);
+}
+.animated-svg{
+  width: 40px;
+  height: 40px;
+}
+.card{
+  cursor: pointer;
+}

@@ -17,29 +17,3 @@
   top: 0;
   bottom: 4%;
 }
-.buttons{
-  background-color: #F5F5F5;
-  width: 90%;
-}
-.btn{
-  border: 1px solid var(--dark-color);
-  color: var(--dark-bg-color);
-}
-h4{
-  color: var(--dark-bg-color);
-}
-p{
-  color: var(--dark-bg-color);
-  margin: 0;
-}
-.name{
-  font-weight: bold;
-}
-.text-decoration-underline{
-  color: var(--dark-bg-color);
-  cursor: pointer;
-  font-weight: lighter;
-}
-.location {
-  font-weight: lighter;
-}

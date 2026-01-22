@@ -23,11 +23,20 @@ import {DoctorAboutSection} from './pages/doctor-pages/doctor-about-section/doct
 import {DoctorCertificates} from './pages/doctor-pages/doctor-certificates/doctor-certificates';
 import {DoctorMaterial} from './pages/doctor-pages/doctor-material/doctor-material';
 import {DoctorOfficeHourSection} from './pages/doctor-pages/doctor-office-hour-section/doctor-office-hour-section';
+import {AppointmentType} from './pages/appointments/appointment-type/appointment-type';
+import {AppointmentService} from './pages/appointments/appointment-service/appointment-service';
+import {appointmentStepsGuard} from './guards/appointment-steps-guard';
+import {FindAppointmentDate} from './pages/appointments/find-appointment-date/find-appointment-date';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
   {path:'' , redirectTo:'home',pathMatch:'full'},
-  {path:'book-appointment' , component:BookAppointment},
+  {path:'book-appointment' , component:BookAppointment , children:[
+      {path: '1' , component: AppointmentType, canActivate:[appointmentStepsGuard]},
+      {path: "" , redirectTo:'1' ,pathMatch:'full'} ,
+      {path: '2' , component: AppointmentService , canActivate:[appointmentStepsGuard]},
+      {path: '3' , component: FindAppointmentDate , canActivate:[appointmentStepsGuard]},
+    ]},
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
