@@ -41,11 +41,20 @@ export class AppointmentStepperService {
       step : step
     }
   }
-  next(action: string, step: number) {
-    this.state = {
-      step: step ?? this.state.step + 1,
-      lastAction: action
-    };
+  next(action: string, step: number , changeAction = true) {
+    if(changeAction) {
+      this.state = {
+        step: step ?? this.state.step + 1,
+        lastAction: action
+      };
+    }
+    else {
+      this.state = {
+        ...this.state,
+        step: step ?? this.state.step + 1,
+      };
+    }
+
   }
   back() {
     console.log(this.state.step)
