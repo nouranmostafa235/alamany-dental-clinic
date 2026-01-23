@@ -22,4 +22,9 @@ export class FindAppointmentDate {
     this.router.navigate(['book-appointment/'+step]);
     this.service.back()
   }
+  nextStep(){
+    const step = this.service.getStep()+1;
+    this.router.navigate(['book-appointment/'+step]);
+    this.service.next("findDate",step)
+  }
 }

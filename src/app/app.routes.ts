@@ -27,6 +27,7 @@ import {AppointmentType} from './pages/appointments/appointment-type/appointment
 import {AppointmentService} from './pages/appointments/appointment-service/appointment-service';
 import {appointmentStepsGuard} from './guards/appointment-steps-guard';
 import {FindAppointmentDate} from './pages/appointments/find-appointment-date/find-appointment-date';
+import {AppointmentCalendar} from './pages/appointments/appointment-calendar/appointment-calendar';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -36,6 +37,7 @@ export const routes: Routes = [
       {path: "" , redirectTo:'1' ,pathMatch:'full'} ,
       {path: '2' , component: AppointmentService , canActivate:[appointmentStepsGuard]},
       {path: '3' , component: FindAppointmentDate , canActivate:[appointmentStepsGuard]},
+      {path: '4' , component: AppointmentCalendar , canActivate:[appointmentStepsGuard]},
     ]},
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},

@@ -1,0 +1,95 @@
+<div class="calendar-container d-flex gap-4 justify-content-evenly align-items-center py-4">
+  <div class="calendar-card">
+    <!-- Header -->
+    <div class="calendar-header rounded-top-3">
+      <div class="header-controls">
+        <button
+          (click)="navigateMonth(-1)"
+          class="nav-button"
+          aria-label="Previous month">
+          ←
+        </button>
+
+        <div class="header-title">
+          <h2>{{ currentMonth() }}</h2>
+          <p>{{ currentYear() }}</p>
+        </div>
+
+        <button
+          (click)="navigateMonth(1)"
+          class="nav-button"
+          aria-label="Next month">
+          →
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-body">
+      <!-- Day names -->
+      <div class="day-names">
+        @for (name of dayNames; track name) {
+          <div class="day-name">{{ name }}</div>
+        }
+      </div>
+
+      <!-- Days -->
+      <div class="days-grid">
+        @for (item of days(); track $index) {
+          <div class="day-wrapper">
+            @if (item.isCurrentMonth) {
+              <button
+                (click)="handleDayClick(item.day)"
+                [disabled]="!isDayEnabled(item.day) || loading()"
+                [class]="getDayClasses(item)"
+                [attr.aria-label]="'Day ' + item.day">
+                {{ item.day }}
+                @if (item.day === selectedDay()) {
+                  <span class="check-mark">✓</span>
+                }
+              </button>
+            }
+          </div>
+        }
+      </div>
+      <!-- Loading indicator -->
+      @if (loading()) {
+        <div class="loading-text">
+          Loading available dates...
+        </div>
+      }
+    </div>
+  </div>
+  <div class="time rounded-3 p-4">
+    <h3 class="mb-4 selected">
+      {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}
+    </h3>
+
+      <button class="m-0 w-100 clock mb-4 btn p-2">
+      9.30 pm
+      </button>
+
+    <button class="m-0 w-100 clock mb-4 btn p-2">
+      9.30 pm
+    </button>
+    <button class="m-0 w-100 clock mb-4 btn p-2">
+      9.30 pm
+    </button>
+    <button class="m-0 w-100 clock mb-4 btn p-2">
+      9.30 pm
+    </button>
+    <button class="m-0 w-100 clock mb-4 btn p-2">
+      9.30 pm
+    </button>
+
+  </div>
+  <!-- Selected date info -->
+<!--  @if (selectedDay()) {-->
+<!--    <div class="selected-info">-->
+<!--      <p class="selected-label">Selected date:</p>-->
+<!--      <p class="selected-date">-->
+<!--        {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}-->
+<!--      </p>-->
+<!--    </div>-->
+<!--  }-->
+</div>
