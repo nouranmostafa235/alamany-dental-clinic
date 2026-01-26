@@ -4,6 +4,7 @@
 }
 .logo img{
   width: 40%;
+  cursor: pointer;
 }
 .logo{
   color: white;

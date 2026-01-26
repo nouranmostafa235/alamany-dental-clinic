@@ -1,19 +1,14 @@
 <app-nav-bar></app-nav-bar>
 <div class="blog-post-page ">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 py-5">
-        <h2 class="mb-5">Blog</h2>
+    <section [style.background-image]="latestBlogSrc" class="blog-hero rounded-2">
+      <div class="overlay rounded-2">
+        <h1>Our Blog</h1>
         <p class="service-description">
-          bringing you the latest & greatest on oral care health.
-          your source for all news & information to keep you healthy from the inside out
+          Bringing you the latest & greatest in oral care health.
         </p>
-        <button (click)="openModal()" class="btn rounded-pill px-3">Create Blog Post</button>
       </div>
-      <div class="col-md-6">
-      <img src="img/home2.jpeg">
-      </div>
-    </div>
+    </section>
      <div class="mt-5 mb-5">
        <ul class="navbar-nav d-flex flex-row flex-wrap mx-auto w-75 justify-content-center gap-4 mb-2 mb-lg-0">
          <li class="nav-item">

@@ -29,7 +29,6 @@ export class AppointmentCalendar implements OnInit {
 
   ngOnInit() {
     this.fetchEnabledDays();
-    console.log(this.days())
   }
 
   fetchEnabledDays() {
@@ -96,7 +95,6 @@ export class AppointmentCalendar implements OnInit {
     if (this.isDayEnabled(day)) {
       this.selectedDay.set(day);
     }
-    console.log(this.selectedDay);
   }
   getDayClasses(item: CalendarDay): string {
     if (!item.isCurrentMonth) return '';

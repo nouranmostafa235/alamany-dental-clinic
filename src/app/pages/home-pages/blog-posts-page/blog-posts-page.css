@@ -1,16 +1,16 @@
 .blog-post-page{
-  margin-top: 30vh;
+  margin-top: 22vh;
 }
-h2{
-  font-weight: 600;
+h1{
+  font-weight: 500;
   font-size: 53px;
-  color: var(--dark-bg-color);
+  color: white;
 }
 .service-description{
-  color: var(--dark-bg-color);
-  font-size: 18px !important;
+  color: #e1dddd;
+  font-size: 15px !important;
   font-weight: 500 !important;
-  width: 80%;
+  width: 24%;
   line-height: 28px;
 }
 img{
@@ -48,4 +48,22 @@ img{
 .btn{
   background-color: var(--light-color);
   color: white;
+}
+.blog-hero {
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.blog-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 5rem;
+  color: #fff;
 }

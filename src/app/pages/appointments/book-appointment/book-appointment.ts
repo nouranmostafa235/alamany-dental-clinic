@@ -1,5 +1,5 @@
 import {Component, Inject, PLATFORM_ID} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {fromEvent, Subscription} from 'rxjs';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
 import {isPlatformBrowser} from '@angular/common';
@@ -7,7 +7,8 @@ import {isPlatformBrowser} from '@angular/common';
 @Component({
   selector: 'app-book-appointment',
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './book-appointment.html',
   styleUrl: './book-appointment.css',

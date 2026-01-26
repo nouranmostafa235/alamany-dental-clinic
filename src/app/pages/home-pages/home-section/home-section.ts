@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
 import {NavBar} from '../../nav-bar/nav-bar';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home-section',
   imports: [
     CarouselModule,
-    NavBar
+    NavBar,
+    RouterLink
   ],
   templateUrl: './home-section.html',
   styleUrl: './home-section.css',

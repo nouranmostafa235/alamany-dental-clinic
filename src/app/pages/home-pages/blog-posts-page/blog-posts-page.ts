@@ -5,6 +5,7 @@ import {BlogPost} from '../../admin-pages/blog-post/blog-post';
 import {Footer} from '../../../shared-components/footer/footer';
 import {MatDialog} from '@angular/material/dialog';
 import {CreatBlogPostForm} from '../creat-blog-post-form/creat-blog-post-form';
+import {BlogPostService} from '../../../services/blog-post-service';
 
 @Component({
   selector: 'app-blog-posts-page',
@@ -17,10 +18,19 @@ import {CreatBlogPostForm} from '../creat-blog-post-form/creat-blog-post-form';
   styleUrl: './blog-posts-page.css',
 })
 export class BlogPostsPage implements OnInit {
-  constructor(private router: Router , private dialog : MatDialog) {
+  latestBlogSrc = ''
+  constructor(private router: Router , private dialog : MatDialog, private blogPostService : BlogPostService) {
   }
 
   ngOnInit() {
+    this.blogPostService.getAll().subscribe( {
+      next:(data)=>{
+        const latestBlog = [...data.data.blogs].sort((a, b) =>
+          new Date (b.createdAt).getTime() - new Date (a.createdAt).getTime()
+        )[0];
+        this.latestBlogSrc = `url(${latestBlog.coverImage})`;
+      }
+    })
   }
 
   activeTag: string = 'all';

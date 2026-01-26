@@ -11,33 +11,69 @@
         <div>
           <p class="text-white fw-bold">Quick Links</p>
           <ul class="list-unstyled">
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Our Services</li>
-            <li>Our Team</li>
-            <li>Contact Us</li>
+            <li>
+              <a [routerLink]="['/home']" fragment="home">Home</a>
+            </li>
+
+            <li>
+              <a [routerLink]="['/home']" fragment="team">Our Team</a>
+            </li>
+
+            <li>
+              <a [routerLink]="['/home']" fragment="services">Our Services</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home']" fragment="reviews">
+              Reviews
+            </a></li>
+            <li>
+              <a routerLink="/blog-posts">Blogs</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home']" fragment="contact">
+              Contact
+            </a>
+            </li>
           </ul>
         </div>
         <div>
           <p class="text-white fw-bold">Access</p>
           <ul class="list-unstyled">
-            <li>Our Dentists</li>
-            <li>Book Appointment</li>
-            <li>Our Location</li>
+            <li>
+              <a [routerLink]="['/home']" fragment="team">Our Dentists</a>
+            </li>
+            <li>
+              <a routerLink="/book-appointment">Book Appointment</a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="https://www.google.com/maps/place/%D8%B9%D9%8A%D8%A7%D8%AF%D8%A9+%D8%A7%D9%84%D8%A3%D9%85%D8%A7%D9%86%D9%8A+%D9%84%D9%84%D8%A7%D8%B3%D9%86%D8%A7%D9%86+%D8%AF.%D8%B9%D9%85%D8%B1%D9%88+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D8%B7%D9%8A%D9%81%E2%80%AD/@31.2112709,29.9159991,15z/data=!4m8!3m7!1s0x14f5d1ce552849cf:0xd11a36213666e7dd!8m2!3d31.2112539!4d29.9344532!9m1!1b1!16s%2Fg%2F11mtjymf9j!17m2!4m1!1e3!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDEyMS4wIKXMDSoASAFQAw%3D%3D">Our Location</a>
+            </li>
           </ul>
         </div>
         <div>
           <p class="text-white fw-bold">Contacts</p>
           <ul class="list-unstyled">
             <li>
-              <i class="fa-solid fa-phone me-1"></i>
-              +20 1092184470
+              <a href="tel:+20 1092184470">
+                <i class="fa-solid fa-phone me-1"></i>
+                +20 1092184470
+              </a>
+
             </li>
-            <li><i class="fa-solid fa-phone me-1"></i>
-              034267133</li>
             <li>
-              <i class="fa-solid fa-envelope me-1"></i>
-              alamanydentalclinic@gmail.com
+              <a target="_blank" href="tel:034267133">
+                <i class="fa-solid fa-phone me-1"></i>
+                034267133
+              </a>
+            </li>
+            <li>
+              <a href="mailto:alamanydentalclinic@gmail.com">
+                <i class="fa-solid fa-envelope me-1"></i>
+                alamanydentalclinic@gmail.com
+              </a>
+
             </li>
           </ul>
         </div>

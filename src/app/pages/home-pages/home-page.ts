@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, Inject, PLATFORM_ID} from '@angular/core';
 import {HomeSection} from './home-section/home-section';
 import {CounterSection} from './counter-section/counter-section';
 import {OurServiceSection} from './our-service-section/our-service-section';
@@ -7,6 +7,8 @@ import {ContactSection} from './contact-section/contact-section';
 import {Footer} from '../../shared-components/footer/footer';
 import {ReviewsSection} from './reviews-section/reviews-section';
 import {BookNowSection} from './book-now-section/book-now-section';
+import {ActivatedRoute} from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
@@ -23,6 +25,32 @@ import {BookNowSection} from './book-now-section/book-now-section';
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
-export class HomePage {
+export class HomePage implements AfterViewInit {
+  constructor(
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
+  ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.route.fragment.subscribe(fragment => {
+      if (!fragment) return;
+      setTimeout(() => {
+        const el = document.getElementById(fragment);
+        if (!el) return;
+
+        const offset = 100;
+        const y =
+          el.getBoundingClientRect().top +
+          window.scrollY -
+          offset;
+
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      }, 300);
+    });
+  }
 }

@@ -8,14 +8,15 @@
 .description {
   color: var(--gray-color);
 }
-li{
+li,a{
   color: #A2AFB8;
   font-weight: normal;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   margin-bottom: 5px;
+  text-decoration: none;
 }
-li:hover{
+a:hover{
   color: var(--light-color);
 }
 .clinic{

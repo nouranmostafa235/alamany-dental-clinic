@@ -1,0 +1,29 @@
+.wrapper{
+  background-color: #F5F5F5;
+  height: 100%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+h4{
+  color: var(--dark-bg-color);
+  text-align: center;
+}
+h6{
+  color: var(--dark-bg-color);
+  text-align: center;
+  font-size: 18px;
+}
+p{
+  color: var(--dark-bg-color);
+  margin: 0;
+  text-align: center;
+}
+.card{
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+.card:hover{
+  transform: scale(1.03);
+}

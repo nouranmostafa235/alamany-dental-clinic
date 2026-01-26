@@ -10,33 +10,35 @@
           <li class="nav-item">
             <a class="nav-link" [class.active]="activeSection === 'home' && url !=='blog-posts'"
                aria-current="page"
-               [routerLink]="url==='blog-posts'?'/home':''"
-               (click)="scrollTo('home')">Home</a>
+               [routerLink]="['/home']"
+               fragment="home">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [class.active]="activeSection === 'team' && url !=='blog-posts'"
-               (click)="scrollTo('team')" [routerLink]="url==='blog-posts'?'/home':''">Team</a>
+               fragment="team" [routerLink]="['/home']">Team</a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link"
                [class.active]="activeSection === 'services' && url !=='blog-posts'"
-               (click)="scrollTo('services')" [routerLink]="url==='blog-posts'?'/home':''">Services</a>
+               fragment="services" [routerLink]="['/home']">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               [class.active]="activeSection === 'reviews' && url !=='blog-posts'"
+               fragment="reviews" [routerLink]="['/home']">Reviews</a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
                [class.active]="url === 'blog-posts'" routerLink="/blog-posts"
-            >Blog Posts</a>
+            >Blogs</a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" [class.active]="activeSection === 'contact' && url !=='blog-posts'"
-               (click)="scrollTo('contact')" [routerLink]="url==='blog-posts'?'/home':''">Contact</a>
+               fragment="contact" [routerLink]="['/home']">Contact</a>
           </li>
         </ul>
-
-          <!--        <button routerLink="/login" class="btn rounded-pill px-4 doctorsBtn">Sign in </button>-->
-          <button class="btn join-usBtn rounded-pill  px-4" routerLink="/book-appointment"> <i class="fa-regular fa-calendar"></i> Book Now</button>
+         <button class="btn join-usBtn rounded-pill  px-4" routerLink="/book-appointment"> <i class="fa-regular fa-calendar"></i> Book Now</button>
 
       </div>
     </div>

@@ -16,7 +16,7 @@ export class NavBar implements OnInit {
 
   activeSection: string = 'home';
   url: string = '';
-  sections = ['home', 'about', 'services','blog', 'team', 'contact'];
+  sections = ['home', 'about', 'services','reviews','blog', 'team', 'contact'];
 
   lastScrollTop = 0;
   isHidden = false;

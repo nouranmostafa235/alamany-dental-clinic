@@ -28,6 +28,8 @@ import {AppointmentService} from './pages/appointments/appointment-service/appoi
 import {appointmentStepsGuard} from './guards/appointment-steps-guard';
 import {FindAppointmentDate} from './pages/appointments/find-appointment-date/find-appointment-date';
 import {AppointmentCalendar} from './pages/appointments/appointment-calendar/appointment-calendar';
+import {AppointmentDoctor} from './pages/appointments/appointment-doctor/appointment-doctor';
+import {NotFoundPage} from './shared-components/not-found-page/not-found-page';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -37,7 +39,8 @@ export const routes: Routes = [
       {path: "" , redirectTo:'1' ,pathMatch:'full'} ,
       {path: '2' , component: AppointmentService , canActivate:[appointmentStepsGuard]},
       {path: '3' , component: FindAppointmentDate , canActivate:[appointmentStepsGuard]},
-      {path: '4' , component: AppointmentCalendar , canActivate:[appointmentStepsGuard]},
+      {path: '4' , component: AppointmentDoctor , canActivate:[appointmentStepsGuard]},
+      {path: '5' , component: AppointmentCalendar , canActivate:[appointmentStepsGuard]},
     ]},
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
@@ -74,5 +77,5 @@ export const routes: Routes = [
         path:'messages-management' ,component:Messages
       }
     ]},
-
+  {path:'**' , component: NotFoundPage}
 ];
