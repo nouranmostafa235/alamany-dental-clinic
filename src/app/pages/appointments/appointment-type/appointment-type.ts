@@ -19,7 +19,8 @@ export class AppointmentType {
     this.appointmentService.setStep(url)
   }
   next(action: string) {
-    this.appointmentService.next(action,this.step+1);
+    this.appointmentService.next(action,this.step+1,false);
+    this.appointmentService.setType(action)
     this.router.navigate(['book-appointment/2']);
   }
 

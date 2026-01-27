@@ -2,6 +2,8 @@ import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { PLATFORM_ID, inject } from '@angular/core';
+import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
+import {Router} from '@angular/router';
 
 interface CalendarDay {
   day: number | null;
@@ -14,6 +16,8 @@ interface CalendarDay {
   styleUrl: './appointment-calendar.css',
 })
 export class AppointmentCalendar implements OnInit {
+  constructor(private appointmentService: AppointmentStepperService, private router: Router) {
+  }
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
   currentDate = signal(new Date(2026, 0, 1));
@@ -115,5 +119,11 @@ export class AppointmentCalendar implements OnInit {
     }
 
     return classes;
+  }
+  nextStep(time: any){
+    const url =Number( this.router.url.split('/')[2]);
+    this.appointmentService.setStep(url+1);
+    this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear()+' at '+ time);
+    this.router.navigate(['book-appointment/6']);
   }
 }

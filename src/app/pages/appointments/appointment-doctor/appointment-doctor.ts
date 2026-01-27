@@ -18,12 +18,11 @@ export class AppointmentDoctor implements OnInit {
   ngOnInit() {
     const url =Number( this.router.url.split('/')[2]);
     this.currentUrl = url;
-    console.log(this.currentUrl);
     this.stepper.setStep(url)
   }
-  nextStep() {
-    console.log("au")
+  nextStep(doctor: string) {
     this.stepper.setStep(this.currentUrl+1)
+    this.stepper.setDoctor(doctor)
     this.router.navigate(['book-appointment/5']);
   }
 }

@@ -30,6 +30,6 @@ button:hover{
   transform: scale(1.05);
 }
 .create{
-  background-color: var(--light-color);
+  background-color: var(--dark-color);
   color: white;
 }

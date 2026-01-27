@@ -28,5 +28,13 @@ button:hover{
   width: 10%;
 }
 .description{
-  font-size: 10px;
+  font-size: 12px;
+}
+.doctor-btn{
+  background-color: var(--dark-color);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+.doctor-btn:hover{
+  background-color: var(--dark-bg-color);
 }

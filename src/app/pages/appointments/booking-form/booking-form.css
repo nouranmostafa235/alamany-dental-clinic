@@ -1,0 +1,32 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+.content{
+  background-color: #F5F5F5;
+}
+.cls-1{
+  fill: var(--dark-bg-color);
+}
+.animated-svg{
+  width: 40px;
+  height: 40px;
+}
+p{
+  color: var(--dark-bg-color);
+  margin: 0;
+}
+.serviceName{
+  font-size: 18px;
+  font-weight: 400;
+}
+.serviceDuration{
+  font-size: 14px;
+  font-weight: 400;
+}
+.serviceTime{
+  font-size: 18px;
+  font-weight: 700;
+}

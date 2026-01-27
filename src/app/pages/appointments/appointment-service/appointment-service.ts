@@ -30,7 +30,8 @@ export class AppointmentService {
     this.stepper.setStep(url)
   }
   nextStep(serviceName: string) {
-    this.stepper.next(serviceName,this.currentUrl+1)
+    this.stepper.next(serviceName,this.currentUrl+1,false)
+    this.stepper.setService(serviceName)
     this.router.navigate(['book-appointment/3']);
   }
 }

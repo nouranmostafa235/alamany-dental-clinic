@@ -14,8 +14,8 @@ export class FindAppointmentDate {
   constructor(private service: AppointmentStepperService,private router: Router) {
   }
   ngOnInit() {
-    this.serviceName = this.service.getAction()?.split(',')[0]
-    this.serviceDuration = this.service.getAction()?.split(',')[1]
+    this.serviceName = this.service.getAppointmentService()?.split(',')[0]
+    this.serviceDuration = this.service.getAppointmentService()?.split(',')[1]
   }
   stepBack(){
     const step = this.service.getStep()-1;
