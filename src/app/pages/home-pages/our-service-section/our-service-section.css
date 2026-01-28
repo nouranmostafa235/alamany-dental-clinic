@@ -19,9 +19,9 @@
 }
 .background-layer{
   z-index: 1;
-  height: 130%;
+  height: 100%;
   width: 60%;
-  top: -17%;
+  top: 40px;
   background-color: var(--blue-bg-color);
 }
 .cover img{

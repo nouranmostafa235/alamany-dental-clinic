@@ -24,7 +24,7 @@
   color: var(--dark-bg-color);
   transition: color 0.3s ease-in-out;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   position: relative;
 }

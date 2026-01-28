@@ -4,6 +4,10 @@
 .description{
   font-size: 17px;
 }
+.dr-img{
+  width: 60%;
+  height: 60%;
+}
 .icon{
   border: 1px solid #dcdddf;
   width: 75px;
@@ -13,9 +17,9 @@
   color: var(--dark-bg-color);
   border: 1px solid #dcdddf;
 }
-img{
-  width: 115%;
-}
+/*img{*/
+/*  width: 115%;*/
+/*}*/
 .info-wrapper{
   bottom: -18%;
 }
