@@ -2,7 +2,8 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/",
+      "status": 200
     }
   ]
 }
