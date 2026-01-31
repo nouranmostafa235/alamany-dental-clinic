@@ -41,3 +41,6 @@ p{
   background-color: var(--dark-bg-color);
   color: white;
 }
+.dr-img{
+  width: 20%;
+}

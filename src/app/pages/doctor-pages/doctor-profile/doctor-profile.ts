@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {DoctorInfoSection} from '../doctor-info-section/doctor-info-section';
 import {Footer} from '../../../shared-components/footer/footer';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {DoctorReview} from '../doctor-review/doctor-review';
 @Component({
   selector: 'app-doctor-profile',
   imports: [
@@ -9,7 +10,8 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
     Footer,
     RouterLink,
     RouterOutlet,
-    RouterLinkActive
+    RouterLinkActive,
+    DoctorReview
   ],
   templateUrl: './doctor-profile.html',
   styleUrl: './doctor-profile.css',

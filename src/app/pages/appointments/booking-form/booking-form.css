@@ -30,3 +30,11 @@ p{
   font-size: 18px;
   font-weight: 700;
 }
+.btn{
+  background-color: var(--dark-bg-color);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover{
+  background-color: var(--dark-color);
+}

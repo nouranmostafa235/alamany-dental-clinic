@@ -1,7 +1,5 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
 import {Router} from '@angular/router';
 
@@ -18,8 +16,6 @@ interface CalendarDay {
 export class AppointmentCalendar implements OnInit {
   constructor(private appointmentService: AppointmentStepperService, private router: Router) {
   }
-  private http = inject(HttpClient);
-  private platformId = inject(PLATFORM_ID);
   currentDate = signal(new Date(2026, 0, 1));
   enabledDays = signal<number[]>([]);
   selectedDay = signal<number | null>(null);
@@ -38,8 +34,8 @@ export class AppointmentCalendar implements OnInit {
   fetchEnabledDays() {
     this.loading.set(true);
 
-    const date = this.currentDate();
-    const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    // const date = this.currentDate();
+    // const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
     // Replace with your actual API endpoint
     // this.http.get<number[]>(`/api/calendar/enabled-days/${yearMonth}`)
@@ -124,6 +120,6 @@ export class AppointmentCalendar implements OnInit {
     const url =Number( this.router.url.split('/')[2]);
     this.appointmentService.setStep(url+1);
     this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear()+' at '+ time);
-    this.router.navigate(['book-appointment/6']);
+    this.router.navigate(['book-appointment/5']);
   }
 }

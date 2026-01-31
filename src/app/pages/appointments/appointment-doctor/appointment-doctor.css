@@ -17,7 +17,7 @@ h6{
 }
 p{
   color: var(--dark-bg-color);
-  margin: 0;
+
   text-align: center;
 }
 .card{
@@ -26,4 +26,38 @@ p{
 }
 .card:hover{
   transform: scale(1.03);
+}
+.message-card{
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.message-card:hover{
+  transform: scale(1.01);
+}
+.dr-img{
+  width: 100%;
+  /*width: 150px; */
+  /*height: 150px;*/
+  /*object-fit: cover;  */
+  /*border-radius: 50%;*/
+}
+.row{
+  /*border: 1px solid #afadad;*/
+  cursor: pointer;
+  box-shadow: 10px 18px 12px 12px rgba(255,255,255,0.75);
+}
+.icon{
+  border: 1px solid #dcdddf;
+  width: 75px;
+  top: 3%;
+  right: 1%;
+}
+.btn{
+  background-color: var(--dark-bg-color);
+  color: white;
+  transition: 0.3s all ease-in-out;
+}
+.btn:hover{
+  background-color: var(--dark-color);
+
 }

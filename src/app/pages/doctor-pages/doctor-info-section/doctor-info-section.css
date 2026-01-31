@@ -15,7 +15,13 @@
 .btn{
   background-color: white;
   color: var(--dark-bg-color);
-  border: 1px solid #dcdddf;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover{
+  background-color: var(--light-color);
+  color: white;
+  border: none;
 }
 /*img{*/
 /*  width: 115%;*/
@@ -29,5 +35,31 @@
 
 }
 .doc-info{
-  padding: 0px 160px;
+  padding: 0 160px;
+}
+.wrapper{
+  background-color: var(--dark-bg-color);
+  height: 50vh;
+  width: 90%;
+}
+.img-wrapper{
+  position: absolute;
+  top: 22%;
+  bottom: 0;
+  left: 18%;
+  width: 17%;
+  box-shadow: 0 3px 12px -5px rgba(255,255,255,0.75);
+}
+.img-wrapper img{
+  width: 100%;
+  display: block;
+}
+.info{
+  height: 100%;
+}
+.doctor-info{
+  width: 65%;
+}
+.doctor-rate{
+  gap: 90px;
 }

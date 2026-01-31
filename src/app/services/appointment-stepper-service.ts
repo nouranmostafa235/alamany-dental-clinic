@@ -14,9 +14,10 @@ export class AppointmentStepperService {
   private readonly APPOINTMENT_TYPE = 'appointment_type';
   private readonly APPOINTMENT_SERVICE = 'appointment_service';
   private readonly DOCTOR = 'appointment_doctor';
+  private readonly DOCTOR_IMAGE = 'appointment_image';
   private readonly APPOINTMENT_TIME = 'appointment_time';
   private isBrowser: boolean = false;
-  constructor(@Inject(PLATFORM_ID) platformId: Object , private router: Router) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
   private defaultState: AppointmentSteps = { step: 1 };
@@ -36,12 +37,16 @@ export class AppointmentStepperService {
     const raw = sessionStorage.getItem(this.DOCTOR);
     return raw ? JSON.parse(raw) : '';
   }
+  private get doctorImage(): any {
+    if (!this.isBrowser) return '';
+    const raw = sessionStorage.getItem(this.DOCTOR_IMAGE);
+    return raw ? JSON.parse(raw) : '';
+  }
   private get appointmentService(): any {
     if (!this.isBrowser) return '';
     const raw = sessionStorage.getItem(this.APPOINTMENT_SERVICE);
     return raw ? JSON.parse(raw) : '';
   }
-
   private get state(): AppointmentSteps {
     if (!this.isBrowser) return this.defaultState;
     const raw = sessionStorage.getItem(this.KEY);
@@ -60,11 +65,14 @@ export class AppointmentStepperService {
     if (!this.isBrowser) return;
     sessionStorage.setItem(this.DOCTOR, JSON.stringify(value));
   }
+  private set doctorImage(value: string) {
+    if (!this.isBrowser) return;
+    sessionStorage.setItem(this.DOCTOR_IMAGE, JSON.stringify(value));
+  }
   private set appointmentService(value: string) {
     if (!this.isBrowser) return;
     sessionStorage.setItem(this.APPOINTMENT_SERVICE, JSON.stringify(value));
   }
-
   private set state(value: AppointmentSteps) {
     if (!this.isBrowser) return;
     sessionStorage.setItem(this.KEY, JSON.stringify(value));
@@ -78,6 +86,9 @@ export class AppointmentStepperService {
   }
   getDoctor(): any {
     return this.doctor;
+  }
+  getDoctorImage(): any {
+    return this.doctorImage;
   }
   getStep(): number {
     return this.state.step;
@@ -93,6 +104,9 @@ export class AppointmentStepperService {
   }
   setDoctor(doctor: string) {
     this.doctor = doctor;
+  }
+  setDoctorImage(doctorImage: string) {
+    this.doctorImage = doctorImage;
   }
   setAppointmentTime(time: string) {
     this.appointmentTime = time;

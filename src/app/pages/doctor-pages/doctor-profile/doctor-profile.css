@@ -1,8 +1,14 @@
 .profile{
+  background-color: white;
+  margin-top: 30px;
+}
+.gray-bg{
   background-color: #F3F3F3;
+
 }
 .return{
   width: 98%;
+  background-color: white;
 }
 .wrapper {
   padding-top: 100px;

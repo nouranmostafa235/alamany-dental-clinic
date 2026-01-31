@@ -11,11 +11,15 @@ import {Router} from '@angular/router';
 export class FindAppointmentDate {
   serviceName: string|undefined = '';
   serviceDuration: string|undefined = '';
+  doctorName: string|undefined = '';
+  doctorImage: string|undefined = '';
   constructor(private service: AppointmentStepperService,private router: Router) {
   }
   ngOnInit() {
     this.serviceName = this.service.getAppointmentService()?.split(',')[0]
     this.serviceDuration = this.service.getAppointmentService()?.split(',')[1]
+    this.doctorName = this.service.getDoctor()
+    this.doctorImage = this.service.getDoctorImage()
   }
   stepBack(){
     const step = this.service.getStep()-1;

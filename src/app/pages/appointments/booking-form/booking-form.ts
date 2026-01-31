@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-booking-form',
@@ -12,8 +11,9 @@ export class BookingForm implements OnInit {
   serviceName = '';
   serviceDuration = '';
   time = '';
+  doctorName = '';
 
-  constructor(private service: AppointmentStepperService,private router: Router) {
+  constructor(private service: AppointmentStepperService) {
 
   }
 
@@ -22,5 +22,6 @@ export class BookingForm implements OnInit {
     this.serviceName = this.service.getAppointmentService()?.split(',')[0]
     this.serviceDuration = this.service.getAppointmentService()?.split(',')[1]
     this.time = this.service.getAppointmentTime()
+    this.doctorName = this.service.getDoctor()
   }
 }
