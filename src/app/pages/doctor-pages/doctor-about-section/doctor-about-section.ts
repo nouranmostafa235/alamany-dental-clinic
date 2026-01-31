@@ -3,9 +3,7 @@ import {DoctorReview} from '../doctor-review/doctor-review';
 
 @Component({
   selector: 'app-doctor-about-section',
-  imports: [
-    DoctorReview
-  ],
+  imports: [],
   templateUrl: './doctor-about-section.html',
   styleUrl: './doctor-about-section.css',
 })

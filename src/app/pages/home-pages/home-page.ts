@@ -7,7 +7,7 @@ import {ContactSection} from './contact-section/contact-section';
 import {Footer} from '../../shared-components/footer/footer';
 import {ReviewsSection} from './reviews-section/reviews-section';
 import {BookNowSection} from './book-now-section/book-now-section';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {isPlatformBrowser} from '@angular/common';
 
 @Component({
@@ -26,8 +26,17 @@ import {isPlatformBrowser} from '@angular/common';
   styleUrl: './home-page.css',
 })
 export class HomePage implements AfterViewInit {
+  sections = [
+    'home',
+    'team',
+    'services',
+    'reviews',
+    'contact'
+  ];
+  private isAutoScrolling = false;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -36,6 +45,7 @@ export class HomePage implements AfterViewInit {
 
     this.route.fragment.subscribe(fragment => {
       if (!fragment) return;
+      this.isAutoScrolling = true;
       setTimeout(() => {
         const el = document.getElementById(fragment);
         if (!el) return;
@@ -50,7 +60,32 @@ export class HomePage implements AfterViewInit {
           top: y,
           behavior: 'smooth'
         });
+        setTimeout(() => {
+          this.isAutoScrolling = false;
+        }, 600);
       }, 300);
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !this.isAutoScrolling) {
+            const id = entry.target.id;
+
+            this.router.navigate([], {
+              fragment: id,
+              replaceUrl: true
+            });
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.6
+      }
+    );
+    this.sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
     });
   }
 }

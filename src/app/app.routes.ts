@@ -30,6 +30,7 @@ import {AppointmentCalendar} from './pages/appointments/appointment-calendar/app
 import {AppointmentDoctor} from './pages/appointments/appointment-doctor/appointment-doctor';
 import {NotFoundPage} from './shared-components/not-found-page/not-found-page';
 import {BookingForm} from './pages/appointments/booking-form/booking-form';
+import {adminAuthGuard} from './guards/admin-auth-guard';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -54,7 +55,7 @@ export const routes: Routes = [
     ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},
-  {path:'admin',component:Dashboard , children:[{
+  {path:'admin',component:Dashboard , canActivate:[adminAuthGuard] , children:[{
     path:'' , component:DashboardHome
     },
       {

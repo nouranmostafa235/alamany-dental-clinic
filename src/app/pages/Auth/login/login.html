@@ -14,9 +14,9 @@
 
     </div>
   </div>
-  <div class="col-md-6  ">
+  <div class="col-md-6  mt-5">
     <div class="w-75 mx-auto">
-      <img class="logo rounded-4 mb-3 small-shadow" src="img/logo.jpeg">
+      <img class="logo rounded-4 mb-4 small-shadow" src="img/logo.jpeg">
       <p class="small-title mb-1">Sign in to your account</p>
       <small class="text-muted d-block mb-4">Access your dental health portal</small>
       <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
@@ -50,17 +50,17 @@
           <a class="text-decoration-none" style="color: var(--light-color);
           cursor: pointer; font-size: 14px">Forgot Password?</a>
         </div>
-        <button type="submit" [disabled]="loginForm.invalid" class="w-100 mt-3 rounded-3 py-2 btn submit-btn btn-sm text-white">Sign In</button>
+        <button type="submit" [disabled]="loginForm.invalid" class="w-100 mt-5 rounded-3 py-2 btn submit-btn btn-sm text-white">Sign In</button>
       </form>
-      <div class="or-section position-relative d-flex mt-4 justify-content-center">
-        or
-      </div>
-      <button (click)="loginGmail()" class="btn google-btn mx-auto mt-4 rounded-3 d-flex gap-2 align-items-center justify-content-center">
-        <img src="img/google-icon.png">
-        Google
-      </button>
-      <small class="d-block mx-auto d-flex justify-content-center mt-4">Don't have an account?
-        <span routerLink="/sign-up" class="ms-1 create-account" style="color: var(--light-color)">Create an account</span></small>
+<!--      <div class="or-section position-relative d-flex mt-4 justify-content-center">-->
+<!--        or-->
+<!--      </div>-->
+<!--      <button (click)="loginGmail()" class="btn google-btn mx-auto mt-4 rounded-3 d-flex gap-2 align-items-center justify-content-center">-->
+<!--        <img src="img/google-icon.png">-->
+<!--        Google-->
+<!--      </button>-->
+<!--      <small class="d-block mx-auto d-flex justify-content-center mt-4">Don't have an account?-->
+<!--        <span routerLink="/sign-up" class="ms-1 create-account" style="color: var(&#45;&#45;light-color)">Create an account</span></small>-->
     </div>
 
   </div>
