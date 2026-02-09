@@ -55,7 +55,7 @@ export const routes: Routes = [
     ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},
-  {path:'admin',component:Dashboard , canActivate:[adminAuthGuard] , children:[{
+  {path:'admin',component:Dashboard ,canActivate:[adminAuthGuard], children:[{
     path:'' , component:DashboardHome
     },
       {

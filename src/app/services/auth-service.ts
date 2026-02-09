@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  baseApiUrl: string = 'https://alamanyclinic.obl.ee/api/v1/';
+  baseApiUrl: string = 'https://alamanyclinic.vercel.app/api/v1/';
   constructor(private http: HttpClient) {
   }
   signUp(signUpFrom:any): Observable<any>{

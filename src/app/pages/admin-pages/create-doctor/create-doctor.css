@@ -1,0 +1,8 @@
+.btn{
+  background-color: var(--light-color);
+  color: white;
+}
+.create-form{
+  max-height: 500px;
+  overflow-y: auto;
+}

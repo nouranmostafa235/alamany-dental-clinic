@@ -34,6 +34,7 @@ export class HomePage implements AfterViewInit {
     'contact'
   ];
   private isAutoScrolling = false;
+  private skipNextFragmentScroll = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -44,7 +45,10 @@ export class HomePage implements AfterViewInit {
     if (!isPlatformBrowser(this.platformId)) return;
 
     this.route.fragment.subscribe(fragment => {
-      if (!fragment) return;
+      if (!fragment || this.skipNextFragmentScroll) {
+        this.skipNextFragmentScroll = false;
+        return
+      }
       this.isAutoScrolling = true;
       setTimeout(() => {
         const el = document.getElementById(fragment);
@@ -62,7 +66,7 @@ export class HomePage implements AfterViewInit {
         });
         setTimeout(() => {
           this.isAutoScrolling = false;
-        }, 600);
+        }, 1000);
       }, 300);
     });
     const observer = new IntersectionObserver(
@@ -70,7 +74,7 @@ export class HomePage implements AfterViewInit {
         entries.forEach(entry => {
           if (entry.isIntersecting && !this.isAutoScrolling) {
             const id = entry.target.id;
-
+            this.skipNextFragmentScroll = true;
             this.router.navigate([], {
               fragment: id,
               replaceUrl: true

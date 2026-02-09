@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class BlogPostService {
   constructor(private http: HttpClient) { }
-  baseApiUrl: string = 'https://alamanyclinic.obl.ee/api/v1/';
+  baseApiUrl: string = 'https://alamanyclinic.vercel.app/api/v1/';
   getAll(): Observable<any> {
     return this.http.get(this.baseApiUrl+'blogs')
   }
