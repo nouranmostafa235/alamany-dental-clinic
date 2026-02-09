@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth-service';
 
@@ -11,19 +11,22 @@ import {AuthService} from '../../../services/auth-service';
   styleUrl: './login.css',
 })
 export class Login {
+  private route = inject(ActivatedRoute);
   loginForm: FormGroup = new FormGroup({
     email : new FormControl('', Validators.required),
     password : new FormControl('', Validators.required),
   });
   showPassword = false;
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
   }
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
   login(form:any) {
     this.auth.login(form.value).subscribe({
-      next: (value) => {
+      next: (res) => {
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
+        this.router.navigate([returnUrl]);
       }
     })
   }

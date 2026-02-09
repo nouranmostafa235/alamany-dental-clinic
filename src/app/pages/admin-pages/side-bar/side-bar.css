@@ -19,11 +19,11 @@ img{
 .toggle-btn {
   color: #fff;
 }
-.nav-item{
+.nav-item , .logout-btn{
   width: 80%;
   cursor: pointer;
 }
-.nav-link {
+.nav-link , .logout-btn{
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@ img{
 }
 
 .nav-link.active,
-.nav-link:hover {
+.nav-link:hover, .logout-btn:hover {
   background-color: #ffffff;
   color: #08C4D7;
 }
@@ -46,7 +46,9 @@ img{
 .sidebar.collapsed {
   width: 70px;
 }
-
+.logo-text{
+  cursor: pointer;
+}
 .sidebar.collapsed .link-text,
 .sidebar.collapsed .logo-text {
   display: none !important;

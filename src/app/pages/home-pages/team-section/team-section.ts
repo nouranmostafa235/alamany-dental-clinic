@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import {RouterLink} from '@angular/router';
+import {DoctorsService} from '../../../services/doctors-service';
 
 @Component({
   selector: 'app-team-section',
@@ -11,7 +12,11 @@ import {RouterLink} from '@angular/router';
   templateUrl: './team-section.html',
   styleUrl: './team-section.css',
 })
-export class TeamSection {
+export class TeamSection implements OnInit{
+  constructor(private doctorService:DoctorsService) {}
+  ngOnInit() {
+    this.getDoctors()
+  }
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -41,5 +46,12 @@ export class TeamSection {
       }
     },
     nav: false
+  }
+  getDoctors(){
+    this.doctorService.getAllDoctors().subscribe({
+      next: data => {
+        console.log(data);
+      }
+    })
   }
 }

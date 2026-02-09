@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BlogPostService {
   constructor(private http: HttpClient) { }
-  baseApiUrl: string = 'https://alamanyclinic.vercel.app/api/v1/';
+  baseApiUrl = environment.apiBaseUrl;
   getAll(): Observable<any> {
     return this.http.get(this.baseApiUrl+'blogs')
   }
