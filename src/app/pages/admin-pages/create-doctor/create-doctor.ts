@@ -199,7 +199,7 @@ export class CreateDoctor implements OnInit{
     certificates.forEach((cert: any) => {
       if (cert.certificateFile) {
         formData.append(
-          'certificateData[]',
+          'certificateData',
           JSON.stringify({ name: cert.name, issuedDate: cert.issueDate })
         );
       }
@@ -207,7 +207,7 @@ export class CreateDoctor implements OnInit{
 
     certificates.forEach((cert: any) => {
       if (cert.certificateFile) {
-        formData.append('certificate[]', cert.certificateFile);
+        formData.append('certificate', cert.certificateFile);
       }
     });
 
@@ -215,7 +215,7 @@ export class CreateDoctor implements OnInit{
     materials.forEach((mat: any) => {
 
         formData.append(
-          'materialData[]',
+          'materialData',
           JSON.stringify({ category: mat.category, brand: mat.brand })
         );
 
@@ -223,7 +223,7 @@ export class CreateDoctor implements OnInit{
 
     materials.forEach((mat: any) => {
       if (mat.material) {
-        formData.append('material[]', mat.material);
+        formData.append('material', mat.material);
       }
     });
 
