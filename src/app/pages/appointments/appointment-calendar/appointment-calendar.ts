@@ -18,6 +18,12 @@ export class AppointmentCalendar implements OnInit {
   constructor(private appointmentService: AppointmentStepperService, private router: Router,
               private service : AppointmentsService) {
   }
+  officeHours = signal<any[]>([]);
+
+  dayNameToIndex: Record<string, number> = {
+    'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
+    'Thursday': 4, 'Friday': 5, 'Saturday': 6
+  };
   currentDate = signal(new Date(2026, 0, 1));
   enabledDays = signal<number[]>([]);
   selectedDay = signal<number | null>(null);
@@ -30,7 +36,7 @@ export class AppointmentCalendar implements OnInit {
   currentYear = computed(() => this.currentDate().getFullYear());
 
   ngOnInit() {
-    this.fetchEnabledDays();
+    // this.fetchEnabledDays();
     this.getDoctorOfficeHours(this.appointmentService.getDoctorId())
   }
 
@@ -88,7 +94,7 @@ export class AppointmentCalendar implements OnInit {
     );
     this.currentDate.set(newDate);
     this.selectedDay.set(null);
-    this.fetchEnabledDays();
+    this.computeEnabledDays()
   }
   isDayEnabled(day: number | null): boolean {
     return day !== null && this.enabledDays().includes(day);
@@ -122,14 +128,37 @@ export class AppointmentCalendar implements OnInit {
   nextStep(time: any){
     const url =Number( this.router.url.split('/')[2]);
     this.appointmentService.setStep(url+1);
-    this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear()+' at '+ time);
+    this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear());
     this.router.navigate(['book-appointment/5']);
   }
   getDoctorOfficeHours(id:any){
     this.service.getDoctorOfficeHours(id).subscribe({
       next: (next: any) => {
-        console.log(next);
+        this.officeHours.set(next.data.officeHours);
+        this.computeEnabledDays();
       }
     })
   }
+  computeEnabledDays() {
+    const date = this.currentDate();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const enabledWeekdays = this.officeHours().map(
+      oh => this.dayNameToIndex[oh.day]
+    );
+
+    const enabledDates: number[] = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const weekday = new Date(year, month, d).getDay();
+      if (enabledWeekdays.includes(weekday)) {
+        enabledDates.push(d);
+      }
+    }
+
+    this.enabledDays.set(enabledDates);
+    this.loading.set(false);
+  }
+
 }

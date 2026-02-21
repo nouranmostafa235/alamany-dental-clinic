@@ -3,6 +3,7 @@ import { MatDialogRef} from '@angular/material/dialog';
 import {TagInputModule} from 'ngx-chips';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {OurServicesService} from '../../../services/our-services-service';
+import {ServiceEnum} from '../../../enums/service-enum';
 
 @Component({
   selector: 'app-create-service-form',
@@ -15,6 +16,7 @@ import {OurServicesService} from '../../../services/our-services-service';
 })
 export class CreateServiceForm {
   createForm: FormGroup
+  serviceList = Object.values(ServiceEnum)
   constructor(private service:OurServicesService, private fb:FormBuilder,
               private dialogRef: MatDialogRef<CreateServiceForm>) {
     this.createForm = this.fb.group({

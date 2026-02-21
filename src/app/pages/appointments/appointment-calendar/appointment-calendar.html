@@ -65,23 +65,13 @@
       {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}
     </h3>
 
-      <button (click)="nextStep('9.30')" class="m-0 w-100 clock mb-4 btn p-2">
-      9.30 pm
+    @if (selectedDay()) {
+      <button (click)="nextStep('')" class="m-0 w-100 clock mb-4 btn p-2">
+        Confirm {{ currentMonth() }} {{ selectedDay() }}
       </button>
-
-    <button (click)="nextStep('9.30')" class="m-0 w-100 clock mb-4 btn p-2">
-      9.30 pm
-    </button>
-    <button (click)="nextStep('9.30')" class="m-0 w-100 clock mb-4 btn p-2">
-      9.30 pm
-    </button>
-    <button (click)="nextStep('9.30')" class="m-0 w-100 clock mb-4 btn p-2">
-      9.30 pm
-    </button>
-    <button (click)="nextStep('9.30')" class="m-0 w-100 clock mb-4 btn p-2">
-      9.30 pm
-    </button>
-
+    } @else {
+      <p class="text-muted">Select an available day to continue</p>
+    }
   </div>
   <!-- Selected date info -->
 <!--  @if (selectedDay()) {-->
