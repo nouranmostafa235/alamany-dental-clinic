@@ -188,7 +188,15 @@
                   <ngx-mat-timepicker-toggle matSuffix [for]="openPicker" />
                   <ngx-mat-timepicker #openPicker />
                 </mat-form-field>
-                <input formControlName="close" placeholder="05:00 PM" />
+                <mat-form-field>
+                  <input matInput
+                         [ngxMatTimepicker]="openPicker"
+                         formControlName="close"
+                         placeholder="Close time"
+                         readonly />
+                  <ngx-mat-timepicker-toggle matSuffix [for]="closePicker" />
+                  <ngx-mat-timepicker #closePicker />
+                </mat-form-field>
               </div>
             }
 
