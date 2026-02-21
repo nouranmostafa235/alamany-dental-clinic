@@ -13,6 +13,7 @@ import {MatFormField, MatOption, MatSelect} from '@angular/material/select';
 import {Specialization} from '../../../enums/specialization';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
 import {MatInput} from '@angular/material/input';
+import {MaterialCategory} from '../../../enums/material-category';
 
 @Component({
   selector: 'app-create-doctor',
@@ -38,6 +39,7 @@ export class CreateDoctor implements OnInit{
   ];
   days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   specializationList = Object.values(Specialization);
+  materialCategories = Object.values(MaterialCategory);
   currentStep = signal(0);
 
   progressPercentage = computed(() =>
@@ -108,6 +110,12 @@ export class CreateDoctor implements OnInit{
     const file = event.target.files[0];
     this.certificates.at(index)
       .get('certificateFile')
+      ?.setValue(file);
+  }
+  onMaterialFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    this.material.at(index)
+      .get('material')
       ?.setValue(file);
   }
   createCertificate(): FormGroup {

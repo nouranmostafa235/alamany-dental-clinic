@@ -130,10 +130,16 @@
                   }
 
                 </div>
-
                 <input
-                  formControlName="category"
-                  placeholder="Category">
+                  type="file"
+                  (change)="onMaterialFileChange($event, $index)">
+
+                <select formControlName="category" >
+                  <option value="">Category</option>
+                  @for (material of materialCategories; track $index) {
+                    <option [value]="material">{{material}}</option>
+                  }
+                </select>
 
                 <input
                   placeholder="Brand"
@@ -190,7 +196,7 @@
                 </mat-form-field>
                 <mat-form-field>
                   <input matInput
-                         [ngxMatTimepicker]="openPicker"
+                         [ngxMatTimepicker]="closePicker"
                          formControlName="close"
                          placeholder="Close time"
                          readonly />
