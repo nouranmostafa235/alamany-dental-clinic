@@ -130,7 +130,7 @@ export class CreateDoctor implements OnInit{
     return this.fb.group({
       category: [''],
       brand: [''],
-      // material: [null]
+      material: [null]
     });
   }
   get material(): FormArray {
