@@ -16,6 +16,7 @@ export class AppointmentStepperService {
   private readonly DOCTOR = 'appointment_doctor';
   private readonly DOCTOR_IMAGE = 'appointment_image';
   private readonly APPOINTMENT_TIME = 'appointment_time';
+  private readonly DOCTOR_ID = 'doctor_id';
   private isBrowser: boolean = false;
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -40,6 +41,11 @@ export class AppointmentStepperService {
   private get doctorImage(): any {
     if (!this.isBrowser) return '';
     const raw = sessionStorage.getItem(this.DOCTOR_IMAGE);
+    return raw ? JSON.parse(raw) : '';
+  }
+  private get doctorId(): any {
+    if (!this.isBrowser) return '';
+    const raw = sessionStorage.getItem(this.DOCTOR_ID);
     return raw ? JSON.parse(raw) : '';
   }
   private get appointmentService(): any {
@@ -69,6 +75,10 @@ export class AppointmentStepperService {
     if (!this.isBrowser) return;
     sessionStorage.setItem(this.DOCTOR_IMAGE, JSON.stringify(value));
   }
+  private set doctorId(value: string) {
+    if (!this.isBrowser) return;
+    sessionStorage.setItem(this.DOCTOR_ID, JSON.stringify(value));
+  }
   private set appointmentService(value: string) {
     if (!this.isBrowser) return;
     sessionStorage.setItem(this.APPOINTMENT_SERVICE, JSON.stringify(value));
@@ -90,6 +100,9 @@ export class AppointmentStepperService {
   getDoctorImage(): any {
     return this.doctorImage;
   }
+  getDoctorId(): any {
+    return this.doctorId;
+  }
   getStep(): number {
     return this.state.step;
   }
@@ -107,6 +120,9 @@ export class AppointmentStepperService {
   }
   setDoctorImage(doctorImage: string) {
     this.doctorImage = doctorImage;
+  }
+  setDoctorId(doctorId: string) {
+    this.doctorId = doctorId;
   }
   setAppointmentTime(time: string) {
     this.appointmentTime = time;

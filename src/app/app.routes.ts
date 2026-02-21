@@ -47,10 +47,9 @@ export const routes: Routes = [
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
   {path:'sign-up', component:SignUp,data: { animation: 'sign-up' }},
-  {path:'doctor-profile', component:DoctorProfile , children:[
-      {path: '', component: DoctorAboutSection},
+  {path:'doctor-profile/:id', component:DoctorProfile , children:[
+      {path: '', component: DoctorCertificates},
       {path: 'material', component: DoctorMaterial},
-      {path: 'certificates', component: DoctorCertificates},
       {path: 'office-hours', component: DoctorOfficeHourSection},
     ]},
   {path:'blog-posts' , component:BlogPostsPage},

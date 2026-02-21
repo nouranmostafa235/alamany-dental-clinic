@@ -1,14 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DoctorsService {
   baseApiUrl = environment.apiBaseUrl;
-  constructor(private http: HttpClient) {}
+  doctorData= new BehaviorSubject<any>(null);
+  doctor$ = this.doctorData.asObservable();
+  constructor(private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+  }
   getAllDoctors(): Observable<any>{
     return this.http.get(this.baseApiUrl+'doctors')
   }
@@ -17,5 +25,8 @@ export class DoctorsService {
   }
   createDoctor(doctor:any):Observable<any>{
     return this.http.post(`${this.baseApiUrl}doctors`, doctor)
+  }
+  setDoctorData(data:any){
+    this.doctorData.next(data);
   }
 }

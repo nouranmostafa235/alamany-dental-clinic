@@ -2,46 +2,33 @@
   <div class="container">
     <div class="mt-4">
       <owl-carousel-o [options]="customOptions">
+        @for (doctor of allDoctors; track doctor._id) {
+          <ng-template carouselSlide>
+            <div [routerLink]="['/doctor-profile', doctor._id]" class="card mb-2 mx-auto">
+              <img [src]="doctor.picture" class="card-img-top" alt="...">
+            </div>
+          </ng-template>
+        }
         <ng-template carouselSlide>
           <div routerLink="/doctor-profile" class="card mb-2 mx-auto">
             <img src="img/dr-omnia.jpg" class="card-img-top" alt="...">
           </div>
         </ng-template>
         <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/dr-amr.jpg" class="card-img-top" alt="...">
+          <div routerLink="/doctor-profile" class="card mb-2 mx-auto">
+            <img src="img/dr-omnia.jpg" class="card-img-top" alt="...">
           </div>
         </ng-template>
         <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/dr-essa.jpg" class="card-img-top" alt="...">
+          <div routerLink="/doctor-profile" class="card mb-2 mx-auto">
+            <img src="img/dr-omnia.jpg" class="card-img-top" alt="...">
           </div>
         </ng-template>
         <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/bassem.jpg" class="card-img-top" alt="...">
+          <div routerLink="/doctor-profile" class="card mb-2 mx-auto">
+            <img src="img/dr-omnia.jpg" class="card-img-top" alt="...">
           </div>
         </ng-template>
-        <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/staff1.jpg" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/staff2.jpg" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-            <img src="img/staff3.jpg" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-        <div routerLink="/doctor-profile" class="card mb-2 mx-auto" >
-          <img src="img/staff4.jpg" class="card-img-top" alt="...">
-        </div>
-      </ng-template>
       </owl-carousel-o>
     </div>
   </div>

@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
+import {DoctorsService} from '../../../services/doctors-service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-doctor-certificates',
-    imports: [
-        CarouselModule
-    ],
+  imports: [
+    CarouselModule,
+    AsyncPipe
+  ],
   templateUrl: './doctor-certificates.html',
   styleUrl: './doctor-certificates.css',
 })
-export class DoctorCertificates {
+export class DoctorCertificates{
+  private doctorService = inject(DoctorsService);
+  doctorData$ = this.doctorService.doctor$;
+  constructor() {
+  }
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -27,10 +35,10 @@ export class DoctorCertificates {
         items: 1
       },
       740: {
-        items: 2
+        items: 1
       },
       940: {
-        items: 2
+        items: 1
       }
     },
     nav: false

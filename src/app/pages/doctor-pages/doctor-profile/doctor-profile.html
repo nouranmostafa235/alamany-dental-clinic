@@ -13,15 +13,10 @@
         <li class="nav-item">
           <a class="nav-link"
              aria-current="page"
-             routerLink="/doctor-profile"
+             [routerLink]="['/doctor-profile', doctorId]"
              [routerLinkActiveOptions]="{exact:true}"
              routerLinkActive="active"
-             >About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active"
-             routerLink="certificates"
-          >Certificates</a>
+             >Certificates</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"

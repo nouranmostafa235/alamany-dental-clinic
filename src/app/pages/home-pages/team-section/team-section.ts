@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import {RouterLink} from '@angular/router';
 import {DoctorsService} from '../../../services/doctors-service';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-team-section',
@@ -13,8 +14,12 @@ import {DoctorsService} from '../../../services/doctors-service';
   styleUrl: './team-section.css',
 })
 export class TeamSection implements OnInit{
-  constructor(private doctorService:DoctorsService) {}
+  allDoctors: any[] = [];
+  constructor(private doctorService:DoctorsService,@Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     this.getDoctors()
   }
   customOptions: OwlOptions = {
@@ -50,7 +55,7 @@ export class TeamSection implements OnInit{
   getDoctors(){
     this.doctorService.getAllDoctors().subscribe({
       next: data => {
-        console.log(data);
+       this.allDoctors = data.data;
       }
     })
   }

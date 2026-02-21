@@ -3,6 +3,270 @@
   color: white;
 }
 .create-form{
+
+}
+.wizard-container {
+
+  max-width: 700px;
+  margin: auto;
+  padding: 30px;
+  font-family: system-ui;
   max-height: 500px;
   overflow-y: auto;
+}
+
+.wizard-header {
+
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+.progress-wrapper {
+
+  margin-bottom: 25px;
+
+}
+
+.progress-bar {
+
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+
+}
+
+.progress-fill {
+
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #00c6ff,
+    #0072ff
+  );
+
+  transition: width 0.4s ease;
+
+}
+
+.step-indicators {
+
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+}
+
+.step {
+
+  text-align: center;
+  flex: 1;
+
+}
+
+.circle {
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #e0e0e0;
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s;
+
+}
+
+.step.active .circle {
+
+  background: #0072ff;
+  color: white;
+
+}
+
+.step.current .circle {
+
+  transform: scale(1.2);
+
+}
+
+.label {
+
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+
+}
+
+.form-card {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+}
+
+input , select {
+
+  width: 100%;
+
+  padding: 12px;
+
+  margin-bottom: 15px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ddd;
+
+}
+
+.wizard-buttons {
+
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+}
+
+.btn {
+
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.primary {
+
+  background: #0072ff;
+  color: white;
+
+}
+
+.secondary {
+
+  background: #ccc;
+
+}
+
+.success {
+
+  background: #00c851;
+  color: white;
+
+}
+.certificates-section {
+
+  margin-top: 30px;
+
+}
+
+.section-header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+}
+
+.add-btn {
+
+  background: linear-gradient(90deg,#00c6ff,#0072ff);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.certificate-card {
+
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  animation: slideIn 0.3s ease;
+
+}
+
+.card-header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+}
+
+.remove-btn {
+
+  background: #ff4444;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+
+}
+
+.row {
+
+  display: flex;
+  gap: 15px;
+
+}
+
+@keyframes slideIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+/* animation */
+
+.fade-in {
+
+  animation: fade 0.4s ease;
+
+}
+
+@keyframes fade {
+
+  from {
+
+    opacity: 0;
+    transform: translateX(20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+    transform: translateX(0);
+
+  }
+
 }

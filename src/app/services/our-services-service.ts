@@ -17,5 +17,7 @@ export class OurServicesService {
   createService(service:any): Observable<any> {
     return this.http.post(this.baseApiUrl+'services', service)
   }
-
+  deleteService(id: any): Observable<any> {
+    return this.http.delete(this.baseApiUrl+'services/'+id);
+  }
 }

@@ -1,28 +1,31 @@
 <section class="doctor-profile">
   <div class="profile-container">
-    <div class="profile-image">
-      <img src="img/dr-amr.jpg" alt="Dr. Sarah Mitchell">
-    </div>
-
-    <div class="profile-content">
-      <h2>Dr. Amr Abdellatif</h2>
-      <h4>DDS, MS - Cosmetic & Restorative Dentistry</h4>
-
-      <p>
-        With over 15 years of experience in cosmetic and restorative dentistry,
-        Dr. Mitchell is dedicated to providing exceptional dental care with a
-        gentle, patient-centered approach.
-      </p>
-
-      <div class="profile-actions">
-        <button class="btn primary">
-           Book Appointment
-        </button>
-
-        <button class="btn outline">
-          Review
-        </button>
+    @if (doctorData) {
+      <div class="profile-image">
+        <img [src]="doctorData.picture" alt="Dr. Sarah Mitchell">
       </div>
-    </div>
+      <div class="profile-content">
+        <h2>Dr. {{ doctorData.firstName}} {{doctorData.lastName}}</h2>
+
+        <h4>{{ doctorData.specialization?.join(', ') }}</h4>
+
+        <p>
+          {{
+            doctorData.bio
+          }}
+        </p>
+
+        <div class="profile-actions">
+          <button routerLink="/book-appointment" class="btn primary">
+            Book Appointment
+          </button>
+
+          <button class="btn outline">
+            Review
+          </button>
+        </div>
+      </div>
+    }
+
   </div>
 </section>

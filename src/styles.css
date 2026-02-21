@@ -24,7 +24,7 @@ body{
   font-size: 12px;
 }
 .small-shadow{
-  box-shadow: 0px 15px 30px -11px rgba(0,0,0,0.10);
+  box-shadow: 0 15px 30px -11px rgba(0,0,0,0.10);
 }
 .btn-gradiant{
   background: #00B7DB;
@@ -55,4 +55,126 @@ body{
 .err-msg{
   color: red;
   font-size: 10px;
+}
+.cdk-overlay-pane .mat-mdc-select-panel {
+  background-color: #ffffff !important;
+}
+/* make mat-form-field full width */
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* main container */
+.mat-mdc-text-field-wrapper {
+  border-radius: 8px !important;
+  border: 1px solid #ddd !important;
+  /*padding: 0 12px !important;*/
+  background-color: #fff;
+}
+
+/* remove default material outline */
+.mdc-notched-outline {
+  display: none !important;
+}
+
+/* select trigger padding */
+.mat-mdc-select-trigger {
+  padding: 5px 0 !important;
+  border: none !important;
+}
+
+/* focus state like input */
+.mat-mdc-text-field-wrapper:hover {
+  border-color: #bbb !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  border-color: #000000 !important;
+}
+   .ngx-mat-timepicker-toggle {
+     .mat-icon-button {
+       width: 32px;
+       height: 32px;
+       line-height: 32px;
+     }
+   }
+
+   .mat-mdc-form-field {
+     .mat-mdc-text-field-wrapper {
+       padding: 0 !important;
+       background: transparent !important;
+     }
+
+     .mat-mdc-form-field-infix {
+       padding: 0.375rem 0.75rem !important;
+       min-height: unset !important;
+       border: 1px solid #dee2e6;
+       border-radius: 0.375rem;
+       background-color: #fff;
+       font-size: 1rem;
+       line-height: 1.5;
+     }
+     .mdc-line-ripple,
+   .mat-mdc-form-field-subscript-wrapper {
+     display: none !important;
+   }
+
+     input.mat-mdc-input-element {
+       padding: 0 !important;
+       margin: 0 !important;
+       margin-bottom: 10px !important;
+     }
+   }
+
+   .ngx-mat-timepicker-dial {
+     background-color: #0d6efd !important;
+   }
+
+.ngx-mat-timepicker-clock {
+  background-color: #e9f0ff !important;
+}
+
+.ngx-mat-timepicker-clock__hand,
+.ngx-mat-timepicker-clock__hand::before,
+.ngx-mat-timepicker-clock__hand::after {
+  background-color: #0d6efd !important;
+}
+
+.ngx-mat-timepicker-clock__number--selected > span {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+}
+
+.ngx-mat-timepicker-container {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.ngx-mat-timepicker-button {
+  color: #0d6efd !important;
+  font-weight: 600 !important;
+}
+   .ngx-mat-timepicker-content,
+   .ngx-mat-timepicker-content__body,
+   timepicker-dialog,
+   .timepicker,
+   .timepicker__body,
+   .timepicker-overlay,
+   .cdk-overlay-pane,
+   [class*="timepicker"] {
+     background-color: #ffffff !important;
+     border-radius: 12px !important;
+   }
+
+   .cdk-overlay-pane .mat-mdc-dialog-container {
+     background-color: #ffffff !important;
+     --mdc-dialog-container-color: #ffffff !important;
+     border-radius: 12px !important;
+   }
+
+.mat-mdc-dialog-surface {
+  background-color: #ffffff !important;
+  --mdc-dialog-container-color: #ffffff !important;
+  border-radius: 12px !important;
 }

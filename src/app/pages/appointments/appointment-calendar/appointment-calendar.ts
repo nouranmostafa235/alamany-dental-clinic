@@ -2,6 +2,7 @@ import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
 import {Router} from '@angular/router';
+import {AppointmentsService} from '../../../services/appointments-service';
 
 interface CalendarDay {
   day: number | null;
@@ -14,7 +15,8 @@ interface CalendarDay {
   styleUrl: './appointment-calendar.css',
 })
 export class AppointmentCalendar implements OnInit {
-  constructor(private appointmentService: AppointmentStepperService, private router: Router) {
+  constructor(private appointmentService: AppointmentStepperService, private router: Router,
+              private service : AppointmentsService) {
   }
   currentDate = signal(new Date(2026, 0, 1));
   enabledDays = signal<number[]>([]);
@@ -29,6 +31,7 @@ export class AppointmentCalendar implements OnInit {
 
   ngOnInit() {
     this.fetchEnabledDays();
+    this.getDoctorOfficeHours(this.appointmentService.getDoctorId())
   }
 
   fetchEnabledDays() {
@@ -121,5 +124,12 @@ export class AppointmentCalendar implements OnInit {
     this.appointmentService.setStep(url+1);
     this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear()+' at '+ time);
     this.router.navigate(['book-appointment/5']);
+  }
+  getDoctorOfficeHours(id:any){
+    this.service.getDoctorOfficeHours(id).subscribe({
+      next: (next: any) => {
+        console.log(next);
+      }
+    })
   }
 }

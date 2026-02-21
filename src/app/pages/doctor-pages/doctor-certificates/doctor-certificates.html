@@ -1,36 +1,25 @@
 
   <div class="container mt-5 mb-5">
     <div class="mt-5">
-      <owl-carousel-o [options]="customOptions">
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto">
-            <img src="img/certifcate.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-              <p class="m-0 title">American Academy of Cosmetic Dentistry</p>
+      @if (doctorData$ | async; as doctorData) {
+        <owl-carousel-o [options]="customOptions">
+          @for (certificate of doctorData.certificates; track certificate.id) {
+            <ng-template carouselSlide>
+              <div class="card mb-2 mx-auto">
+                <img [src]="certificate.fileUrl" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                  <p class="m-0 title">{{ certificate.issuer }}</p>
 
-            </div>
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto">
-            <img src="img/certifcate.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-              <p class="m-0 title">American Academy of Cosmetic Dentistry</p>
+                </div>
+              </div>
+            </ng-template>
+          }
 
-            </div>
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto">
-            <img src="img/certifcate.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-              <p class="m-0 title">American Academy of Cosmetic Dentistry</p>
+        </owl-carousel-o>
+      }
 
-            </div>
-          </div>
-        </ng-template>
 
-      </owl-carousel-o>
+
     </div>
   </div>
 

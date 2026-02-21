@@ -35,8 +35,9 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((err: HttpErrorResponse) => {
+      console.log(err,"err from inter")
       // Handle 401 unauthorized - token expired
-      if (err.status === 401 && isBrowser && !req.url.includes('/auth/refresh')) {
+      if ((err.status === 401 || err.status === 500) && isBrowser && !req.url.includes('/auth/refresh')) {
 
         // First request triggers refresh
         if (!isRefreshing) {

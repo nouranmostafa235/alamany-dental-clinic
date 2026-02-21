@@ -9,10 +9,15 @@
       </div>
     </div>
 
-    <input class="form-control mb-3 " placeholder="search services...">
+    <input class="form-control mb-3 " [(ngModel)]="searchTerm" placeholder="search services...">
 
   <div class="row g-4 container">
-    @for (service of allServices; track service._id) {
+    @if (allServices && (allServices | filter:searchTerm:['name']).length === 0) {
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No services found</p>
+      </div>
+    }
+    @for (service of allServices | filter:searchTerm:['name']; track service._id) {
       <div class="card  border-0 col-md-6">
         <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
           <img [src]="service.coverImage" class="w-100 h-100 object-fit-cover" alt="">
@@ -39,7 +44,7 @@
               <i class="fa fa-pen" style="color: var(--dark-color)"></i>
               Edit
             </button>
-              <button  class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
+              <button (click)="deleteService(service._id)"  class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
                 <i class="fa fa-trash"></i>
                 Delete
               </button>

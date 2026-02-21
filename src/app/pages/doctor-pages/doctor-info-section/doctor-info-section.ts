@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {DoctorsService} from '../../../services/doctors-service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-doctor-info-section',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './doctor-info-section.html',
   styleUrl: './doctor-info-section.css',
 })
-export class DoctorInfoSection {
+export class DoctorInfoSection implements OnInit {
+  doctorData: any = null;
+ constructor(private doctorService: DoctorsService, private cdr: ChangeDetectorRef) {
+ }
 
+ ngOnInit() {
+   this.doctorService.doctor$.subscribe(doctor => {
+     this.doctorData = doctor;
+     this.cdr.detectChanges();
+   })
+ }
 }

@@ -1,29 +1,20 @@
-
-  <div class="container mt-5 mb-5">
-    <div class="mt-5">
+<div class="container mt-5 mb-5">
+  <div class="mt-5">
+    @if (doctorData$ | async; as doctorData) {
       <owl-carousel-o [options]="customOptions">
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto" style="width: 28rem;">
-            <img src="img/mat1.JPG" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto" style="width: 28rem;">
-            <img src="img/mat2.JPG" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto" style="width: 28rem;">
-            <img src="img/mat3.JPG" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
-        <ng-template carouselSlide>
-          <div class="card mb-2 mx-auto" style="width: 28rem;">
-            <img src="img/mat4.JPG" class="card-img-top" alt="...">
-          </div>
-        </ng-template>
+        @for (material of doctorData.materials; track material.id) {
+          <ng-template carouselSlide>
+            <div class="card mb-2 mx-auto">
+              <img [src]="material.fileUrl" class="card-img-top" alt="...">
+            </div>
+          </ng-template>
+        }
 
       </owl-carousel-o>
-    </div>
+    }
+
+
+
   </div>
+</div>
 

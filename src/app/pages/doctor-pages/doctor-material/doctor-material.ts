@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
+import {DoctorsService} from '../../../services/doctors-service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-doctor-material',
-    imports: [
-        CarouselModule
-    ],
+  imports: [
+    CarouselModule,
+    AsyncPipe
+  ],
   templateUrl: './doctor-material.html',
   styleUrl: './doctor-material.css',
 })
 export class DoctorMaterial {
+  private doctorService = inject(DoctorsService);
+  doctorData$ = this.doctorService.doctor$;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
