@@ -60,26 +60,17 @@
       }
     </div>
   </div>
-  <div class="time rounded-3 p-4">
-    <h3 class="mb-4 selected">
-      {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}
-    </h3>
+<!--  <div class="time rounded-3 p-4">-->
+<!--    <h3 class="mb-4 selected">-->
+<!--      {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}-->
+<!--    </h3>-->
 
-    @if (selectedDay()) {
-      <button (click)="nextStep('')" class="m-0 w-100 clock mb-4 btn p-2">
-        Confirm {{ currentMonth() }} {{ selectedDay() }}
-      </button>
-    } @else {
-      <p class="text-muted">Select an available day to continue</p>
-    }
-  </div>
-  <!-- Selected date info -->
-<!--  @if (selectedDay()) {-->
-<!--    <div class="selected-info">-->
-<!--      <p class="selected-label">Selected date:</p>-->
-<!--      <p class="selected-date">-->
-<!--        {{ currentMonth() }} {{ selectedDay() }}, {{ currentYear() }}-->
-<!--      </p>-->
-<!--    </div>-->
-<!--  }-->
+<!--    @if (selectedDay()) {-->
+<!--      <button (click)="nextStep('')" class="m-0 w-100 clock mb-4 btn p-2">-->
+<!--        Confirm {{ currentMonth() }} {{ selectedDay() }}-->
+<!--      </button>-->
+<!--    } @else {-->
+<!--      <p class="text-muted">Select an available day to continue</p>-->
+<!--    }-->
+<!--  </div>-->
 </div>
