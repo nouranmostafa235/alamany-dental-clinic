@@ -178,3 +178,7 @@ body{
   --mdc-dialog-container-color: #ffffff !important;
   border-radius: 12px !important;
 }
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 16px !important;
+  overflow: hidden;
+}

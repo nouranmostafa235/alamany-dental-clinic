@@ -3,6 +3,7 @@ import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {isPlatformBrowser} from '@angular/common';
+import {MessagesService} from '../../../services/messages-service';
 @Component({
   selector: 'app-reviews-section',
     imports: [
@@ -12,6 +13,7 @@ import {isPlatformBrowser} from '@angular/common';
   styleUrl: './reviews-section.css',
 })
 export class ReviewsSection implements AfterViewInit {
+  allReviews:any[]=[]
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -41,7 +43,15 @@ export class ReviewsSection implements AfterViewInit {
     },
     nav: false
   }
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private messageService: MessagesService) {
+  }
+  ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    this.messageService.getMessages().subscribe(messages => {
+      this.allReviews = messages.data.messages;
+    })
   }
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) {

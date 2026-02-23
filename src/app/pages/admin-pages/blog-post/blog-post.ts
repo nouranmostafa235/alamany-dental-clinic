@@ -5,6 +5,8 @@ import {BlogPostModal} from '../blog-post-modal/blog-post-modal';
 import {AuthService} from '../../../services/auth-service';
 import {BlogPostService} from '../../../services/blog-post-service';
 import {MatDialog} from '@angular/material/dialog';
+import {CreateServiceForm} from '../create-service-form/create-service-form';
+import {CreatBlogPostForm} from '../../home-pages/creat-blog-post-form/creat-blog-post-form';
 
 @Component({
   selector: 'app-blog-post',
@@ -24,6 +26,9 @@ export class BlogPost implements OnInit{
  ngOnInit(){
 
    this.currentRoute = this.router.url.split('/')[2];
+   this.loadBlogPosts()
+ }
+ loadBlogPosts(){
    this.blogService.getAll().subscribe({
      next: (data: any) => {
        this.blogPost = data.data.blogs;
@@ -31,6 +36,15 @@ export class BlogPost implements OnInit{
      }
    })
  }
+  openForm() {
+    const dialogRef = this.dialog.open(CreatBlogPostForm, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadBlogPosts();
+      }
+    });
+  }
   openModal(blogPost: any)
   {
     this.dialog.open(BlogPostModal, {

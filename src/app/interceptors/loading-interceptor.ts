@@ -21,13 +21,16 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   if (isBrowser) {
     loading.show();
   }
-
+  const isAuthEndpoint = req.url.includes('/auth/login') ||
+    req.url.includes('/auth/refresh') ||
+    req.url.includes('/auth/logout') ||
+    req.url.includes('/auth/register');
   // Clone request with credentials
   let authReq = req.clone({ withCredentials: true });
 
   // Attach token if exists and not login/refresh endpoints
   const token = auth.getAccessToken();
-  if (token && !req.url.includes('/auth/login') && !req.url.includes('/auth/refresh')) {
+  if (token && token && !isAuthEndpoint) {
     authReq = authReq.clone({
       setHeaders: { Authorization: `Bearer ${token}` }
     });
@@ -35,9 +38,9 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((err: HttpErrorResponse) => {
-      console.log(err,"err from inter")
       // Handle 401 unauthorized - token expired
-      if ((err.status === 401 || err.error.message === 'Access token expired') && isBrowser && !req.url.includes('/auth/refresh')) {
+      if ((err.status === 401 || err.error.message === 'Access token expired') && isBrowser
+        && !req.url.includes('/auth/refresh')) {
 
         // First request triggers refresh
         if (!isRefreshing) {

@@ -29,4 +29,7 @@ export class DoctorsService {
   setDoctorData(data:any){
     this.doctorData.next(data);
   }
+  deleteDoctor(id:any):Observable<any>{
+    return this.http.delete(`${this.baseApiUrl}doctors/${id}`)
+  }
 }

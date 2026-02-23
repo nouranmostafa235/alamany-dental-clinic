@@ -17,54 +17,58 @@
     <p class="serviceName mt-3">Dr.{{doctorName}}</p>
     <p class="serviceTime">{{ time }}</p>
   </div>
-  <div class="book-form">
-    <div class="row m-0 mt-3 justify-content-center">
-      <div class="col-md-5">
-        <input class="form-control" placeholder="First Name">
+  <form (ngSubmit)="bookAppointmentFormSubmit()" [formGroup]="bookAppointmentForm">
+    <div class="book-form">
+      <div class="row m-0 mt-3 justify-content-center">
+        <div class="col-md-5">
+          <input formControlName="firstName" class="form-control" placeholder="First Name">
+        </div>
+        <div class="col-md-5">
+          <input formControlName="lastName" class="form-control" placeholder="Last Name">
+        </div>
       </div>
-      <div class="col-md-5">
-        <input class="form-control" placeholder="Last Name">
+      <div class="row m-0 mt-3 justify-content-center">
+        <div class="col-md-10">
+          <input formControlName="email" class="form-control" placeholder="Email">
+        </div>
       </div>
-    </div>
-    <div class="row m-0 mt-3 justify-content-center">
-      <div class="col-md-10">
-        <input class="form-control" placeholder="Email">
-      </div>
-    </div>
-    <div class="row m-0 mt-3 justify-content-center">
-      <div class="col-md-10 m-0 p-0 justify-content-center row">
-        <p class="form-check-label m-0 mb-1 text-start">Date of Birth</p>
-        <div class="col-md-6">
-          <select class="form-select">
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
+      <div class="row m-0 mt-3 justify-content-center">
+        <div class="col-md-10">
+          <select formControlName="gender" class="form-select">
+            <option disabled value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
 
           </select>
         </div>
-        <div class="col-md-3">
-          <input class=" form-control" placeholder="DD">
-        </div>
-        <div class="col-md-3">
-          <input class="col-md-3 form-control" placeholder="YYYY">
-        </div>
+      </div>
+      <div class="row m-0 mt-3 justify-content-center">
+        <div class="col-md-10 m-0 p-0 justify-content-center row">
+          <p class="form-check-label m-0 mb-1 text-start">Date of Birth</p>
+          <div class="col-md-6">
+            <select formControlName="month" class="form-select">
+              <option disabled value="">MM</option>
+              @for (month of months; track $index){
+                <option [value]="month">{{month}}</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input formControlName="day" class=" form-control" placeholder="DD">
+          </div>
+          <div class="col-md-3">
+            <input formControlName="year" class="col-md-3 form-control" placeholder="YYYY">
+          </div>
 
+        </div>
       </div>
-    </div>
-    <div class="row m-0 mt-3 justify-content-center">
-      <div class="col-md-10">
-        <input class="form-control" placeholder="Phone Number" type="tel">
+      <div class="row m-0 mt-3 justify-content-center">
+        <div class="col-md-10">
+          <input formControlName="phoneNumber" class="form-control" placeholder="Phone Number" type="tel">
+        </div>
       </div>
+      <button type="submit" class="btn w-25 mt-4">Book</button>
     </div>
-    <button class="btn w-25 mt-4">Book</button>
-  </div>
+  </form>
+
 </div>

@@ -29,3 +29,7 @@ button:hover{
 .img-wrapper:hover{
   transform: scale(1.05);
 }
+.create{
+  background-color: var(--dark-color);
+  color: white;
+}

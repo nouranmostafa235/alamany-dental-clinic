@@ -38,7 +38,6 @@ export class DoctorProfile implements OnInit {
     this.doctorService.getDoctorById(id).subscribe({
       next: data => {
         this.doctorData = data.data;
-        console.log(data.data);
         this.doctorService.setDoctorData(this.doctorData);
       }
     })

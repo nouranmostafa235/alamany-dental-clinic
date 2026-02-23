@@ -113,7 +113,7 @@ export class AuthService {
 
     return this.http.post<any>(
       this.baseApiUrl + 'auth/refresh',
-      {},
+      null,
       { withCredentials: true }
     ).pipe(
       tap(response => {

@@ -103,6 +103,7 @@ export class AppointmentCalendar implements OnInit {
 
     if (this.isDayEnabled(day)) {
       this.selectedDay.set(day);
+      this.nextStep('')
     }
   }
   getDayClasses(item: CalendarDay): string {
