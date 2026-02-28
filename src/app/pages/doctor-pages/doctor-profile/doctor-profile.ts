@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, inject, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {DoctorInfoSection} from '../doctor-info-section/doctor-info-section';
 import {Footer} from '../../../shared-components/footer/footer';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DoctorReview} from '../doctor-review/doctor-review';
 import {DoctorsService} from '../../../services/doctors-service';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, Location} from '@angular/common';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -22,6 +22,9 @@ import {isPlatformBrowser} from '@angular/common';
 export class DoctorProfile implements OnInit {
   doctorId: string|null = null;
   doctorData: any
+  private location = inject(Location);
+
+
   constructor(private route: ActivatedRoute, private doctorService: DoctorsService,
               @Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -41,5 +44,8 @@ export class DoctorProfile implements OnInit {
         this.doctorService.setDoctorData(this.doctorData);
       }
     })
+  }
+  goBack() {
+    this.location.back();
   }
 }

@@ -1,8 +1,8 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, inject, Inject, PLATFORM_ID} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {fromEvent, Subscription} from 'rxjs';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser,Location} from '@angular/common';
 
 @Component({
   selector: 'app-book-appointment',
@@ -16,6 +16,7 @@ import {isPlatformBrowser} from '@angular/common';
 export class BookAppointment {
   private popStateSub!: Subscription;
   private isBrowser!: boolean;
+  private location = inject(Location)
   constructor(
     private wizard: AppointmentStepperService,
     @Inject(PLATFORM_ID) platformId: Object
@@ -37,5 +38,8 @@ export class BookAppointment {
     if (this.wizard.getStep() > 1) {
       this.wizard.back();
     }
+  }
+  goBack(){
+    this.location.back();
   }
 }
