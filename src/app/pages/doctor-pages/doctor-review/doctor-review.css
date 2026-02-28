@@ -45,3 +45,11 @@
   font-weight: bold;
   color: var(--dark-color);
 }
+.stars span {
+  font-size: 1.2rem;
+  color: #d1d5db;
+}
+
+.stars span.filled {
+  color: #facc15;
+}

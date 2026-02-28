@@ -1,0 +1,91 @@
+.btn{
+  background-color: var(--light-color);
+  color: white;
+}
+.wizard-container {
+  /*width: 800px;*/
+  /*margin: auto;*/
+  padding: 30px;
+  font-family: system-ui;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.wizard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.label {
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+.form-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+input , select{
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.profile-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-image img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Content */
+.profile-content h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--dark-bg-color);
+}
+.stars-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 2rem;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.1s ease;
+  user-select: none;
+  line-height: 1;
+}
+
+.star:hover {
+  transform: scale(1.15);
+}
+
+.star.filled {
+  color: #facc15;
+}
+
+.rating-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-left: 8px;
+  color: #374151;
+}
+
+.rating-label {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}

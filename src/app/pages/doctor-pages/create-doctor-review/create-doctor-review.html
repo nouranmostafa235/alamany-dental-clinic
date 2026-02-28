@@ -1,0 +1,45 @@
+<div style="background-color: #FAFAFA" class="wizard-container">
+  <div class="wizard-header">
+    @if (doctorData) {
+      <div class="profile-container">
+        <div class="profile-image">
+          <img [src]="doctorData.picture" alt="Dr. Sarah Mitchell">
+        </div>
+        <div class="profile-content">
+          <h2>Dr. {{ doctorData.firstName}} {{doctorData.lastName}}</h2>
+        </div>
+      </div>
+
+    }
+  </div>
+  <div class="form-card">
+    <form [formGroup]="reviewForm" (ngSubmit)="createReview()">
+      <input class="form-control" placeholder="Your Name">
+      <div class="stars-wrapper d-flex justify-content-center">
+        @for (star of stars; track star) {
+          <span
+            class="star"
+            [class.filled]="star <= (hoverRating() || selectedRating())"
+            (mouseenter)="hoverRating.set(star)"
+            (mouseleave)="hoverRating.set(0)"
+            (click)="selectRating(star)"
+            [attr.aria-label]="'Rate ' + star + ' out of 5'"
+            role="button"
+            tabindex="0"
+            (keydown.enter)="selectRating(star)"
+          ><i class="fa fa-star fa-xs"></i></span>
+        }
+        @if (selectedRating() > 0) {
+          <span class="rating-value">{{ selectedRating() }}.0</span>
+        }
+      </div>
+<!--      @if (selectedRating() > 0) {-->
+<!--        <p class="rating-label">{{ getLabel() }} 👍</p>-->
+<!--      }-->
+      <textarea formControlName="comment" rows="7" class="form-control mt-3" [placeholder]="'Share details of your own experience with dr.'+' '+doctorData.firstName + ' '+ doctorData.lastName"></textarea>
+      <button type="submit" class="btn d-block mx-auto mt-3 px-5">
+        <i class="fa-regular fa-paper-plane me-1" style="color: rgb(255, 255, 255);"></i>Submit</button>
+    </form>
+  </div>
+
+</div>

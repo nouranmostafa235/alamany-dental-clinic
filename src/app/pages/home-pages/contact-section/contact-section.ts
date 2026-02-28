@@ -23,7 +23,9 @@ export class ContactSection implements AfterViewInit {
     message : new FormControl('',[Validators.required]),
   });
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private messageService :MessagesService,
-              private toaster: ToastrService) {}
+              private toaster: ToastrService) {
+    this.refreshMessages()
+  }
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
@@ -45,10 +47,18 @@ export class ContactSection implements AfterViewInit {
      next: (data) => {
        this.toaster.success('Message sent successfully!', 'Success');
        form.reset();
+       this.refreshMessages();
      },
      error: (error) => {
        this.toaster.error('Failed to send message. Please try again.', 'Error');
      }
    })
+  }
+  refreshMessages() {
+    this.messageService.getMessages().subscribe({
+      next: (data) => {
+        this.messageService.setMessagesData(data.data.messages);
+      }
+    })
   }
 }

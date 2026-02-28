@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateServiceForm} from '../create-service-form/create-service-form';
 import {FilterPipe} from '../../../pipes/filter-pipe';
 import {FormsModule} from '@angular/forms';
+import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-services-mangement',
@@ -39,9 +40,14 @@ export class ServicesMangement implements OnInit {
       }
     })
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateServiceForm, {});
-
+  openDialog(service: any = null) {
+    const dialogRef = this.dialog.open(CreateServiceForm, {
+      // width: '600px',
+      data: {
+        mode: service ? 'edit' : 'create',
+        service: service
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loadServices();
@@ -49,10 +55,19 @@ export class ServicesMangement implements OnInit {
     });
   }
   deleteService(id:any) {
-    this.service.deleteService(id).subscribe({
-      next: data => {
-       this.loadServices();
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this Service?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed:any) => {
+      if (confirmed) {
+        this.service.deleteService(id).subscribe({
+          next: data => {
+            this.loadServices();
+          }
+        })
       }
-    })
+    });
   }
+
 }

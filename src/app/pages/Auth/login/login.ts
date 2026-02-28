@@ -30,11 +30,11 @@ export class Login {
       }
     })
   }
-  loginGmail(){
-    this.auth.loginGmail().subscribe({
-      next: (value) => {
-        console.log(value);
-      }
-    })
-  }
+  // loginGmail(){
+  //   this.auth.loginGmail().subscribe({
+  //     next: (value) => {
+  //       console.log(value);
+  //     }
+  //   })
+  // }
 }

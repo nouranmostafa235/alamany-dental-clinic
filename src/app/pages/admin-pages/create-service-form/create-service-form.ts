@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef} from '@angular/material/dialog';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TagInputModule} from 'ngx-chips';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {OurServicesService} from '../../../services/our-services-service';
@@ -14,11 +14,13 @@ import {ServiceEnum} from '../../../enums/service-enum';
   templateUrl: './create-service-form.html',
   styleUrl: './create-service-form.css',
 })
-export class CreateServiceForm {
+export class CreateServiceForm implements OnInit {
   createForm: FormGroup
-  serviceList = Object.values(ServiceEnum)
+  serviceList = Object.values(ServiceEnum);
+  isEditMode = false;
   constructor(private service:OurServicesService, private fb:FormBuilder,
-              private dialogRef: MatDialogRef<CreateServiceForm>) {
+              private dialogRef: MatDialogRef<CreateServiceForm>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.createForm = this.fb.group({
       name : ['', [Validators.required]],
       description : ['', [Validators.required]],
@@ -32,6 +34,12 @@ export class CreateServiceForm {
     });
   }
 
+  ngOnInit() {
+    if (this.data?.mode === 'edit') {
+      this.isEditMode = true;
+      this.createForm.patchValue(this.data.service);
+    }
+  }
   createService(form: FormGroup) {
 
     const formData = new FormData();
@@ -48,9 +56,19 @@ export class CreateServiceForm {
     formData.append('price[max]', form.value.price.max);
     formData.append('price[currency]', form.value.price.currency || 'USD');
 
-    this.service.createService(formData).subscribe({
-      next: data => this.dialogRef.close(true)
-    });
+    if(this.data?.mode === 'edit'){
+      this.service.updateService(this.data.service._id,formData).subscribe({
+        next: data => this.dialogRef.close(true),
+        error: data => this.dialogRef.close(true),
+      })
+    }
+    else {
+      this.service.createService(formData).subscribe({
+        next: data => this.dialogRef.close(true),
+        error: data => this.dialogRef.close(true),
+      });
+    }
+
 
   }
   onImageChange(event:any){

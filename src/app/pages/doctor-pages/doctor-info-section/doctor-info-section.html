@@ -2,7 +2,7 @@
   <div class="profile-container">
     @if (doctorData) {
       <div class="profile-image">
-        <img [src]="doctorData.picture" alt="Dr. Sarah Mitchell">
+        <img [src]="doctorData.picture" [alt]="'Dr.' + doctorData.firstName + doctorData.lastName">
       </div>
       <div class="profile-content">
         <h2>Dr. {{ doctorData.firstName}} {{doctorData.lastName}}</h2>
@@ -20,7 +20,7 @@
             Book Appointment
           </button>
 
-          <button class="btn outline">
+          <button (click)="openDialog(doctorData)" class="btn outline">
             Review
           </button>
         </div>

@@ -20,4 +20,7 @@ export class OurServicesService {
   deleteService(id: any): Observable<any> {
     return this.http.delete(this.baseApiUrl+'services/'+id);
   }
+  updateService(id:any, data:any):Observable<any> {
+    return this.http.put(this.baseApiUrl+`services/${id}`, data)
+  }
 }

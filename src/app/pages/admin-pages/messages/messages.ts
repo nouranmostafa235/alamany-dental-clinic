@@ -1,7 +1,8 @@
 import {ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {MessagesService} from '../../../services/messages-service';
 import {isPlatformBrowser} from '@angular/common';
+import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-messages',
@@ -12,6 +13,7 @@ import {isPlatformBrowser} from '@angular/common';
 export class Messages implements OnInit{
  allMessages: any;
  constructor(private messageService: MessagesService,
+             private dialog: MatDialog,
              @Inject(PLATFORM_ID) private platformId: Object,
              private cdr: ChangeDetectorRef) {
  }
@@ -29,4 +31,31 @@ export class Messages implements OnInit{
      }
    })
  }
+ // deleteMessage(id: any) {
+ //   const dialogRef = this.dialog.open(ConfirmationDialog, {
+ //     width: '400px',
+ //     data: { message: 'Are you sure you want to delete this doctor?' }
+ //   });
+ //   this.messageService.deleteMessage(id).subscribe({
+ //     next: data => {
+ //       this.loadMessages();
+ //     }
+ //   })
+ // }
+  deleteMessage(id: any) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this message?' }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed:any) => {
+      if (confirmed) {
+        this.messageService.deleteMessage(id).subscribe({
+              next: data => {
+                this.loadMessages();
+              }
+            })
+      }
+    });
+  }
 }

@@ -32,4 +32,10 @@ export class DoctorsService {
   deleteDoctor(id:any):Observable<any>{
     return this.http.delete(`${this.baseApiUrl}doctors/${id}`)
   }
+  createReview(review:any): Observable<any> {
+    return this.http.post(`${this.baseApiUrl}reviews`, review)
+  }
+  getReviews(id:any):Observable<any>{
+    return this.http.get(`${this.baseApiUrl}reviews/doctor/${id}`)
+  }
 }

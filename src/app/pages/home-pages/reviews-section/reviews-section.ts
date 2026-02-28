@@ -1,19 +1,23 @@
-import {Component, AfterViewInit, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, AfterViewInit, Inject, PLATFORM_ID, inject} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {isPlatformBrowser} from '@angular/common';
+import {AsyncPipe, isPlatformBrowser} from '@angular/common';
 import {MessagesService} from '../../../services/messages-service';
+import {DoctorsService} from '../../../services/doctors-service';
 @Component({
   selector: 'app-reviews-section',
-    imports: [
-        CarouselModule
-    ],
+  imports: [
+    CarouselModule,
+    AsyncPipe
+  ],
   templateUrl: './reviews-section.html',
   styleUrl: './reviews-section.css',
 })
 export class ReviewsSection implements AfterViewInit {
-  allReviews:any[]=[]
+  // allReviews:any[]=[]
+  private messages = inject(MessagesService);
+  allReviews = this.messages.messages$;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -49,9 +53,9 @@ export class ReviewsSection implements AfterViewInit {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    this.messageService.getMessages().subscribe(messages => {
-      this.allReviews = messages.data.messages;
-    })
+    // this.messageService.getMessages().subscribe(messages => {
+    //   this.allReviews = messages.data.messages;
+    // })
   }
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) {

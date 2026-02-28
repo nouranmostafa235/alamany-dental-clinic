@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,8 @@ import {Observable} from 'rxjs';
 export class MessagesService {
   baseUrl = environment.apiBaseUrl+'messages/';
   private http = inject(HttpClient);
-
+  messages= new BehaviorSubject<any>(null);
+  messages$ = this.messages.asObservable();
   addMessage(message: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, message)
   }
@@ -18,5 +19,8 @@ export class MessagesService {
   }
   deleteMessage(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}${id}`)
+  }
+  setMessagesData(data:any){
+    this.messages.next(data);
   }
 }
