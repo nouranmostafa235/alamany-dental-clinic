@@ -1,0 +1,36 @@
+<div class="wrapper py-4">
+  <div class="content text-center">
+    <div class="icon mb-2 p-3 mx-auto">
+      <i class="fa-regular fa-calendar-check" style="color: var(--dark-bg-color)"></i>
+    </div>
+    <h5 class="fw-bold">Your Appointment has been Scheduled</h5>
+  </div>
+  <div class="serviceInfo mx-auto p-4 mb-4">
+    <p >Thank you for your appointment request. We will contact you shortly to confirm your request.
+      Please call our office at <span >
+        <a class="direct" href="tel: 01092184470">01092184470</a>
+      </span>  if you have any questions.</p>
+  </div>
+  <div class="appointment-info rounded-3 w-75 mx-auto p-3">
+    <ul class="list-unstyled">
+      <li class="d-flex gap-2 mb-2">
+        <i class="fa fa-user-doctor" style="color: var(--dark-bg-color)"></i>
+        <p class="m-0">Dr.{{doctorName}}</p>
+      </li>
+      <li class="d-flex gap-2 mb-2">
+        <i class="fa fa-calendar" style="color: var(--dark-bg-color)"></i>
+        <p class="m-0">{{appointmentTime}}</p>
+      </li>
+      <li class="d-flex gap-2 mb-2">
+        <i class="fa fa-location-dot" style="color: var(--dark-bg-color)"></i>
+        <a target="_blank" style="font-size: 14px"
+          href="https://www.google.com/maps/place/%D8%B9%D9%8A%D8%A7%D8%AF%D8%A9+%D8%A7%D9%84%D8%A3%D9%85%D8%A7%D9%86%D9%8A+%D9%84%D9%84%D8%A7%D8%B3%D9%86%D8%A7%D9%86+%D8%AF.%D8%B9%D9%85%D8%B1%D9%88+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D8%B7%D9%8A%D9%81%E2%80%AD/@31.2112709,29.9159991,15z/data=!4m8!3m7!1s0x14f5d1ce552849cf:0xd11a36213666e7dd!8m2!3d31.2112539!4d29.9344532!9m1!1b1!16s%2Fg%2F11mtjymf9j!17m2!4m1!1e3!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDEyMS4wIKXMDSoASAFQAw%3D%3D"
+           class="m-0 direct">8TH Elbayrony ST Sporting, Aboqir, Alexandria</a>
+      </li>
+    </ul>
+
+  </div>
+  <div class="mt-4 w-25 mx-auto">
+    <button class="btn d-block mx-auto mb-3 py-2" (click)="nextStep()">Return Home</button>
+  </div>
+</div>

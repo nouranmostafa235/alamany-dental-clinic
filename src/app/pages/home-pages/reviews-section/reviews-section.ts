@@ -15,9 +15,6 @@ import {DoctorsService} from '../../../services/doctors-service';
   styleUrl: './reviews-section.css',
 })
 export class ReviewsSection implements AfterViewInit {
-  // allReviews:any[]=[]
-  private messages = inject(MessagesService);
-  allReviews = this.messages.messages$;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -47,15 +44,12 @@ export class ReviewsSection implements AfterViewInit {
     },
     nav: false
   }
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private messageService: MessagesService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
   }
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    // this.messageService.getMessages().subscribe(messages => {
-    //   this.allReviews = messages.data.messages;
-    // })
   }
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) {

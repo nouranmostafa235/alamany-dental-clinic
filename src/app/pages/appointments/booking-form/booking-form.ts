@@ -4,6 +4,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
 import {AppointmentsService} from '../../../services/appointments-service';
 import {DateService} from '../../../services/date-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-booking-form',
@@ -31,6 +32,7 @@ export class BookingForm implements OnInit {
     notes: new FormControl('First visit, slight tooth pain'),
     doctorProfileId: new FormControl()
   });
+  currentUrl: any
   months = [
     'January','February','March','April','May','June',
     'July','August','September','October','November','December'
@@ -38,12 +40,16 @@ export class BookingForm implements OnInit {
  private platformId = inject(PLATFORM_ID) ;
   constructor(private service: AppointmentStepperService ,
               private appointments: AppointmentsService,
-              private dateService: DateService) {
+              private dateService: DateService,
+              private router: Router) {
     if(!isPlatformBrowser(this.platformId)) {
       return;
     }
   }
   ngOnInit() {
+    const url =Number( this.router.url.split('/')[2]);
+    this.currentUrl = url;
+    this.service.setStep(url)
     this.serviceName = this.service.getAppointmentService()?.split(',')[0]
     this.serviceDuration = this.service.getAppointmentService()?.split(',')[1]
     this.time = this.service.getAppointmentTime()
@@ -73,7 +79,8 @@ export class BookingForm implements OnInit {
     delete payload.year;
   this.appointments.createAppointment(payload).subscribe({
     next: (data) => {
-      console.log(data)
+      this.service.setStep(this.currentUrl+1)
+      this.router.navigate([`/book-appointment/${this.currentUrl+1}`,data]);
     }
   })
   }

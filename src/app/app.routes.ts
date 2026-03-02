@@ -31,18 +31,20 @@ import {AppointmentDoctor} from './pages/appointments/appointment-doctor/appoint
 import {NotFoundPage} from './shared-components/not-found-page/not-found-page';
 import {BookingForm} from './pages/appointments/booking-form/booking-form';
 import {adminAuthGuard} from './guards/admin-auth-guard';
+import {BookingResult} from './pages/appointments/booking-result/booking-result';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
   {path:'' , redirectTo:'home',pathMatch:'full'},
   {path:'book-appointment' , component:BookAppointment , children:[
-      {path: '1' , component: AppointmentType, canActivate:[appointmentStepsGuard]},
+      {path: '1' , component: AppointmentDoctor, canActivate:[appointmentStepsGuard]},
       {path: "" , redirectTo:'1' ,pathMatch:'full'} ,
-      {path: '2' , component: AppointmentDoctor , canActivate:[appointmentStepsGuard]},
+      // {path: '2' , component: AppointmentDoctor , canActivate:[appointmentStepsGuard]},
       // {path: '2' , component: AppointmentService , canActivate:[appointmentStepsGuard]},
-      {path: '3' , component: FindAppointmentDate , canActivate:[appointmentStepsGuard]},
-      {path: '4' , component: AppointmentCalendar , canActivate:[appointmentStepsGuard]},
-      {path: '5' , component: BookingForm , canActivate:[appointmentStepsGuard]},
+      {path: '2' , component: FindAppointmentDate , canActivate:[appointmentStepsGuard]},
+      {path: '3' , component: AppointmentCalendar , canActivate:[appointmentStepsGuard]},
+      {path: '4' , component: BookingForm , canActivate:[appointmentStepsGuard]},
+      {path: '5' , component: BookingResult , canActivate:[appointmentStepsGuard]},
     ]},
   {path:'patient-info' , component:PatientForm},
   {path:'login', component:Login,data: { animation: 'login' }},
@@ -54,7 +56,8 @@ export const routes: Routes = [
     ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},
-  {path:'admin',component:Dashboard ,canActivate:[adminAuthGuard], children:[{
+  {path:'admin',component:Dashboard ,canActivate:[adminAuthGuard], children:[
+    {
     path:'' , component:DashboardHome
     },
       {

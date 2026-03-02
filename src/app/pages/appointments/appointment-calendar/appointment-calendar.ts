@@ -130,7 +130,7 @@ export class AppointmentCalendar implements OnInit {
     const url =Number( this.router.url.split('/')[2]);
     this.appointmentService.setStep(url+1);
     this.appointmentService.setAppointmentTime(this.currentMonth()+' '+this.selectedDay()+','+this.currentYear());
-    this.router.navigate(['book-appointment/5']);
+    this.router.navigate([`book-appointment/${url+1}`]);
   }
   getDoctorOfficeHours(id:any){
     this.service.getDoctorOfficeHours(id).subscribe({

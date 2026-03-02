@@ -2,23 +2,60 @@
   <div class="container">
     <h2 class="gsap-review">Reviews</h2>
     <div class="slider">
-      @if (allReviews | async; as allMessages){
         <owl-carousel-o [options]="customOptions">
-          @for (message of allMessages; track message._id) {
+
             <ng-template carouselSlide>
               <div class="container w-50 d-flex flex-column gap-3 p-5 rounded-4 review">
                 <div class="quote-icon mx-auto mb-3 d-flex justify-content-center align-items-center">
                   <i class="fa-solid fa-quote-left" style="color: #13526a;"></i>
                 </div>
                 <p class="text-center">
-                  {{message.message }}
+                 reviewwww
                 </p>
               </div>
             </ng-template>
-          }
-
+          <ng-template carouselSlide>
+            <div class="container w-50 d-flex flex-column gap-3 p-5 rounded-4 review">
+              <div class="quote-icon mx-auto mb-3 d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-quote-left" style="color: #13526a;"></i>
+              </div>
+              <p class="text-center">
+                reviewwww
+              </p>
+            </div>
+          </ng-template>
+          <ng-template carouselSlide>
+            <div class="container w-50 d-flex flex-column gap-3 p-5 rounded-4 review">
+              <div class="quote-icon mx-auto mb-3 d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-quote-left" style="color: #13526a;"></i>
+              </div>
+              <p class="text-center">
+                reviewwww
+              </p>
+            </div>
+          </ng-template>
+          <ng-template carouselSlide>
+            <div class="container w-50 d-flex flex-column gap-3 p-5 rounded-4 review">
+              <div class="quote-icon mx-auto mb-3 d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-quote-left" style="color: #13526a;"></i>
+              </div>
+              <p class="text-center">
+                reviewwww
+              </p>
+            </div>
+          </ng-template>
+          <ng-template carouselSlide>
+            <div class="container w-50 d-flex flex-column gap-3 p-5 rounded-4 review">
+              <div class="quote-icon mx-auto mb-3 d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-quote-left" style="color: #13526a;"></i>
+              </div>
+              <p class="text-center">
+                reviewwww
+              </p>
+            </div>
+          </ng-template>
         </owl-carousel-o>
-      }
+
 
     </div>
   </div>
