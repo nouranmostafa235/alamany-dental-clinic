@@ -40,7 +40,7 @@ export class DoctorProfile implements OnInit {
   getDoctorById(id:any){
     this.doctorService.getDoctorById(id).subscribe({
       next: data => {
-        this.doctorData = data.data;
+        this.doctorData = data.data.profile;
         this.doctorService.setDoctorData(this.doctorData);
       }
     })

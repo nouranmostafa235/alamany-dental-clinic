@@ -8,15 +8,17 @@
       </div>
       <div class="d-flex mt-4 gap-3">
         <div >
-          <h1 class="rate-no">4.5</h1>
+          <h1 class="rate-no">{{ overAllRate }}</h1>
         </div>
         <div>
           <div>
-            <i class="fa fa-star" style="color: gold"></i>
-            <i class="fa fa-star" style="color: gold"></i>
-            <i class="fa fa-star" style="color: gold"></i>
-            <i class="fa fa-star" style="color: gold"></i>
-            <i class="fa fa-star-half-stroke" style="color: gold"></i>
+            @for (star of getRate(overAllRate); track $index) {
+              <i
+                class="fa {{ star }}"
+                style="color: gold">
+              </i>
+            }
+
           </div>
           <div>
             <p class="m-0" style="color: var(--gray-color)">Overall ratings</p>

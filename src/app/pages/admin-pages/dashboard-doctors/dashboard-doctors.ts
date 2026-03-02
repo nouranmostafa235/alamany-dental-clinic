@@ -8,6 +8,7 @@ import {FilterPipe} from '../../../pipes/filter-pipe';
 import {FormsModule} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
 import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
+import {ImagesAdjust} from '../../../services/images-adjust';
 
 @Component({
   selector: 'app-dashboard-doctors',
@@ -23,6 +24,7 @@ export class DashboardDoctors implements OnInit {
   allDoctors: any=[]
   searchTerm: string = ''
   private platformId = inject(PLATFORM_ID);
+  images = inject(ImagesAdjust);
   constructor(private dialog: MatDialog,
               private doctorService : DoctorsService,
               private cdr: ChangeDetectorRef) {

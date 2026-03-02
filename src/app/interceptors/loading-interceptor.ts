@@ -93,10 +93,11 @@
 // };
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
+import {catchError, switchMap, throwError, BehaviorSubject, filter, take, finalize} from 'rxjs';
 import {TokenService} from '../services/token-service';
 import {AuthService} from '../services/auth-service';
 import {LoadingService} from '../services/loading-service';
+import {tap} from 'rxjs/operators';
 
 
 let isRefreshing = false;
@@ -108,7 +109,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   const loading = inject(LoadingService);
   const token = tokenService.getToken();
   const authReq = token ? addToken(req, token) : req;
-
+loading.show()
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       // Don't retry refresh/login/logout endpoints
@@ -139,6 +140,9 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
           return throwError(() => err);
         })
       );
+    }),
+    finalize(() => {
+        loading.hide();
     })
   );
 

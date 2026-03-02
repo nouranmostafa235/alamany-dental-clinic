@@ -216,8 +216,8 @@ export class AuthService {
   }
 
   refresh(): Observable<RefreshResponse> {
-    return this.http.post<RefreshResponse>(`${this.API}/refresh`, {}, {
-      withCredentials: true  // ← sends the httpOnly cookie automatically
+    return this.http.post<RefreshResponse>(`${this.API}/refresh`, null, {
+      withCredentials: true
     }).pipe(
       tap(res => {
         this.tokenService.setToken(res.data.accessToken);

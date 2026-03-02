@@ -2,8 +2,10 @@
   background-color: var(--light-color);
   color: white;
 }
-.create-form{
-
+.recrop-btn{
+  background-color: transparent;
+  border: 1px solid var(--dark-bg-color) !important;
+  color: var(--dark-color);
 }
 .wizard-container {
 

@@ -40,29 +40,7 @@
           <input formControlName="lastName" placeholder="Last Name">
           <input formControlName="email" placeholder="Email">
           <input formControlName="phone" placeholder="Phone">
-          @if (!showImageAdjuster()) {
-            <div class="picture-upload-area">
-              <!-- Preview -->
-              @if (picturePreview()) {
-                <div class="picture-preview">
-                  <img [src]="picturePreview()" alt="Doctor photo" />
-                  <button type="button" (click)="pictureInput.click()">Change Photo</button>
-                </div>
-              }
-              @if (!picturePreview()) {
-                <button type="button" (click)="pictureInput.click()">
-                  Upload Photo
-                </button>
-              }
-              <input
-                #pictureInput
-                type="file"
-                accept="image/*"
-                hidden
-                (change)="onPictureChange($event)">
-            </div>
-          }
-          @if (showImageAdjuster()) {
+          @if (!picturePreview()) {
             <app-image-adjuster
               [aspectRatio]="1"
               [outputWidth]="400"
@@ -72,6 +50,12 @@
               (imageCropped)="onImageCropped($event)"
               (cancelled)="onImageCancelled()"
             />
+          }
+          @if (picturePreview()) {
+            <div class="picture-preview">
+              <img [src]="picturePreview()" alt="Doctor photo" style="width:120px;height:120px;object-fit:cover" />
+              <button class="btn recrop-btn d-block mt-3" type="button" (click)="picturePreview.set(null)">Re-crop</button>
+            </div>
           }
         </div>
       }

@@ -42,7 +42,7 @@
         <input class="form-control " [(ngModel)]="searchTerm" placeholder="search by doctor or patient">
       </div>
     </div>
-    @if (allAppointments$ && ((allAppointments$ | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']).length === 0)) {
+    @if (allAppointments$ && ((allAppointments$ | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
       <div class="col-12 text-center py-5">
         <p class="text-muted">No pending appointments found</p>
       </div>

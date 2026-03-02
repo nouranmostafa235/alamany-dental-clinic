@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {SideBar} from '../side-bar/side-bar';
 import {DoctorsService} from '../../../services/doctors-service';
 import {AppointmentsService} from '../../../services/appointments-service';
 import {BlogPostService} from '../../../services/blog-post-service';
+import {AuthService} from '../../../services/auth-service';
+import {BehaviorSubject, catchError, switchMap, throwError} from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,5 +18,4 @@ import {BlogPostService} from '../../../services/blog-post-service';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-
 }

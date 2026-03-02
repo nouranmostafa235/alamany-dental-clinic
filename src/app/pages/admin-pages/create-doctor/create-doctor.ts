@@ -14,7 +14,9 @@ import {Specialization} from '../../../enums/specialization';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
 import {MatInput} from '@angular/material/input';
 import {MaterialCategory} from '../../../enums/material-category';
-import {CroppedResult, ImageAdjuster} from '../../../shared-components/image-adjuster/image-adjuster';
+import {ImageAdjuster, ImageAdjusterResult} from '../../../shared-components/image-adjuster/image-adjuster';
+import {ImagesAdjust} from '../../../services/images-adjust';
+
 
 @Component({
   selector: 'app-create-doctor',
@@ -26,7 +28,8 @@ import {CroppedResult, ImageAdjuster} from '../../../shared-components/image-adj
     MatOption,
     NgxMatTimepickerModule,
     MatInput,
-    ImageAdjuster
+    ImageAdjuster,
+
   ],
   templateUrl: './create-doctor.html',
   styleUrl: './create-doctor.css',
@@ -42,12 +45,13 @@ export class CreateDoctor implements OnInit{
   days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   specializationList = Object.values(Specialization);
   materialCategories = Object.values(MaterialCategory);
+  pictureOriginalPreview = signal<string | null>(null);  // full original
+  pictureCroppedPreview  = signal<string | null>(null);  // cropped square
   showImageAdjuster = signal(false);
   picturePreview = signal<string | null>(null);
-
   rawImageSrc: string | null = null;
   currentStep = signal(0);
-
+  private doctorImages = inject(ImagesAdjust);
   progressPercentage = computed(() =>
     ((this.currentStep()+1) / this.steps.length) * 100
   );
@@ -106,33 +110,38 @@ export class CreateDoctor implements OnInit{
     });
 
   }
-  onPictureChange(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    // Instead of setting directly, open the adjuster
-    this.showImageAdjuster.set(true);
-
-    // Pass raw file to adjuster via a temp src
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.rawImageSrc = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-    // const file = event.target.files[0];
-    // this.createDoctorForm
-    //   .get('personalInfo.picture')
-    //   ?.setValue(file);
-  }
-  onImageCropped(result: CroppedResult) {
-    // Set the cropped File into the form
+  // onPictureChange(event: any) {
+  //   const file = event.target.files[0];
+  //   if (!file) return;
+  //
+  //   // Instead of setting directly, open the adjuster
+  //   this.showImageAdjuster.set(true);
+  //
+  //   // Pass raw file to adjuster via a temp src
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     this.rawImageSrc = e.target?.result as string;
+  //   };
+  //   reader.readAsDataURL(file);
+  //   // const file = event.target.files[0];
+  //   // this.createDoctorForm
+  //   //   .get('personalInfo.picture')
+  //   //   ?.setValue(file);
+  // }
+  onImageCropped(result: ImageAdjusterResult) {
+    this.picturePreview.set(result.croppedBase64);
+    // 1. Store original File in form → will be sent to API
     this.createDoctorForm
       .get('personalInfo.picture')
-      ?.setValue(result.file);
+      ?.setValue(result.originalFile);
 
-    // Show preview
-    this.picturePreview.set(result.base64);
-    this.showImageAdjuster.set(false);
+    // 2. Store previews for display
+    this.doctorImages.setImages({
+      originalFile:   result.originalFile,
+      originalBase64: result.originalBase64,
+      croppedBase64:  result.croppedBase64,
+      croppedBlob:    result.croppedBlob,
+    });
   }
   onCertificateFileChange(event: any, index: number) {
     const file = event.target.files[0];

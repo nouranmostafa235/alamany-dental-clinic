@@ -15,6 +15,7 @@ export class DoctorReview implements OnInit{
   doctorData: any;
   allReviews: any = [];
   totalNoOfRatings: number = 0;
+  overAllRate = 0
   platformId  = inject(PLATFORM_ID)
   constructor(private doctorService: DoctorsService, private cdr: ChangeDetectorRef) {
   }
@@ -56,13 +57,26 @@ export class DoctorReview implements OnInit{
   }
   getReviews(id:any){
     this.doctorService.getReviews(id).subscribe(reviews => {
-      this.allReviews = reviews?.data.reviews;
-      this.totalNoOfRatings = reviews.pagination?.total;
+      this.allReviews = reviews?.data?.reviews;
+      this.overAllRate = reviews?.data?.ratingData?.averageRating;
+      this.totalNoOfRatings = reviews.data.ratingData?.totalRatings;
       this.cdr.detectChanges();
       console.log(this.allReviews);
     })
   }
   getStars(rating: number): number[] {
     return Array(5).fill(0).map((_, i) => i + 1);
+  }
+  getRate(rating: number): string[] {
+    const stars: string[] = [];
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+
+    for (let i = 0; i < full; i++) stars.push('fa-star');
+    for (let i = 0; i < half; i++) stars.push('fa-star-half-stroke');
+    for (let i = 0; i < empty; i++) stars.push('fa-star empty');
+
+    return stars;
   }
 }

@@ -1,6 +1,6 @@
-<div class="image-adjuster">
+<div class="adjuster-shell">
 
-  <!-- Drop Zone -->
+  <!-- ── Drop Zone ─────────────────────────────────────── -->
   @if (!imageSrc()) {
     <div
       class="drop-zone"
@@ -10,54 +10,113 @@
       (dragleave)="onDragLeave()"
     >
       <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileInput hidden />
-      <button type="button" (click)="fileInput.click()">Choose Image</button>
-      <p>or drag & drop here</p>
+
+      <div class="drop-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 3"/>
+          <path d="M24 16v16M16 24l8-8 8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="15" r="4" fill="currentColor" opacity=".15"/>
+          <circle cx="33" cy="15" r="2.5" fill="currentColor" opacity=".5"/>
+        </svg>
+      </div>
+
+      <p class="drop-title">Drop your photo here</p>
+      <p class="drop-sub">PNG, JPG, WEBP — up to {{ maxFileSizeMB }}MB</p>
+
+      <button class="choose-btn btn" type="button" (click)="fileInput.click()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Browse Files
+      </button>
+
       @if (error()) {
-        <p class="error">{{ error() }}</p>
+        <div class="error-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {{ error() }}
+        </div>
       }
     </div>
   }
 
-  <!-- Editor -->
+  <!-- ── Editor ─────────────────────────────────────────── -->
   @if (imageSrc()) {
     <div class="editor">
 
-      <!-- Canvas (crop preview) -->
-      <div class="canvas-wrapper" #container>
-        <canvas
-          #canvas
-          [style.cursor]="isDraggingImg ? 'grabbing' : 'grab'"
-          (mousedown)="onMouseDown($event)"
-          (mousemove)="onMouseMove($event)"
-          (mouseup)="onMouseUp()"
-          (mouseleave)="onMouseUp()"
-          (wheel)="onWheel($event)"
-          (touchstart)="onTouchStart($event)"
-          (touchmove)="onTouchMove($event)"
-          (touchend)="onTouchEnd()"
-        ></canvas>
+      <!-- Canvas -->
+      <div class="canvas-shell" #container>
+        <div class="canvas-frame">
+          <canvas
+            #canvas
+            [class.dragging]="isDraggingImg"
+            (mousedown)="onMouseDown($event)"
+            (mousemove)="onMouseMove($event)"
+            (mouseup)="onMouseUp()"
+            (mouseleave)="onMouseUp()"
+            (wheel)="onWheel($event)"
+            (touchstart)="onTouchStart($event)"
+            (touchmove)="onTouchMove($event)"
+            (touchend)="onTouchEnd()"
+          ></canvas>
+          <!-- Corner guides -->
+          <span class="guide tl"></span>
+          <span class="guide tr"></span>
+          <span class="guide bl"></span>
+          <span class="guide br"></span>
+        </div>
+        <p class="canvas-hint">Drag to reposition · Scroll or pinch to zoom</p>
       </div>
 
-      <!-- Controls -->
-      <div class="controls">
-        <button type="button" (click)="zoomOut()">－</button>
-        <input
-          type="range"
-          [min]="minScale"
-          [max]="4"
-          [step]="0.01"
-          [value]="scale()"
-          (input)="scale.set(+$any($event.target).value); clampOffset(); drawCanvas()"
-        />
-        <button type="button" (click)="zoomIn()">＋</button>
-        <button type="button" (click)="resetZoom()">Reset</button>
+      <!-- Zoom controls -->
+      <div class="zoom-bar">
+        <button class="zoom-btn" type="button" (click)="zoomOut()" title="Zoom out">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+
+        <div class="range-wrap">
+          <input
+            class="zoom-range"
+            type="range"
+            [min]="minScale"
+            [max]="4"
+            [step]="0.01"
+            [value]="scale()"
+            (input)="scale.set(+$any($event.target).value); clampOffset(); drawCanvas()"
+          />
+          <span class="zoom-label">{{ ((scale() / 4) * 100 | number:'1.0-0') }}%</span>
+        </div>
+
+        <button class="zoom-btn" type="button" (click)="zoomIn()" title="Zoom in">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+
+        <button class="reset-btn" type="button" (click)="resetZoom()" title="Reset zoom">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          Reset
+        </button>
       </div>
 
       <!-- Actions -->
-      <div class="actions">
-        <button type="button" (click)="cancel()">Cancel</button>
-        <button type="button" (click)="confirm()" [disabled]="isProcessing()">
-          {{ isProcessing() ? 'Processing...' : 'Apply' }}
+      <div class="action-row">
+        <button class="btn-cancel btn" type="button" (click)="cancel()">
+          Cancel
+        </button>
+        <button class="btn-apply btn" type="button" (click)="confirm()" [disabled]="isProcessing()">
+          @if (isProcessing()) {
+            <span class="spinner"></span> Processing…
+          } @else {
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Apply
+          }
         </button>
       </div>
 
