@@ -57,7 +57,7 @@ export class ServicesMangement implements OnInit {
   deleteService(id:any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       width: '400px',
-      data: { message: 'Are you sure you want to delete this Service?' }
+      data: { message: 'Are you sure you want to delete this Service?' , status: 'delete' }
     });
     dialogRef.afterClosed().subscribe((confirmed:any) => {
       if (confirmed) {

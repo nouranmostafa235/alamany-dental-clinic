@@ -26,4 +26,9 @@ export class AppointmentsService {
   setAppointmentData(data:any){
     this.appointmentsData.next(data);
   }
+  updateStatus(id:any,status:string): Observable<any>{
+    return this.http.put(`${this.baseApiUrl}${id}/status`, {
+      "status": status
+    })
+  }
 }

@@ -49,7 +49,7 @@ export class DashboardDoctors implements OnInit {
   deleteDoctor(id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       width: '400px',
-      data: { message: 'Are you sure you want to delete this doctor?' }
+      data: { message: 'Are you sure you want to delete this doctor?' , status:'delete' }
     });
 
     dialogRef.afterClosed().subscribe(confirmed => {

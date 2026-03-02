@@ -3,6 +3,10 @@
   width:35px;
   height:35px;
 }
+.calendar{
+  border-radius: 50%;
+  border: 1px solid var(--gray-color);
+}
 .first-card{
   background-color: #2B7FFF ;
 }
@@ -29,9 +33,12 @@
   background-color: #00C951;
   color: #fff;
 }
+.cancel{
+  border: 1px solid var(--gray-color);
+  color: #EE636D;
+}
 .user-btn{
   background-color: #E5E7EB;
-
 }
 .pending{
   background-color: #F0FAFD;

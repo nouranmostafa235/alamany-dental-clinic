@@ -9,7 +9,6 @@ import {DoctorsService} from '../../../services/doctors-service';
   selector: 'app-reviews-section',
   imports: [
     CarouselModule,
-    AsyncPipe
   ],
   templateUrl: './reviews-section.html',
   styleUrl: './reviews-section.css',

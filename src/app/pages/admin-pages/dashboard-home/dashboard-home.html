@@ -4,28 +4,28 @@
   <div class="row justify-content-center mt-4">
     <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
       <div >
-        <p class="description m-0">Total Patients</p>
-        <h5 class="fw-bold">1,284</h5>
+        <p class="description m-0">Total Doctors</p>
+        <h5 class="fw-bold">{{ (totalDoctors$ | async)?.pagination?.total }}</h5>
       </div>
-      <div class="icon first-card d-flex justify-content-center
+      <div class="icon sec-card d-flex justify-content-center
        align-items-center rounded-3 text-white">
         <i class="fa-solid fa-user-doctor"></i>
       </div>
     </div>
     <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
       <div >
-        <p class="description m-0">Active Doctors</p>
-        <h5 class="fw-bold">28</h5>
+        <p class="description m-0">Total Blogs</p>
+        <h5 class="fw-bold">{{ (totalBlogPosts$ | async)?.data.pagination?.totalBlogs }}</h5>
       </div>
-      <div class="icon sec-card d-flex justify-content-center
+      <div class="icon first-card d-flex justify-content-center
        align-items-center rounded-3 text-white">
-        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-file"></i>
       </div>
     </div>
     <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
       <div >
         <p class="description m-0">Total Appointments</p>
-        <h5 class="fw-bold">42</h5>
+        <h5 class="fw-bold">{{ (totalAppointments$ | async)?.pagination?.total }}</h5>
       </div>
       <div class="icon third-card d-flex justify-content-center
        align-items-center rounded-3 text-white">
@@ -36,64 +36,36 @@
   <div class="pending-container mt-5">
     <div class="row mb-3 px-3 pt-2">
       <div class="col-md-6">
-        <h5 class="title">Pending Verifications</h5>
+        <h5 class="title">Pending Confirmation</h5>
       </div>
       <div class="col-md-6">
-        <input class="form-control " placeholder="search with name or email">
+        <input class="form-control " [(ngModel)]="searchTerm" placeholder="search by doctor or patient">
       </div>
     </div>
+    @if (allAppointments$ && ((allAppointments$ | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']).length === 0)) {
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No pending appointments found</p>
+      </div>
+    }
+    @for (appoint of (allAppointments$|async|filter:searchTerm:['firstName', 'lastName','doctorProfileId.firstName','doctorProfileId.lastName']); track $index) {
+      <div class="p-4 d-flex justify-content-between rounded-4 mb-3 pending">
+        <div class="d-flex gap-3">
+          <div class="calendar d-flex justify-content-center align-items-center icon">
+            <i class="fa fa-calendar" style="color: var(--dark-bg-color)"></i>
+          </div>
 
-    <div class="p-4 d-flex justify-content-between rounded-4 mb-3 pending">
-      <div class="d-flex  gap-3">
-        <img class="img-thumbnail rounded-circle" src="img/images.jpg">
-        <div >
-          <p class="m-0">Dr. Emily Roberts</p>
-          <p class="description m-0">Endodontist</p>
-          <p class="m-0 description apply text-muted">Applied: Dec 26, 2024</p>
+          <div >
+            <p class="m-0">{{ appoint.firstName }} {{appoint.lastName}}</p>
+            <p class="description m-0">with dr. {{appoint.doctorProfileId.firstName}} {{appoint.doctorProfileId.lastName}}</p>
+            <p class="m-0 description apply text-muted">date: {{ appoint.appointmentDate | date:'fullDate' }}</p>
+          </div>
+        </div>
+        <div class="d-flex gap-3 ">
+          <button (click)="updateStatus(appoint._id,'confirmed')" class="btn btn-sm doctor-btn rounded-3 h-75">Confirm</button>
+          <button (click)="updateStatus(appoint._id,'cancelled')" class="btn btn-sm cancel rounded-3 h-75">Cancel</button>
         </div>
       </div>
-      <div class="d-flex gap-3 ">
-        <button class="btn btn-sm doctor-btn rounded-3 h-75">Approve</button>
-      </div>
-    </div>
-    <div class="p-4 d-flex justify-content-between rounded-4 mb-3 pending">
-      <div class="d-flex  gap-3">
-        <img class="img-thumbnail rounded-circle" src="img/images.jpg">
-        <div >
-          <p class="m-0">Dr. Emily Roberts</p>
-          <p class="description m-0">Endodontist</p>
-          <p class="m-0 description apply text-muted">Applied: Dec 26, 2024</p>
-        </div>
-      </div>
-      <div class="d-flex gap-3 ">
-        <button class="btn btn-sm doctor-btn rounded-3 h-75">Approve</button>
-      </div>
-    </div>
-    <div class="p-4 d-flex justify-content-between rounded-4 mb-3 pending">
-      <div class="d-flex  gap-3">
-        <img class="img-thumbnail rounded-circle" src="img/images.jpg">
-        <div >
-          <p class="m-0">Dr. Emily Roberts</p>
-          <p class="description m-0">Endodontist</p>
-          <p class="m-0 description apply text-muted">Applied: Dec 26, 2024</p>
-        </div>
-      </div>
-      <div class="d-flex gap-3 ">
-        <button class="btn btn-sm doctor-btn rounded-3 h-75">Approve</button>
-      </div>
-    </div>
-    <div class="p-4 d-flex justify-content-between rounded-4 pending">
-      <div class="d-flex  gap-3">
-        <img class="img-thumbnail rounded-circle" src="img/images.jpg">
-        <div >
-          <p class="m-0">Dr. Emily Roberts</p>
-          <p class="description m-0">Endodontist</p>
-          <p class="m-0 description apply text-muted">Applied: Dec 26, 2024</p>
-        </div>
-      </div>
-      <div class="d-flex gap-3 ">
-        <button class="btn btn-sm doctor-btn rounded-3 h-75">Approve</button>
-      </div>
-    </div>
+    }
+
   </div>
 </div>

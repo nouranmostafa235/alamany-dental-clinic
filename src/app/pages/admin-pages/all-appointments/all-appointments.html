@@ -1,104 +1,74 @@
-
-<div class="d-flex justify-content-between small-shadow p-3 mb-4 rounded-3">
-  <div class="d-flex gap-3">
-   <div class="text-center p-2 date-card text-white rounded-3">
-     <p class="m-0">Date</p>
-     <p class="m-0 fw-bold">Dec</p>
-     <p class="m-0 fw-bold">24,2025</p>
-   </div>
-    <div>
-      <p class="m-0 title">John Anderson</p>
-      <p class="m-0 description">Regular Checkup with <span style="color: var(--light-color)">
-        Dr. Sarah Johnson
-      </span>
-      </p>
-      <div class="d-flex gap-3">
-        <p class="m-0 description">
-          <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
-          john.a@email.com
-        </p>
-        <p class="m-0 description">
-          <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
-          +1 (555) 333-4444
-        </p>
-      </div>
-    </div>
+<input class="form-control mb-4 " [(ngModel)]="searchTerm" placeholder="search appointment...">
+@if (allAppointmentsList && ((allAppointmentsList | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
+  <div class="col-12 text-center py-5">
+    <p class="text-muted">No appointments found</p>
   </div>
-  <div>
-    <span class="badge rounded-pill confirmed-badge">
-      <i class="fa-regular fa-circle-check"></i> Confirmed</span>
-  </div>
-</div>
-
-<div class="small-shadow p-3 mb-4 rounded-3">
-  <div class="d-flex justify-content-between ">
-    <div class="d-flex gap-3">
-      <div class="text-center p-2 date-card text-white rounded-3">
-        <p class="m-0">Date</p>
-        <p class="m-0 fw-bold">Dec</p>
-        <p class="m-0 fw-bold">24,2025</p>
-      </div>
-      <div>
-        <p class="m-0 title">John Anderson</p>
-        <p class="m-0 description">Regular Checkup with <span style="color: var(--light-color)">
-        Dr. Sarah Johnson
+}
+@if (allAppointmentsList | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']; as appointments) {
+  @for (appoint of appointments; track $index) {
+      <div class="small-shadow p-3 mb-4 rounded-3">
+        <div class="d-flex justify-content-between ">
+          <div class="d-flex gap-3">
+            <div class="text-center p-2 date-card text-white rounded-3">
+              <p class="m-0">Date</p>
+              <p class="m-0 fw-bold">{{ appoint.appointmentDate | date:'MMM'}}</p>
+              <p class="m-0 fw-bold">{{ appoint.appointmentDate | date:'dd, yyyy'}}</p>
+            </div>
+            <div>
+              <p class="m-0 title">{{appoint.firstName }} {{appoint.lastName}}</p>
+              <p class="m-0 description">with <span style="color: var(--light-color)">
+        Dr. {{ appoint.doctorProfileId.firstName }} {{appoint.doctorProfileId.lastName}}
       </span>
-        </p>
-        <div class="d-flex gap-3">
-          <p class="m-0 description">
-            <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
-            john.a@email.com
-          </p>
-          <p class="m-0 description">
-            <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
-            +1 (555) 333-4444
-          </p>
+              </p>
+              <div class="d-flex gap-3">
+                <p class="m-0 description">
+                  <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
+                  {{ appoint.email }}
+                </p>
+                <p class="m-0 description">
+                  <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
+                  {{ appoint.phoneNumber }}
+                </p>
+              </div>
+            </div>
+          </div>
+          @if (appoint.status === 'pending'){
+            <div>
+              <span class="badge rounded-pill pending-badge">
+                 <i class="fa-solid fa-circle-info"></i> Pending</span>
+            </div>
+          }
+          @if (appoint.status === 'confirmed'){
+            <div>
+             <span class="badge rounded-pill confirmed-badge">
+              <i class="fa-regular fa-circle-check"></i> Confirmed</span>
+            </div>
+          }
+          @if (appoint.status === 'cancelled' ) {
+            <div>
+              <span class="badge rounded-pill cancel-badge">
+               <i class="fa-regular fa-circle-check"></i> Cancelled</span>
+            </div>
+          }
         </div>
-      </div>
-    </div>
-    <div>
-    <span class="badge rounded-pill pending-badge">
-      <i class="fa-solid fa-circle-info"></i> Pending</span>
-    </div>
-  </div>
-  <hr>
-  <div class="">
-    <button class="btn me-3 btn-sm rounded-3 text-white" style="background-color: #00C951">
-      <i class="fa-regular fa-circle-check"></i>
-      Confirm</button>
-    <button class="btn btn-sm cancel  rounded-3 bg-white" style="color:#ED3F47">
-        <i class="fa-regular fa-circle-xmark"></i>
-      Cancel</button>
-  </div>
-</div>
+        @if (appoint.status==='pending') {
+          <hr>
+          <div class="">
+            <button class="btn me-3 btn-sm rounded-3 text-white" style="background-color: #00C951">
+              <i class="fa-regular fa-circle-check"></i>
+              Confirm</button>
+            <button class="btn btn-sm cancel  rounded-3 bg-white" style="color:#ED3F47">
+              <i class="fa-regular fa-circle-xmark"></i>
+              Cancel</button>
+          </div>
+        }
 
-<div class="d-flex justify-content-between small-shadow p-3 mb-4 rounded-3">
-  <div class="d-flex gap-3">
-    <div class="text-center p-2 date-card text-white rounded-3">
-      <p class="m-0">Date</p>
-      <p class="m-0 fw-bold">Dec</p>
-      <p class="m-0 fw-bold">24,2025</p>
-    </div>
-    <div>
-      <p class="m-0 title">John Anderson</p>
-      <p class="m-0 description">Regular Checkup with <span style="color: var(--light-color)">
-        Dr. Sarah Johnson
-      </span>
-      </p>
-      <div class="d-flex gap-3">
-        <p class="m-0 description">
-          <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
-          john.a@email.com
-        </p>
-        <p class="m-0 description">
-          <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
-          +1 (555) 333-4444
-        </p>
       </div>
-    </div>
-  </div>
-  <div>
-    <span class="badge rounded-pill cancel-badge">
-      <i class="fa-regular fa-circle-check"></i> Cancelled</span>
-  </div>
-</div>
+
+  }
+}
+
+
+
+
+

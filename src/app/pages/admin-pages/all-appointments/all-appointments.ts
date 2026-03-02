@@ -1,18 +1,25 @@
 import {ChangeDetectorRef, Component, inject, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {AppointmentsService} from '../../../services/appointments-service';
-import {isPlatformBrowser} from '@angular/common';
+import {AsyncPipe, DatePipe, isPlatformBrowser} from '@angular/common';
 import {DoctorsService} from '../../../services/doctors-service';
+import {FilterPipe} from '../../../pipes/filter-pipe';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-all-appointments',
-  imports: [],
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    FilterPipe,
+    FormsModule
+  ],
   templateUrl: './all-appointments.html',
   styleUrl: './all-appointments.css',
 })
 export class AllAppointments implements OnInit {
-  allAppointmentsList: any
-   service = inject(AppointmentsService)
-  appointmentData$ = this.service.appointment$;
+  searchTerm: string = '';
+   service = inject(AppointmentsService);
+  allAppointmentsList = this.service.appointment$
  constructor(private cdr: ChangeDetectorRef,
              @Inject(PLATFORM_ID) private platformId: Object ) {
 
@@ -21,15 +28,7 @@ export class AllAppointments implements OnInit {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    this.loadAllAppointments()
   }
 
-  loadAllAppointments() {
-   this.service.getAllAppointments().subscribe({
-     next: data => {
-       this.allAppointmentsList = data.data
-       this.cdr.detectChanges();
-     }
-   })
-  }
+
 }
