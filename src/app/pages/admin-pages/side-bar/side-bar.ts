@@ -22,11 +22,6 @@ export class SideBar {
     this.isCollapsed = !this.isCollapsed;
   }
   logout() {
-    this.auth.logout().subscribe({
-      next: (res) => {
-        this.router.navigate(['/login']);
-      }
-    });
-
+    this.auth.logout()
   }
 }

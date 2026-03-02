@@ -2,11 +2,12 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../services/auth-service';
+import {TokenService} from '../services/token-service';
 
 export const adminAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
-  const auth = inject(AuthService);
+  const auth = inject(TokenService);
 
   // Allow access during SSR
   if (!isPlatformBrowser(platformId)) {
@@ -14,7 +15,7 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   }
 
   // Check if user is authenticated
-  if (auth.isAuthenticated()) {
+  if (auth.getToken()) {
     return true;
   }
 

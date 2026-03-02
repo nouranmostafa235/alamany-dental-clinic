@@ -56,10 +56,10 @@ export class DoctorReview implements OnInit{
   }
   getReviews(id:any){
     this.doctorService.getReviews(id).subscribe(reviews => {
-      this.allReviews = reviews.data;
-      this.totalNoOfRatings = reviews.pagination.total;
+      this.allReviews = reviews?.data.reviews;
+      this.totalNoOfRatings = reviews.pagination?.total;
       this.cdr.detectChanges();
-      console.log(reviews.pagination.total);
+      console.log(this.allReviews);
     })
   }
   getStars(rating: number): number[] {

@@ -19,15 +19,15 @@ constructor(private authService: AuthService ,
     })
   }
 
-  verifyEmail(){
-  this.authService.verifyEmail(this.token).subscribe({
-    next: result => {
-      console.log(result);
-      if(result.success){
-        this.router.navigate(['/']);
-
-      }
-    }
-  });
-  }
+  // verifyEmail(){
+  // this.authService.verifyEmail(this.token).subscribe({
+  //   next: result => {
+  //     console.log(result);
+  //     if(result.success){
+  //       this.router.navigate(['/']);
+  //
+  //     }
+  //   }
+  // });
+  // }
 }

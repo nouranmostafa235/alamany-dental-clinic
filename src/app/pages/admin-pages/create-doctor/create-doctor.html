@@ -40,9 +40,39 @@
           <input formControlName="lastName" placeholder="Last Name">
           <input formControlName="email" placeholder="Email">
           <input formControlName="phone" placeholder="Phone">
-          <input  type="file"
-                  accept="image/*"
-                  (change)="onPictureChange($event)">
+          @if (!showImageAdjuster()) {
+            <div class="picture-upload-area">
+              <!-- Preview -->
+              @if (picturePreview()) {
+                <div class="picture-preview">
+                  <img [src]="picturePreview()" alt="Doctor photo" />
+                  <button type="button" (click)="pictureInput.click()">Change Photo</button>
+                </div>
+              }
+              @if (!picturePreview()) {
+                <button type="button" (click)="pictureInput.click()">
+                  Upload Photo
+                </button>
+              }
+              <input
+                #pictureInput
+                type="file"
+                accept="image/*"
+                hidden
+                (change)="onPictureChange($event)">
+            </div>
+          }
+          @if (showImageAdjuster()) {
+            <app-image-adjuster
+              [aspectRatio]="1"
+              [outputWidth]="400"
+              [outputHeight]="400"
+              outputFormat="image/jpeg"
+              [quality]="0.92"
+              (imageCropped)="onImageCropped($event)"
+              (cancelled)="onImageCancelled()"
+            />
+          }
         </div>
       }
       @if (currentStep() === 1) {

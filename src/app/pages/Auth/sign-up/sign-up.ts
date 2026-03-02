@@ -7,7 +7,7 @@ import {AuthService} from '../../../services/auth-service';
 @Component({
   selector: 'app-sign-up',
   imports: [
-    RouterLink,
+    // RouterLink,
     CommonModule,
     ReactiveFormsModule
   ],
@@ -32,13 +32,13 @@ export class SignUp {
   togglePassConfirmed() {
     this.showPasswordConfirm = !this.showPasswordConfirm
   }
-  submitForm(form:any){
-    this.authService.signUp(form.value).subscribe({
-      next: (value) => {
-        if (value.success == true) {
-          this.router.navigate(['/verify-email']);
-        }
-      }
-    });
-  }
+  // submitForm(form:any){
+  //   this.authService.signUp(form.value).subscribe({
+  //     next: (value) => {
+  //       if (value.success == true) {
+  //         this.router.navigate(['/verify-email']);
+  //       }
+  //     }
+  //   });
+  // }
 }

@@ -14,6 +14,7 @@ import {Specialization} from '../../../enums/specialization';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
 import {MatInput} from '@angular/material/input';
 import {MaterialCategory} from '../../../enums/material-category';
+import {CroppedResult, ImageAdjuster} from '../../../shared-components/image-adjuster/image-adjuster';
 
 @Component({
   selector: 'app-create-doctor',
@@ -24,7 +25,8 @@ import {MaterialCategory} from '../../../enums/material-category';
     MatSelect,
     MatOption,
     NgxMatTimepickerModule,
-    MatInput
+    MatInput,
+    ImageAdjuster
   ],
   templateUrl: './create-doctor.html',
   styleUrl: './create-doctor.css',
@@ -40,6 +42,10 @@ export class CreateDoctor implements OnInit{
   days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   specializationList = Object.values(Specialization);
   materialCategories = Object.values(MaterialCategory);
+  showImageAdjuster = signal(false);
+  picturePreview = signal<string | null>(null);
+
+  rawImageSrc: string | null = null;
   currentStep = signal(0);
 
   progressPercentage = computed(() =>
@@ -102,15 +108,40 @@ export class CreateDoctor implements OnInit{
   }
   onPictureChange(event: any) {
     const file = event.target.files[0];
+    if (!file) return;
+
+    // Instead of setting directly, open the adjuster
+    this.showImageAdjuster.set(true);
+
+    // Pass raw file to adjuster via a temp src
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.rawImageSrc = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+    // const file = event.target.files[0];
+    // this.createDoctorForm
+    //   .get('personalInfo.picture')
+    //   ?.setValue(file);
+  }
+  onImageCropped(result: CroppedResult) {
+    // Set the cropped File into the form
     this.createDoctorForm
       .get('personalInfo.picture')
-      ?.setValue(file);
+      ?.setValue(result.file);
+
+    // Show preview
+    this.picturePreview.set(result.base64);
+    this.showImageAdjuster.set(false);
   }
   onCertificateFileChange(event: any, index: number) {
     const file = event.target.files[0];
     this.certificates.at(index)
       .get('certificateFile')
       ?.setValue(file);
+  }
+  onImageCancelled() {
+    this.showImageAdjuster.set(false);
   }
   onMaterialFileChange(event: any, index: number) {
     const file = event.target.files[0];
