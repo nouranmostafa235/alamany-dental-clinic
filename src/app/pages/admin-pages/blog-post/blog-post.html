@@ -10,11 +10,16 @@
       </div>
     </div>
 
-    <input class="form-control mb-3 " placeholder="search blog posts...">
+    <input [(ngModel)]="searchTerm" class="form-control mb-3 " placeholder="search blog posts...">
   }
 
   <div class="row g-4 container">
-    @for (blog of blogPost; track blog._id) {
+    @if (blogPost && (blogPost | filter:searchTerm:['title','tags'])?.length === 0) {
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No blogs found</p>
+      </div>
+    }
+    @for (blog of blogPost|filter:searchTerm:['title','tags']; track blog._id) {
       <div class="card  border-0 col-md-6">
         <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
           <img [src]="blog.coverImage" class="w-100 h-100 object-fit-cover" alt="">

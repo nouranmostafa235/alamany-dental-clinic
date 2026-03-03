@@ -1,19 +1,63 @@
-<div class="wrapper py-4">
-  <div class="content text-center">
-    <h5 class="fw-bold">You've selected:</h5>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="confirm-header">
+    <div class="step-badge">
+      <i class="fa fa-check"></i>
+      Doctor Selected
+    </div>
+    <h2 class="confirm-title">Great choice!</h2>
+    <p class="confirm-sub">Review your selection before finding a date</p>
   </div>
-  <div class="serviceInfo mx-auto p-4 mb-4">
-    <img class="dr-img img-thumbnail" [src]="doctorImage">
-    <h4 class="fw-bold mt-3">Dr.{{doctorName}}</h4>
-    <p>PLEASE NOTE: To complete your booking, please call us at (303) 228-0224 to place a $50 deposit.
-      Your deposit is fully refundable with at least 48 business hours'
-      notice, or it will be applied to your appointment.</p>
+
+  <!-- Doctor Card -->
+  <div class="doctor-spotlight">
+    <div class="spotlight-glow"></div>
+    <div class="doctor-avatar-wrap">
+      <img class="doctor-avatar" [src]="doctorImage" [alt]="doctorName">
+      <div class="avatar-verified">
+        <i class="fa fa-check"></i>
+      </div>
+    </div>
+    <h3 class="doctor-name">Dr. {{ doctorName }}</h3>
+    <div class="doctor-rating">
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star-half-alt"></i>
+      <span>4.5</span>
+    </div>
   </div>
-  <div>
-    <p class="big">Tap below to view current appointments date or go back to edit your selection.</p>
+
+  <!-- Notice -->
+  <div class="notice-card">
+    <div class="notice-icon">
+      <i class="fa fa-info-circle"></i>
+    </div>
+    <p class="notice-text">
+      To complete your booking, please call us at
+      <a href="tel:+13032280224" class="notice-link">(303) 228-0224</a>
+      to place a $50 deposit. Your deposit is fully refundable with at least
+      48 business hours' notice, or it will be applied to your appointment.
+    </p>
   </div>
-  <div class="mt-3">
-    <button class="btn d-block mx-auto mb-3 py-2" (click)="nextStep()">Find Date</button>
-    <button class="btn d-block mx-auto py-2" (click)="stepBack()">Change Doctor</button>
+
+  <!-- Hint -->
+  <p class="hint-text">
+    Tap below to view available appointment dates,<br>or go back to change your selection.
+  </p>
+
+  <!-- Actions -->
+  <div class="action-group">
+    <button class="btn-primary-action" (click)="nextStep()">
+      <span>Find a Date</span>
+      <i class="fa fa-calendar-alt"></i>
+    </button>
+    <button class="btn-ghost-action" (click)="stepBack()">
+      <i class="fa fa-arrow-left"></i>
+      <span>Change Doctor</span>
+    </button>
   </div>
+
 </div>

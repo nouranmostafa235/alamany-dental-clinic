@@ -1,58 +1,63 @@
-<div class="wrapper py-4">
-  <div class="content text-center">
-    <h4 class="fw-bold">We're looking forward to meeting you!</h4>
-    <p>Please choose doctor.</p>
+<div class="wrapper">
+  <div class="hero-header">
+<!--    <div class="hero-badge">-->
+<!--      <i class="fa fa-calendar-check"></i>-->
+<!--      Book Appointment-->
+<!--    </div>-->
+    <h2 class="hero-title">Find Your Doctor</h2>
+    <p class="hero-sub">Select a specialist to begin your consultation journey</p>
   </div>
 
-<div class="container">
-  @for (doctor of allDoctors; track doctor._id) {
-    <div (click)="nextStep(doctor.firstName+' '+doctor.lastName,doctor.picture, doctor._id)" class="row mb-2 message-card
-  position-relative p-2 rounded-3 align-items-center m-0">
-      <div class="p-0 col-md-2">
-        <img class="dr-img rounded-3" [src]="doctor.picture">
+  <div class="doctors-list">
+    @for (doctor of allDoctors; track doctor._id; let i = $index) {
+      <div
+        class="doctor-card"
+        [style.animation-delay]="i * 60 + 'ms'"
+        (click)="nextStep(doctor.firstName+' '+doctor.lastName, doctor.picture, doctor._id)">
+
+        <!-- Left accent bar -->
+        <div class="card-accent"></div>
+
+        <!-- Avatar -->
+        <div class="card-avatar-wrap">
+          <img class="card-avatar" [src]="doctor.picture" [alt]="doctor.firstName">
+          <div class="avatar-ring"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="card-info">
+          <div class="card-name">Dr. {{ doctor.firstName }} {{ doctor.lastName }}</div>
+          <div class="card-spec">{{ doctor.specialization?.join(' · ') || 'General Practitioner' }}</div>
+<!--          <div class="card-meta">-->
+<!--            <span class="meta-tag">-->
+<!--              <i class="fa fa-map-marker-alt"></i> Cairo-->
+<!--            </span>-->
+<!--            <span class="meta-tag">-->
+<!--              <i class="fa fa-clock"></i> Available today-->
+<!--            </span>-->
+<!--          </div>-->
+        </div>
+
+        <!-- Right side -->
+        <div class="card-right">
+          <div class="rating-badge">
+            <i class="fa fa-star"></i>
+            <span>4.5</span>
+          </div>
+          <button
+            type="button"
+            class="profile-btn"
+            (click)="$event.stopPropagation()"
+            [routerLink]="['/doctor-profile', doctor._id]">
+            View Profile
+          </button>
+<!--          <div class="select-hint">-->
+<!--            <i class="fa fa-arrow-right"></i>-->
+<!--          </div>-->
+        </div>
+
       </div>
-      <div class="col-md-9 px-5 d-flex flex-column gap-1">
-        <h4 class="text-start">Dr.{{doctor.firstName+' '+doctor.lastName  }}</h4>
-        <p class="text-start">{{ doctor.specialization?.join(', ') }}</p>
-        <button (click)="$event.stopPropagation()" [routerLink]="['/doctor-profile', doctor._id]" class="btn">View Profile</button>
-      </div>
-      <div class="icon position-absolute d-flex gap-1 justify-content-center align-items-center bg-white rounded-pill">
-        <i class="fa fa-star" style="color: gold"></i>
-        4.5
-      </div>
+    }
+  </div>
 
-    </div>
-  }
-
-
-</div>
-
-
-<!--  <div class="container row justify-content-center gap-3 mt-4">-->
-<!--    <div (click)="nextStep('adam')" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">-->
-<!--        <img src="img/images.png">-->
-<!--        <h6 class="bold mt-3">Dr. Adam Smith</h6>-->
-<!--        <p>General Dentistry</p>-->
-<!--      </div>-->
-<!--    <div (click)="nextStep('adam')" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">-->
-<!--      <img src="img/images.png">-->
-<!--      <h6 class="bold mt-3">Dr. Adam Smith</h6>-->
-<!--      <p>General Dentistry</p>-->
-<!--    </div>-->
-<!--    <div (click)="nextStep('adam')" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">-->
-<!--      <img src="img/images.png">-->
-<!--      <h6 class="bold mt-3">Dr. Adam Smith</h6>-->
-<!--      <p>General Dentistry</p>-->
-<!--    </div>-->
-<!--    <div (click)="nextStep('adam')" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">-->
-<!--      <img src="img/images.png">-->
-<!--      <h6 class="bold mt-3">Dr. Adam Smith</h6>-->
-<!--      <p>General Dentistry</p>-->
-<!--    </div>-->
-<!--    <div (click)="nextStep('adam')" class="col-md-5 card justify-content-center align-items-center d-flex flex-column px-2 py-4">-->
-<!--      <img src="img/images.png">-->
-<!--      <h6 class="bold mt-3">Dr. Adam Smith</h6>-->
-<!--      <p>General Dentistry</p>-->
-<!--    </div>-->
-<!--  </div>-->
 </div>

@@ -8,16 +8,19 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateServiceForm} from '../create-service-form/create-service-form';
 import {CreatBlogPostForm} from '../../home-pages/creat-blog-post-form/creat-blog-post-form';
 import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
+import {FormsModule} from '@angular/forms';
+import {FilterPipe} from '../../../pipes/filter-pipe';
 
 @Component({
   selector: 'app-blog-post',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, FilterPipe],
   templateUrl: './blog-post.html',
   styleUrl: './blog-post.css',
 })
 export class BlogPost implements OnInit{
   currentRoute: string = ''
   blogPost: any[]=[];
+  searchTerm: string = '';
   constructor(private router: Router,
               private blogService:BlogPostService,
               private cdr: ChangeDetectorRef,

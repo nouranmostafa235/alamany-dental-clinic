@@ -24,7 +24,7 @@ export class AppointmentCalendar implements OnInit {
     'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
     'Thursday': 4, 'Friday': 5, 'Saturday': 6
   };
-  currentDate = signal(new Date(2026, 0, 1));
+  currentDate = signal(new Date());
   enabledDays = signal<number[]>([]);
   selectedDay = signal<number | null>(null);
   loading = signal(false);
@@ -92,9 +92,15 @@ export class AppointmentCalendar implements OnInit {
       this.currentDate().getMonth() + direction,
       1
     );
+
+    // ← Don't allow going before current month
+    const today = new Date();
+    const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+    if (newDate < currentMonthStart) return;
+
     this.currentDate.set(newDate);
     this.selectedDay.set(null);
-    this.computeEnabledDays()
+    this.computeEnabledDays();
   }
   isDayEnabled(day: number | null): boolean {
     return day !== null && this.enabledDays().includes(day);
@@ -140,11 +146,19 @@ export class AppointmentCalendar implements OnInit {
       }
     })
   }
+  isCurrentMonth = computed(() => {
+    const today = new Date();
+    return this.currentDate().getFullYear() === today.getFullYear()
+      && this.currentDate().getMonth() === today.getMonth();
+  });
   computeEnabledDays() {
     const date = this.currentDate();
     const year = date.getFullYear();
     const month = date.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // ← normalize to midnight for clean comparison
 
     const enabledWeekdays = this.officeHours().map(
       oh => this.dayNameToIndex[oh.day]
@@ -152,8 +166,11 @@ export class AppointmentCalendar implements OnInit {
 
     const enabledDates: number[] = [];
     for (let d = 1; d <= daysInMonth; d++) {
-      const weekday = new Date(year, month, d).getDay();
-      if (enabledWeekdays.includes(weekday)) {
+      const cellDate = new Date(year, month, d);
+      const weekday = cellDate.getDay();
+
+      // ← Only include if it's today or future AND matches office hours
+      if (cellDate >= today && enabledWeekdays.includes(weekday)) {
         enabledDates.push(d);
       }
     }
