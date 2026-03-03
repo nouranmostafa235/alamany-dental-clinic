@@ -35,7 +35,6 @@
             {{blog.summary }}
           </p>
           <hr>
-          <p class="description"><i class="fa-solid fa-user-doctor"></i> {{ blog.author }}</p>
           <div class="d-flex gap-2 mb-3">
             @for (tag of blog.tags; track $index) {
               <span class="badge fw-light rounded-pill" style="color: var(--light-color)"> {{ tag }}</span>

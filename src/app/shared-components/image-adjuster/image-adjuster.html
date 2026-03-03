@@ -1,126 +1,119 @@
-<div class="adjuster-shell">
+<div class="ic-wrapper">
 
-  <!-- ── Drop Zone ─────────────────────────────────────── -->
+  <!-- Drop / Pick zone -->
   @if (!imageSrc()) {
     <div
-      class="drop-zone"
-      [class.dragging]="isDragging()"
-      (drop)="onDrop($event)"
+      class="ic-dropzone"
+      [class.ic-dragover]="isDragOver()"
       (dragover)="onDragOver($event)"
-      (dragleave)="onDragLeave()"
+      (dragleave)="isDragOver.set(false)"
+      (drop)="onDrop($event)"
+      (click)="fileInput.click()"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="fileInput.click()"
+      aria-label="Upload image"
     >
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileInput hidden />
-
-      <div class="drop-icon">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 3"/>
-          <path d="M24 16v16M16 24l8-8 8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="33" cy="15" r="4" fill="currentColor" opacity=".15"/>
-          <circle cx="33" cy="15" r="2.5" fill="currentColor" opacity=".5"/>
-        </svg>
-      </div>
-
-      <p class="drop-title">Drop your photo here</p>
-      <p class="drop-sub">PNG, JPG, WEBP — up to {{ maxFileSizeMB }}MB</p>
-
-      <button class="choose-btn btn" type="button" (click)="fileInput.click()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
-        </svg>
-        Browse Files
-      </button>
-
-      @if (error()) {
-        <div class="error-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          {{ error() }}
-        </div>
-      }
+      <svg class="ic-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0
+                 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+      </svg>
+      <p class="ic-drop-label">Drop an image or <span>browse</span></p>
+      <p class="ic-drop-hint">JPG, PNG, WEBP — max {{ maxSizeMb }} MB</p>
     </div>
   }
 
-  <!-- ── Editor ─────────────────────────────────────────── -->
+  <!-- Cropper canvas area -->
   @if (imageSrc()) {
-    <div class="editor">
+    <div class="ic-editor">
+      <div
+        class="ic-canvas-wrap"
+        [style.width.px]="frameSize"
+        [style.height.px]="frameSize"
+      >
+        <canvas
+          #canvas
+          [width]="frameSize"
+          [height]="frameSize"
+          class="ic-canvas"
+          (mousedown)="startDrag($event)"
+          (mousemove)="onDrag($event)"
+          (mouseup)="stopDrag()"
+          (mouseleave)="stopDrag()"
+          (touchstart)="startTouchDrag($event)"
+          (touchmove)="onTouchDrag($event)"
+          (touchend)="stopDrag()"
+        ></canvas>
 
-      <!-- Canvas -->
-      <div class="canvas-shell" #container>
-        <div class="canvas-frame">
-          <canvas
-            #canvas
-            [class.dragging]="isDraggingImg"
-            (mousedown)="onMouseDown($event)"
-            (mousemove)="onMouseMove($event)"
-            (mouseup)="onMouseUp()"
-            (mouseleave)="onMouseUp()"
-            (wheel)="onWheel($event)"
-            (touchstart)="onTouchStart($event)"
-            (touchmove)="onTouchMove($event)"
-            (touchend)="onTouchEnd()"
-          ></canvas>
-          <!-- Corner guides -->
-          <span class="guide tl"></span>
-          <span class="guide tr"></span>
-          <span class="guide bl"></span>
-          <span class="guide br"></span>
-        </div>
-        <p class="canvas-hint">Drag to reposition · Scroll or pinch to zoom</p>
+        <!-- Frame overlay -->
+        <div
+          class="ic-frame-overlay"
+          [class.ic-frame--circle]="shape === 'circle'"
+          [class.ic-frame--square]="shape === 'square'"
+          [class.ic-frame--rect]="shape === 'rect'"
+        ></div>
       </div>
 
-      <!-- Zoom controls -->
-      <div class="zoom-bar">
-        <button class="zoom-btn" type="button" (click)="zoomOut()" title="Zoom out">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-
-        <div class="range-wrap">
-          <input
-            class="zoom-range"
-            type="range"
-            [min]="minScale"
-            [max]="4"
-            [step]="0.01"
-            [value]="scale()"
-            (input)="scale.set(+$any($event.target).value); clampOffset(); drawCanvas()"
-          />
-          <span class="zoom-label">{{ ((scale() / 4) * 100 | number:'1.0-0') }}%</span>
-        </div>
-
-        <button class="zoom-btn" type="button" (click)="zoomIn()" title="Zoom in">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-
-        <button class="reset-btn" type="button" (click)="resetZoom()" title="Reset zoom">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-            <path d="M3 3v5h5"/>
+      <!-- Controls -->
+      <div class="ic-controls">
+        <label class="ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
           </svg>
+          Zoom
+        </label>
+        <input
+          type="range" class="ic-range"
+          min="0.5" max="3" step="0.01"
+          [value]="scale()"
+          (input)="onScaleChange($event)"
+        />
+        <span class="ic-range-val">{{ (scale() * 100).toFixed(0) }}%</span>
+      </div>
+
+      <div class="ic-controls">
+        <label class="ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Rotate
+        </label>
+        <input
+          type="range" class="ic-range"
+          min="-180" max="180" step="1"
+          [value]="rotation()"
+          (input)="onRotationChange($event)"
+        />
+        <span class="ic-range-val">{{ rotation() }}°</span>
+      </div>
+
+      <div class="ic-actions">
+        <button type="button" class="ic-btn ic-btn--ghost" (click)="reset()">
           Reset
         </button>
-      </div>
-
-      <!-- Actions -->
-      <div class="action-row">
-        <button class="btn-cancel btn" type="button" (click)="cancel()">
-          Cancel
+        <button type="button" class="ic-btn ic-btn--ghost" (click)="changeImage()">
+          Change
         </button>
-        <button class="btn-apply btn" type="button" (click)="confirm()" [disabled]="isProcessing()">
-          @if (isProcessing()) {
-            <span class="spinner"></span> Processing…
-          } @else {
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Apply
-          }
+        <button type="button" class="ic-btn ic-btn--primary" (click)="confirm()" [disabled]="isSaving()">
+          @if (isSaving()) { Saving… } @else { {{ confirmLabel }} }
         </button>
       </div>
-
     </div>
   }
 
+  <!-- Hidden file input -->
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    class="ic-file-hidden"
+    (change)="onFileSelected($event)"
+  />
+
+  @if (errorMsg()) {
+    <p class="ic-error" role="alert">{{ errorMsg() }}</p>
+  }
 </div>

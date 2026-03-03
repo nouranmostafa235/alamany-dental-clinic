@@ -36,32 +36,31 @@
     <form [formGroup]="createDoctorForm">
       @if (currentStep() === 0) {
         <div formGroupName="personalInfo" class="fade-in">
-          <input formControlName="firstName" placeholder="First Name">
-          <input formControlName="lastName" placeholder="Last Name">
-          <input formControlName="email" placeholder="Email">
-          <input formControlName="phone" placeholder="Phone">
-          @if (!picturePreview()) {
-            <app-image-adjuster
-              [aspectRatio]="1"
-              [outputWidth]="400"
-              [outputHeight]="400"
-              outputFormat="image/jpeg"
-              [quality]="0.92"
-              (imageCropped)="onImageCropped($event)"
-              (cancelled)="onImageCancelled()"
-            />
-          }
-          @if (picturePreview()) {
-            <div class="picture-preview">
-              <img [src]="picturePreview()" alt="Doctor photo" style="width:120px;height:120px;object-fit:cover" />
-              <button class="btn recrop-btn d-block mt-3" type="button" (click)="picturePreview.set(null)">Re-crop</button>
+          <input formControlName="firstName" placeholder="First Name *">
+          <input formControlName="lastName" placeholder="Last Name *">
+          <input formControlName="email" placeholder="Email *">
+          <input formControlName="phone" placeholder="Phone *">
+          @if (avatarPreviewUrl()) {
+            <div class="avatar-wrap">
+              <img [src]="avatarPreviewUrl()" alt="Doctor avatar" class="avatar" />
+              <button (click)="avatarPreviewUrl.set(null)">Change photo</button>
             </div>
+          }
+
+          <!-- Cropper — shown when no avatar saved yet -->
+          @if (!avatarPreviewUrl()) {
+            <app-image-adjuster
+              shape="square"
+              [frameSize]="300"
+              confirmLabel="Use Photo"
+              (cropped)="onImageCropped($event)"
+            />
           }
         </div>
       }
       @if (currentStep() === 1) {
         <div formGroupName="professionalInfo" class="fade-in">
-          <input formControlName="bio" placeholder="About Doctor">
+          <input formControlName="bio" placeholder="About Doctor *">
           <mat-form-field >
 
             <mat-select placeholder="Specialization" formControlName="specialization" multiple>
@@ -70,7 +69,7 @@
               }
             </mat-select>
           </mat-form-field>
-          <input formControlName="licenseNumber" placeholder="License Number">
+          <input formControlName="licenseNumber" placeholder="License Number *">
           <input formControlName="yearsOfExperience" placeholder="Years of Experience">
         </div>
       }
@@ -193,7 +192,7 @@
 
                 </div>
                 <select formControlName="day" class="form-select">
-                  <option selected value="">Choose Day</option>
+                  <option selected value="">Choose Day *</option>
                   @for (d of days; track $index) {
                     <option [value]="d">{{ d }}</option>
                   }
@@ -203,7 +202,7 @@
                   <input matInput
                          [ngxMatTimepicker]="openPicker"
                          formControlName="open"
-                         placeholder="Open time"
+                         placeholder="Open time *"
                          readonly />
                   <ngx-mat-timepicker-toggle matSuffix [for]="openPicker" />
                   <ngx-mat-timepicker #openPicker />
@@ -212,7 +211,7 @@
                   <input matInput
                          [ngxMatTimepicker]="closePicker"
                          formControlName="close"
-                         placeholder="Close time"
+                         placeholder="Close time *"
                          readonly />
                   <ngx-mat-timepicker-toggle matSuffix [for]="closePicker" />
                   <ngx-mat-timepicker #closePicker />
@@ -240,6 +239,7 @@
 
     @if (currentStep()<steps.length-1) {
       <button
+       [disabled]="!isStepValid()"
         class="btn primary"
         (click)="nextStep()"
       >

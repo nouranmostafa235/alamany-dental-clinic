@@ -12,12 +12,12 @@
 
   <input [(ngModel)]="searchTerm" class="form-control mb-3 " placeholder="search doctors...">
     <div class="row justify-content-between g-3 ">
-      @if (allDoctors && (allDoctors | filter:searchTerm:['firstName','email']).length === 0) {
+      @if (allDoctors && (allDoctors|async | filter:searchTerm:['firstName','email'])?.length === 0) {
         <div class="col-12 text-center py-5">
           <p class="text-muted">No doctors found</p>
         </div>
       }
-      @for (doctor of allDoctors | filter:searchTerm:['firstName','email']; track doctor._id) {
+      @for (doctor of allDoctors|async | filter:searchTerm:['firstName','email']; track doctor._id) {
         <div class="col-md-6">
           <div class="doctor-list px-3 pt-3 rounded-3">
             <div class="d-flex gap-3">
@@ -26,7 +26,7 @@
               </div>
               <div class="col-md-8 d-flex flex-column mb-3 gap-1">
                 <p class="m-0">Dr. {{ doctor?.firstName }} {{doctor?.lastName}}</p>
-                <p class="small-title m-0">{{ doctor?.specialization.join(',') }}</p>
+                <p class="small-title m-0">{{ doctor?.specialization?.join(',') || '—'}}</p>
                 <p class="m-0 description apply text-muted">
                   <i class="fa-regular fa-envelope" ></i>
                   {{ doctor?.email }}</p>

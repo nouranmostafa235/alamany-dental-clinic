@@ -14,7 +14,7 @@
   </div>
   <div class="form-card">
     <form [formGroup]="reviewForm" (ngSubmit)="createReview()">
-      <input class="form-control" placeholder="Your Name">
+      <input formControlName="name" class="form-control" placeholder="Your Name">
       <div class="stars-wrapper d-flex justify-content-center">
         @for (star of stars; track star) {
           <span

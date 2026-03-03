@@ -7,6 +7,7 @@ import {BlogPostService} from '../../../services/blog-post-service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateServiceForm} from '../create-service-form/create-service-form';
 import {CreatBlogPostForm} from '../../home-pages/creat-blog-post-form/creat-blog-post-form';
+import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-blog-post',
@@ -37,7 +38,10 @@ export class BlogPost implements OnInit{
    })
  }
   openForm() {
-    const dialogRef = this.dialog.open(CreatBlogPostForm, {});
+    const dialogRef = this.dialog.open(CreatBlogPostForm, {
+      width: '800px',
+      maxWidth: '95vw',
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -53,10 +57,19 @@ export class BlogPost implements OnInit{
     })
   }
   deleteBlogPost(id:any){
-    this.blogService.deleteBlogPosts(id).subscribe({
-      next: (data: any) => {
-        this.cdr.detectChanges();
-      }
+    const dialogRef = this.dialog.open(ConfirmationDialog,{
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this Blog?' , status: 'delete' }
     })
+    dialogRef.afterClosed().subscribe((confirmed:any) => {
+      if (confirmed) {
+        this.blogService.deleteBlogPosts(id).subscribe({
+          next: (data: any) => {
+            this.loadBlogPosts();
+          }
+        })
+      }
+    });
+
   }
 }

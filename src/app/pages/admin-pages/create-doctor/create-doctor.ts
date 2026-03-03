@@ -14,7 +14,7 @@ import {Specialization} from '../../../enums/specialization';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
 import {MatInput} from '@angular/material/input';
 import {MaterialCategory} from '../../../enums/material-category';
-import {ImageAdjuster, ImageAdjusterResult} from '../../../shared-components/image-adjuster/image-adjuster';
+import {CropResult, ImageAdjuster, ImageAdjusterResult} from '../../../shared-components/image-adjuster/image-adjuster';
 import {ImagesAdjust} from '../../../services/images-adjust';
 
 
@@ -47,6 +47,8 @@ export class CreateDoctor implements OnInit{
   materialCategories = Object.values(MaterialCategory);
   pictureOriginalPreview = signal<string | null>(null);  // full original
   pictureCroppedPreview  = signal<string | null>(null);  // cropped square
+  avatarPreviewUrl = signal<string | null>(null);
+  cropResult = signal<CropResult | null>(null);
   showImageAdjuster = signal(false);
   picturePreview = signal<string | null>(null);
   rawImageSrc: string | null = null;
@@ -60,21 +62,21 @@ export class CreateDoctor implements OnInit{
   constructor(private fb: FormBuilder) {
     this.createDoctorForm = this.fb.group({
       personalInfo: this.fb.group({
-        firstName: new FormControl(''),
-        lastName: new FormControl(''),
-        email: new FormControl(''),
-        phone: new FormControl(''),
+        firstName: new FormControl('',Validators.required),
+        lastName: new FormControl('',Validators.required),
+        email: new FormControl('',Validators.required),
+        phone: new FormControl('',Validators.required),
         picture: new FormControl(),
       }),
       professionalInfo: this.fb.group({
         yearsOfExperience: new FormControl(''),
         specialization: this.fb.control([]),
-        licenseNumber: new FormControl('DDS-1439856'),
-        bio: new FormControl(''),
+        licenseNumber: new FormControl('', Validators.required),
+        bio: new FormControl('',Validators.required),
       }),
       certificates: this.fb.array([]),
       materials: this.fb.array([]),
-      officeHours: this.fb.array([]),
+      officeHours: this.fb.array([],Validators.required),
     })
   }
   ngOnInit() {
@@ -93,7 +95,6 @@ export class CreateDoctor implements OnInit{
     return group.valid;
   }
   nextStep() {
-    console.log(this.isStepValid())
     if (this.isStepValid())
       this.currentStep.update(s => s + 1);
   }
@@ -128,20 +129,21 @@ export class CreateDoctor implements OnInit{
   //   //   .get('personalInfo.picture')
   //   //   ?.setValue(file);
   // }
-  onImageCropped(result: ImageAdjusterResult) {
-    this.picturePreview.set(result.croppedBase64);
+  onImageCropped(result: CropResult) {
+    this.cropResult.set(result);
+    this.avatarPreviewUrl.set(result.croppedPreviewUrl);
     // 1. Store original File in form → will be sent to API
     this.createDoctorForm
       .get('personalInfo.picture')
       ?.setValue(result.originalFile);
 
-    // 2. Store previews for display
-    this.doctorImages.setImages({
-      originalFile:   result.originalFile,
-      originalBase64: result.originalBase64,
-      croppedBase64:  result.croppedBase64,
-      croppedBlob:    result.croppedBlob,
-    });
+    // // 2. Store previews for display
+    // this.doctorImages.setImages({
+    //   originalFile:   result.originalFile,
+    //   originalBase64: result.originalBase64,
+    //   croppedBase64:  result.croppedBase64,
+    //   croppedBlob:    result.croppedBlob,
+    // });
   }
   onCertificateFileChange(event: any, index: number) {
     const file = event.target.files[0];

@@ -37,7 +37,7 @@
                     <i style="color: var(--dark-bg-color)" class="fa-regular fa-l fa-user"></i>
                   </div>
                   <div>
-                    <p class="m-0" style="color:var(--dark-bg-color);">Linda Lwies</p>
+                    <p class="m-0" style="color:var(--dark-bg-color);">{{ review.name }}</p>
                     <div class="stars">
                       @for (star of getStars(review.rating); track star) {
                         <span [class.filled]="star <= review.rating"><i class="fa fa-2xs fa-star"></i></span>

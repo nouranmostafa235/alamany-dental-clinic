@@ -21,21 +21,21 @@
     <div class="book-form">
       <div class="row m-0 mt-3 justify-content-center">
         <div class="col-md-5">
-          <input formControlName="firstName" class="form-control" placeholder="First Name">
+          <input formControlName="firstName" class="form-control" placeholder="First Name *">
         </div>
         <div class="col-md-5">
-          <input formControlName="lastName" class="form-control" placeholder="Last Name">
+          <input formControlName="lastName" class="form-control" placeholder="Last Name *">
         </div>
       </div>
       <div class="row m-0 mt-3 justify-content-center">
         <div class="col-md-10">
-          <input formControlName="email" class="form-control" placeholder="Email">
+          <input formControlName="email" class="form-control" placeholder="Email *">
         </div>
       </div>
       <div class="row m-0 mt-3 justify-content-center">
         <div class="col-md-10">
           <select formControlName="gender" class="form-select">
-            <option disabled value="">Gender</option>
+            <option disabled value="">Gender *</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
 
@@ -47,27 +47,27 @@
           <p class="form-check-label m-0 mb-1 text-start">Date of Birth</p>
           <div class="col-md-6">
             <select formControlName="month" class="form-select">
-              <option disabled value="">MM</option>
+              <option disabled value="">MM *</option>
               @for (month of months; track $index){
                 <option [value]="month">{{month}}</option>
               }
             </select>
           </div>
           <div class="col-md-3">
-            <input formControlName="day" class=" form-control" placeholder="DD">
+            <input formControlName="day" class=" form-control" placeholder="DD *">
           </div>
           <div class="col-md-3">
-            <input formControlName="year" class="col-md-3 form-control" placeholder="YYYY">
+            <input formControlName="year" class="col-md-3 form-control" placeholder="YYYY *">
           </div>
 
         </div>
       </div>
       <div class="row m-0 mt-3 justify-content-center">
         <div class="col-md-10">
-          <input formControlName="phoneNumber" class="form-control" placeholder="Phone Number" type="tel">
+          <input formControlName="phoneNumber" class="form-control" placeholder="Phone Number *" type="tel">
         </div>
       </div>
-      <button type="submit" class="btn w-25 mt-4">Book</button>
+      <button [disabled]="bookAppointmentForm.invalid" type="submit" class="btn w-25 mt-4">Book</button>
     </div>
   </form>
 

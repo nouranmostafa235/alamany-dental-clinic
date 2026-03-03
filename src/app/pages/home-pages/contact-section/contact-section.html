@@ -6,22 +6,22 @@
         <form [formGroup]="messageForm" (ngSubmit)="createMessage(messageForm)">
           <div class="d-flex flex-column gap-4">
             <div>
-              <label class="form-check-label">Name</label>
+              <label class="form-check-label">Name <span class="err-msg">*</span></label>
               <input formControlName="name" type="text" placeholder="Your Name" class="form-control">
             </div>
             <div>
-              <label class="form-check-label">Email</label>
+              <label class="form-check-label">Email <span class="err-msg">*</span></label>
               <input formControlName="email" type="email" placeholder="Your.email@example.com" class="form-control">
             </div>
             <div>
-              <label class="form-check-label">Phone</label>
+              <label class="form-check-label">Phone <span class="err-msg">*</span></label>
               <input formControlName="phone" type="tel" placeholder="+20 XXX XXX XXX" class="form-control">
             </div>
             <div>
-              <label class="form-check-label">Message</label>
+              <label class="form-check-label">Message <span class="err-msg">*</span></label>
               <textarea formControlName="message" placeholder="Tell us how we can help you..." class="form-control"></textarea>
             </div>
-            <button type="submit" class="btn">Send Message</button>
+            <button [disabled]="messageForm.invalid" type="submit" class="btn">Send Message</button>
           </div>
 
         </form>

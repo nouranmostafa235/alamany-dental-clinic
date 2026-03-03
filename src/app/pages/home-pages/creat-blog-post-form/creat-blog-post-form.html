@@ -1,34 +1,50 @@
-<div style="background-color: #FAFAFA" class="p-4">
-  <h2 mat-dialog-title >Creat Blog Post</h2>
-
-    <div class="d-flex gap-2">
-      <div class="col-md-6 h-100 bg-white p-2 rounded-2">
-        <label>Title <span style="color: red">*</span></label>
-        <input class="form-control mb-2" type="text">
-        <label>Summary <span style="color: red">*</span></label>
-        <input class="form-control mb-2" type="text">
-        <label>Content <span style="color: red">*</span></label>
-        <textarea class="form-control mb-2" rows="5"></textarea>
-      </div>
-      <div class="col-md-6 gap-3 d-flex flex-column">
-        <div class="p-3 rounded-2 bg-white">
-            <label>Blog Post Cover <span style="color: red">*</span></label>
-            <input class="form-control" type="file" accept="image">
+<div style="background-color: #FAFAFA" class="wizard-container">
+  <div class="wizard-header">
+    <h2>Add Blog</h2>
+  </div>
+  <div class="form-card">
+    <form [formGroup]="createBlogPostForm" (ngSubmit)="createBlog()">
+      <div class="d-flex gap-2">
+        <div class="col-md-6 h-100 bg-white p-2 rounded-2">
+          <input formControlName="title" class="form-control mb-2" placeholder="Title *" type="text">
+          <input formControlName="summary" class="form-control mb-2" placeholder="Summary *" type="text">
+          <textarea formControlName="content" placeholder="Content *" class="form-control mb-2" rows="5"></textarea>
+          <select formControlName="category" class="form-select">
+            <option selected value="">Category *</option>
+            @for (category of categoryList ; track $index) {
+              <option [value]='category'>{{ category }}</option>
+            }
+          </select>
         </div>
-        <div class="p-2 rounded-2 bg-white">
-          <label>Category <span style="color: red">*</span></label>
-          <input class="form-control mb-3" type="text">
-          <label>Tags <span style="color: red">*</span></label>
-            <tag-input [(ngModel)]="items"
-                       (onSelect)="onSelect($event)"
-                       [modelAsStrings]="true">
+        <div class="col-md-6 gap-3 d-flex flex-column">
+          <div class="p-3 rounded-2 bg-white">
+            @if (avatarPreviewUrl()) {
+              <div class="avatar-wrap">
+                <img [src]="avatarPreviewUrl()" alt="Doctor avatar" class="avatar" />
+                <button type="button" (click)="avatarPreviewUrl.set(null)">Change photo</button>
+              </div>
+            }
+            @if (!avatarPreviewUrl()) {
+              <app-image-adjuster
+                shape="square"
+                [frameSize]="100"
+                confirmLabel="Use Photo"
+                (cropped)="onImageCropped($event)"
+              />
+            }
+          </div>
+          <div class="p-2 rounded-2 bg-white">
+            <tag-input
+              [(ngModel)]="items"
+              [ngModelOptions]="{standalone: true}"
+              (onAdd)="onTagChange()"
+              (onRemove)="onTagChange()"
+              [modelAsStrings]="true">
             </tag-input>
+          </div>
         </div>
       </div>
-    </div>
-
-
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Close</button>
-  </mat-dialog-actions>
+      <button [disabled]="createBlogPostForm.invalid" type="submit" class="btn d-block mx-auto mt-3 px-5">Create</button>
+    </form>
+  </div>
 </div>

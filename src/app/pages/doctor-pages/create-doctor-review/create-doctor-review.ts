@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output, signal} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DoctorsService} from '../../../services/doctors-service';
 @Component({
@@ -14,6 +14,7 @@ import {DoctorsService} from '../../../services/doctors-service';
 export class CreateDoctorReview implements OnInit {
   doctorData:any;
   reviewForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
     comment: new FormControl(''),
   });
  constructor( private dialogRef: MatDialogRef<CreateDoctorReview>,
@@ -48,7 +49,8 @@ ngOnInit() {
    const request= {
      rating: this.selectedRating(),
      comment: this.reviewForm.get('comment')?.value,
-     doctorId: this.doctorData?._id
+     doctorId: this.doctorData?._id,
+     name: this.reviewForm.get('name')?.value,
    }
    this.doctorService.createReview(request).subscribe({
      next: (res) => {

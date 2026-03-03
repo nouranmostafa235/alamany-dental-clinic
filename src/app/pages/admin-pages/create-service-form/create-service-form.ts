@@ -24,7 +24,7 @@ export class CreateServiceForm implements OnInit {
     this.createForm = this.fb.group({
       name : ['', [Validators.required]],
       description : ['', [Validators.required]],
-      category : [''],
+      category : ['',[Validators.required]],
       coverImage:[null],
       price: this.fb.group({
         min: [''],

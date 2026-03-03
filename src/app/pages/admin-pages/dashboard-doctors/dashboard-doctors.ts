@@ -6,34 +6,38 @@ import {CreateDoctor} from '../create-doctor/create-doctor';
 import {DoctorsService} from '../../../services/doctors-service';
 import {FilterPipe} from '../../../pipes/filter-pipe';
 import {FormsModule} from '@angular/forms';
-import {isPlatformBrowser} from '@angular/common';
+import {AsyncPipe, isPlatformBrowser} from '@angular/common';
 import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
 import {ImagesAdjust} from '../../../services/images-adjust';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-doctors',
   imports: [
     RouterLink,
     FilterPipe,
-    FormsModule
+    FormsModule,
+    AsyncPipe
   ],
   templateUrl: './dashboard-doctors.html',
   styleUrl: './dashboard-doctors.css',
 })
 export class DashboardDoctors implements OnInit {
-  allDoctors: any=[]
+  private doctorService = inject(DoctorsService)
+  allDoctors = this.doctorService.getAllDoctors().pipe(
+    map((res: any) => res.data ?? res)  // handle both shapes
+  );
   searchTerm: string = ''
   private platformId = inject(PLATFORM_ID);
-  images = inject(ImagesAdjust);
   constructor(private dialog: MatDialog,
-              private doctorService : DoctorsService,
+
               private cdr: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
     if(isPlatformBrowser(this.platformId)) {
-      this.getDoctors()
+      // this.getDoctors()
     }
 
   }

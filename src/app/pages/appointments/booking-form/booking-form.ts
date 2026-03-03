@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {AppointmentStepperService} from '../../../services/appointment-stepper-service';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
 import {AppointmentsService} from '../../../services/appointments-service';
 import {DateService} from '../../../services/date-service';
@@ -20,17 +20,17 @@ export class BookingForm implements OnInit {
   time = '';
   doctorName = '';
   bookAppointmentForm: FormGroup = new FormGroup({
-    firstName : new FormControl(),
-    lastName: new FormControl(),
-    month: new FormControl(''),
-    day: new FormControl(),
-    year: new FormControl(),
-    phoneNumber: new FormControl(),
-    gender: new FormControl(''),
-    email: new FormControl(),
+    firstName : new FormControl('' , Validators.required),
+    lastName: new FormControl('' , Validators.required),
+    month: new FormControl('', Validators.required),
+    day: new FormControl('', Validators.required),
+    year: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
     appointmentDate: new FormControl(),
     notes: new FormControl('First visit, slight tooth pain'),
-    doctorProfileId: new FormControl()
+    doctorProfileId: new FormControl(),
   });
   currentUrl: any
   months = [

@@ -21,222 +21,232 @@ export interface ImageAdjusterResult {
   // For original preview display only
   originalBase64: string;
 }
-export interface CroppedResult {
-  blob: Blob;
-  base64: string;
-  file: File;
+export type CropShape = 'circle' | 'square' | 'rect';
+export interface CropResult {
+  /** Original file as uploaded by user — send this to your API */
+  originalFile: File;
+  /** Cropped/adjusted blob — use this for display */
+  croppedBlob: Blob;
+  /** Object URL for immediate display (revoke when done) */
+  croppedPreviewUrl: string;
 }
 @Component({
   selector: 'app-image-adjuster',
   imports: [
-    DecimalPipe
+
   ],
   templateUrl: './image-adjuster.html',
   styleUrl: './image-adjuster.css',
 })
 
 export class ImageAdjuster {
-  @Input() aspectRatio: number = 1;
-  @Input() outputWidth: number = 400;
-  @Input() outputHeight: number = 400;
-  @Input() outputFormat: 'image/jpeg' | 'image/png' | 'image/webp' = 'image/jpeg';
-  @Input() quality: number = 0.92;
-  @Input() maxFileSizeMB: number = 5;
+  @Input() shape: CropShape = 'circle';
+  /** Canvas / frame size in px */
+  @Input() frameSize = 320;
+  /** Max upload size in MB */
+  @Input() maxSizeMb = 5;
+  @Input() confirmLabel = 'Apply';
 
-  @Output() imageCropped = new EventEmitter<ImageAdjusterResult>();
+  // ── Outputs ───────────────────────────────────────────────────────────────
+  @Output() cropped = new EventEmitter<CropResult>();
   @Output() cancelled = new EventEmitter<void>();
 
+  // ── View refs ─────────────────────────────────────────────────────────────
   @ViewChild('canvas') canvasRef!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('container') containerRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
 
-  private readonly platformId = inject(PLATFORM_ID);
-
+  // ── State (signals) ───────────────────────────────────────────────────────
   imageSrc = signal<string | null>(null);
-  isDragging = signal(false);
-  isProcessing = signal(false);
-  error = signal<string | null>(null);
-
   scale = signal(1);
-  offsetX = signal(0);
-  offsetY = signal(0);
+  rotation = signal(0);
+  isDragOver = signal(false);
+  isSaving = signal(false);
+  errorMsg = signal('');
 
-  private img: HTMLImageElement | null = null;
-  private originalFile: File | null = null;   // ← keep reference to raw file
-  private originalBase64: string | null = null; // ← keep reference to raw base64
-  isDraggingImg = false;
+  // ── Internal ──────────────────────────────────────────────────────────────
+  private img = new Image();
+  private offsetX = 0;
+  private offsetY = 0;
+  private dragging = false;
   private lastX = 0;
   private lastY = 0;
-  minScale = 1;
+  private originalFile: File | null = null;
+  private isBrowser: boolean;
 
-  // ── File Input ──────────────────────────────────────────────
-  onFileSelected(event: Event): void {
+  constructor() {
+    this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  }
+
+  // ── File selection ────────────────────────────────────────────────────────
+  onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+    if (input.files?.length) this.loadFile(input.files[0]);
+  }
+
+  onDragOver(e: DragEvent) {
+    e.preventDefault();
+    this.isDragOver.set(true);
+  }
+
+  onDrop(e: DragEvent) {
+    e.preventDefault();
+    this.isDragOver.set(false);
+    const file = e.dataTransfer?.files[0];
     if (file) this.loadFile(file);
   }
 
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging.set(false);
-    const file = event.dataTransfer?.files?.[0];
-    if (file) this.loadFile(file);
-  }
-
-  onDragOver(event: DragEvent): void { event.preventDefault(); this.isDragging.set(true); }
-  onDragLeave(): void { this.isDragging.set(false); }
-
-  private loadFile(file: File): void {
-    this.error.set(null);
-
+  private loadFile(file: File) {
     if (!file.type.startsWith('image/')) {
-      this.error.set('Please select a valid image file.');
+      this.errorMsg.set('Please upload a valid image file.');
       return;
     }
-    if (file.size > this.maxFileSizeMB * 1024 * 1024) {
-      this.error.set(`File size must be under ${this.maxFileSizeMB}MB.`);
+    if (file.size > this.maxSizeMb * 1024 * 1024) {
+      this.errorMsg.set(`File exceeds ${this.maxSizeMb} MB limit.`);
       return;
     }
-
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    // Store the original File object for API upload
+    this.errorMsg.set('');
     this.originalFile = file;
 
+    if (!this.isBrowser) return;
+
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const src = e.target?.result as string;
-
-      // Store original base64 for original preview
-      this.originalBase64 = src;
-
-      this.imageSrc.set(src);
-      this.loadImageToCanvas(src);
+    reader.onload = (ev) => {
+      const src = ev.target?.result as string;
+      this.img = new Image();
+      this.img.onload = () => {
+        this.resetTransform();
+        this.imageSrc.set(src);
+        // Draw after view updates
+        setTimeout(() => this.draw(), 0);
+      };
+      this.img.src = src;
     };
     reader.readAsDataURL(file);
   }
 
-  private loadImageToCanvas(src: string): void {
-    const img = new Image();
-    img.onload = () => {
-      this.img = img;
-      const scaleX = this.outputWidth / img.naturalWidth;
-      const scaleY = this.outputHeight / img.naturalHeight;
-      this.minScale = Math.max(scaleX, scaleY);
-      this.scale.set(this.minScale);
-      this.offsetX.set(0);
-      this.offsetY.set(0);
-      this.drawCanvas();
-    };
-    img.src = src;
-  }
-
-  drawCanvas(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  // ── Canvas drawing ────────────────────────────────────────────────────────
+  draw() {
+    if (!this.isBrowser) return;
     const canvas = this.canvasRef?.nativeElement;
-    if (!canvas || !this.img) return;
+    if (!canvas || !this.img.width) return;
 
     const ctx = canvas.getContext('2d')!;
-    canvas.width = this.outputWidth;
-    canvas.height = this.outputHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const size = this.frameSize;
+    ctx.clearRect(0, 0, size, size);
 
-    const scaledW = this.img.naturalWidth * this.scale();
-    const scaledH = this.img.naturalHeight * this.scale();
-    const x = (this.outputWidth - scaledW) / 2 + this.offsetX();
-    const y = (this.outputHeight - scaledH) / 2 + this.offsetY();
+    ctx.save();
+    ctx.translate(size / 2 + this.offsetX, size / 2 + this.offsetY);
+    ctx.rotate((this.rotation() * Math.PI) / 180);
+    ctx.scale(this.scale(), this.scale());
 
-    ctx.drawImage(this.img, x, y, scaledW, scaledH);
+    const s = Math.min(size / this.img.width, size / this.img.height);
+    const w = this.img.width * s;
+    const h = this.img.height * s;
+    ctx.drawImage(this.img, -w / 2, -h / 2, w, h);
+    ctx.restore();
   }
 
-  // ── Zoom ─────────────────────────────────────────────────────
-  onWheel(event: WheelEvent): void {
-    event.preventDefault();
-    const delta = event.deltaY > 0 ? -0.05 : 0.05;
-    this.scale.set(Math.max(this.minScale, Math.min(4, this.scale() + delta)));
-    this.clampOffset();
-    this.drawCanvas();
+  // ── Drag ──────────────────────────────────────────────────────────────────
+  startDrag(e: MouseEvent) {
+    this.dragging = true;
+    this.lastX = e.clientX;
+    this.lastY = e.clientY;
+  }
+  onDrag(e: MouseEvent) {
+    if (!this.dragging) return;
+    this.offsetX += e.clientX - this.lastX;
+    this.offsetY += e.clientY - this.lastY;
+    this.lastX = e.clientX;
+    this.lastY = e.clientY;
+    this.draw();
+  }
+  startTouchDrag(e: TouchEvent) {
+    const t = e.touches[0];
+    this.dragging = true;
+    this.lastX = t.clientX;
+    this.lastY = t.clientY;
+  }
+  onTouchDrag(e: TouchEvent) {
+    e.preventDefault();
+    if (!this.dragging) return;
+    const t = e.touches[0];
+    this.offsetX += t.clientX - this.lastX;
+    this.offsetY += t.clientY - this.lastY;
+    this.lastX = t.clientX;
+    this.lastY = t.clientY;
+    this.draw();
+  }
+  stopDrag() { this.dragging = false; }
+
+  // ── Controls ──────────────────────────────────────────────────────────────
+  onScaleChange(e: Event) {
+    this.scale.set(parseFloat((e.target as HTMLInputElement).value));
+    this.draw();
+  }
+  onRotationChange(e: Event) {
+    this.rotation.set(parseInt((e.target as HTMLInputElement).value, 10));
+    this.draw();
   }
 
-  zoomIn(): void { this.scale.set(Math.min(4, this.scale() + 0.1)); this.clampOffset(); this.drawCanvas(); }
-  zoomOut(): void { this.scale.set(Math.max(this.minScale, this.scale() - 0.1)); this.clampOffset(); this.drawCanvas(); }
-  resetZoom(): void { this.scale.set(this.minScale); this.offsetX.set(0); this.offsetY.set(0); this.drawCanvas(); }
+  reset() { this.resetTransform(); this.draw(); }
 
-  // ── Pan ───────────────────────────────────────────────────────
-  onMouseDown(event: MouseEvent): void { this.isDraggingImg = true; this.lastX = event.clientX; this.lastY = event.clientY; }
-  onMouseMove(event: MouseEvent): void {
-    if (!this.isDraggingImg) return;
-    this.offsetX.set(this.offsetX() + event.clientX - this.lastX);
-    this.offsetY.set(this.offsetY() + event.clientY - this.lastY);
-    this.lastX = event.clientX; this.lastY = event.clientY;
-    this.clampOffset(); this.drawCanvas();
-  }
-  onMouseUp(): void { this.isDraggingImg = false; }
-
-  private lastTouchDist = 0;
-  onTouchStart(event: TouchEvent): void {
-    if (event.touches.length === 1) { this.isDraggingImg = true; this.lastX = event.touches[0].clientX; this.lastY = event.touches[0].clientY; }
-    else if (event.touches.length === 2) { this.lastTouchDist = this.getTouchDist(event); }
-  }
-  onTouchMove(event: TouchEvent): void {
-    event.preventDefault();
-    if (event.touches.length === 1 && this.isDraggingImg) {
-      this.offsetX.set(this.offsetX() + event.touches[0].clientX - this.lastX);
-      this.offsetY.set(this.offsetY() + event.touches[0].clientY - this.lastY);
-      this.lastX = event.touches[0].clientX; this.lastY = event.touches[0].clientY;
-      this.clampOffset(); this.drawCanvas();
-    } else if (event.touches.length === 2) {
-      const dist = this.getTouchDist(event);
-      this.scale.set(Math.max(this.minScale, Math.min(4, this.scale() + (dist - this.lastTouchDist) * 0.005)));
-      this.lastTouchDist = dist; this.clampOffset(); this.drawCanvas();
-    }
-  }
-  onTouchEnd(): void { this.isDraggingImg = false; }
-  private getTouchDist(e: TouchEvent): number {
-    const dx = e.touches[0].clientX - e.touches[1].clientX;
-    const dy = e.touches[0].clientY - e.touches[1].clientY;
-    return Math.sqrt(dx * dx + dy * dy);
+  private resetTransform() {
+    this.scale.set(1);
+    this.rotation.set(0);
+    this.offsetX = 0;
+    this.offsetY = 0;
   }
 
-  clampOffset(): void {
-    if (!this.img) return;
-    const maxX = Math.max(0, (this.img.naturalWidth * this.scale() - this.outputWidth) / 2);
-    const maxY = Math.max(0, (this.img.naturalHeight * this.scale() - this.outputHeight) / 2);
-    this.offsetX.set(Math.max(-maxX, Math.min(maxX, this.offsetX())));
-    this.offsetY.set(Math.max(-maxY, Math.min(maxY, this.offsetY())));
+  changeImage() {
+    this.imageSrc.set(null);
+    this.originalFile = null;
+    if (this.fileInputRef) this.fileInputRef.nativeElement.value = '';
   }
 
-  // ── Confirm — emit all 3 formats ────────────────────────────
-  async confirm(): Promise<void> {
-    if (!isPlatformBrowser(this.platformId) || !this.originalFile || !this.originalBase64) return;
-    this.isProcessing.set(true);
+  // ── Confirm / export ──────────────────────────────────────────────────────
+  confirm() {
+    if (!this.isBrowser || !this.originalFile) return;
+    this.isSaving.set(true);
 
     const canvas = this.canvasRef.nativeElement;
+    const outputCanvas = document.createElement('canvas');
+    const size = this.frameSize;
+    outputCanvas.width = size;
+    outputCanvas.height = size;
+    const ctx = outputCanvas.getContext('2d')!;
 
-    canvas.toBlob(
-      (croppedBlob) => {
-        if (!croppedBlob) { this.isProcessing.set(false); return; }
+    // Clip to shape
+    ctx.save();
+    if (this.shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2 - 12, 0, Math.PI * 2);
+      ctx.clip();
+    } else if (this.shape === 'square') {
+      ctx.beginPath();
+      ctx.roundRect(12, 12, size - 24, size - 24, 8);
+      ctx.clip();
+    } else {
+      ctx.beginPath();
+      ctx.roundRect(24, 12, size - 48, size - 24, 8);
+      ctx.clip();
+    }
 
-        const croppedBase64 = canvas.toDataURL(this.outputFormat, this.quality);
+    ctx.drawImage(canvas, 0, 0);
+    ctx.restore();
 
-        this.imageCropped.emit({
-          originalFile: this.originalFile!,     // → send to API via FormData
-          croppedBase64,                         // → use as <img [src]> for cropped preview
-          croppedBlob,                           // → available if needed as Blob
-          originalBase64: this.originalBase64!,  // → use as <img [src]> for original preview
-        });
-
-        this.isProcessing.set(false);
-      },
-      this.outputFormat,
-      this.quality
-    );
+    outputCanvas.toBlob((blob) => {
+      if (!blob) { this.isSaving.set(false); return; }
+      const url = URL.createObjectURL(blob);
+      this.cropped.emit({
+        originalFile: this.originalFile!,
+        croppedBlob: blob,
+        croppedPreviewUrl: url,
+      });
+      this.isSaving.set(false);
+    }, 'image/jpeg', 0.92);
   }
 
-  cancel(): void {
-    this.imageSrc.set(null);
-    this.img = null;
-    this.originalFile = null;
-    this.originalBase64 = null;
-    this.cancelled.emit();
+  ngOnDestroy() {
+    // No persistent object URLs created until confirm() — caller is responsible for revoking
   }
 }
