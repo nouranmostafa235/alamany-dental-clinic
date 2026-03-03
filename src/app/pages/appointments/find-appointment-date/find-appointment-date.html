@@ -21,12 +21,10 @@
     </div>
     <h3 class="doctor-name">Dr. {{ doctorName }}</h3>
     <div class="doctor-rating">
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star-half-alt"></i>
-      <span>4.5</span>
+        @for (star of getStars(doctorRate); track star) {
+          <i class="fa fa-star" [style.color]="star <= doctorRate ? '#f59e0b' : '#d1d5db'"></i>
+        }
+      <span>{{ doctorRate }}</span>
     </div>
   </div>
 

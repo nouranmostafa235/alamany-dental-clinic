@@ -13,6 +13,7 @@ export class FindAppointmentDate {
   serviceDuration: string|undefined = '';
   doctorName: string|undefined = '';
   doctorImage: string|undefined = '';
+  doctorRate: any|undefined = '';
   constructor(private service: AppointmentStepperService,private router: Router) {
   }
   ngOnInit() {
@@ -20,6 +21,7 @@ export class FindAppointmentDate {
     this.serviceDuration = this.service.getAppointmentService()?.split(',')[1]
     this.doctorName = this.service.getDoctor()
     this.doctorImage = this.service.getDoctorImage()
+    this.doctorRate = Number(this.service.getDoctorRate());
   }
   stepBack(){
     const step = this.service.getStep()-1;
@@ -30,5 +32,8 @@ export class FindAppointmentDate {
     const step = this.service.getStep()+1;
     this.router.navigate(['book-appointment/'+step]);
     this.service.next("",step, false)
+  }
+  getStars(rating: number): number[] {
+    return Array(5).fill(0).map((_, i) => i + 1);
   }
 }

@@ -1,40 +1,231 @@
-.wrapper{
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600&display=swap');
+
+/* ── Wrapper ─────────────────────────────────────────────────── */
+.wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow-y: auto;
+  background: #f8fafc;
+  font-family: 'Sora', sans-serif;
+  animation: fadeUp 0.35s ease both;
 }
-.content{
-  background-color: #F5F5F5;
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.cls-1{
-  fill: var(--dark-bg-color);
+
+/* ── Appointment Summary Banner ──────────────────────────────── */
+.appt-summary {
+  background: var(--dark-bg-color, #0e7490);
+  padding: 16px 20px;
+  flex-shrink: 0;
 }
-.animated-svg{
-  width: 40px;
-  height: 40px;
+
+.appt-summary-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
 }
-p{
-  color: var(--dark-bg-color);
-  margin: 0;
+
+.appt-avatar-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
-.serviceName{
-  font-size: 18px;
-  font-weight: 400;
+
+.appt-svg {
+  width: 22px;
+  height: 22px;
 }
-.serviceDuration{
+
+.cls-1 { fill: #ffffff; }
+
+.appt-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.appt-doctor {
   font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.appt-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
   font-weight: 400;
 }
-.serviceTime{
-  font-size: 18px;
-  font-weight: 700;
+
+.appt-badge {
+  padding: 4px 12px;
+  background: #dcfce7;
+  color: #16a34a;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
-.btn{
-  background-color: var(--dark-bg-color);
+
+/* ── Form ────────────────────────────────────────────────────── */
+.appt-form {
+  padding: 24px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.form-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* ── Field Group ─────────────────────────────────────────────── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.01em;
+}
+
+/* ── Inputs ──────────────────────────────────────────────────── */
+.field-input,
+.field-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: 'Sora', sans-serif;
+  font-size: 13.5px;
+  font-weight: 400;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+}
+
+.field-input::placeholder { color: #cbd5e1; }
+
+.field-input:focus,
+.field-select:focus {
+  border-color: var(--dark-bg-color, #0e7490);
+  box-shadow: 0 0 0 3px rgba(14,116,144,0.1);
+}
+
+.field-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Error state */
+.field-error {
+  border-color: #f87171 !important;
+  box-shadow: 0 0 0 3px rgba(248,113,113,0.12) !important;
+}
+
+/* ── DOB Row ─────────────────────────────────────────────────── */
+.dob-row {
+  display: grid;
+  grid-template-columns: 1fr 72px 88px;
+  gap: 8px;
+}
+
+/* ── Phone ───────────────────────────────────────────────────── */
+.phone-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone-prefix {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.phone-input {
+  padding-left: 38px;
+}
+
+/* ── Book Button ─────────────────────────────────────────────── */
+.book-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--dark-bg-color, #0e7490);
   color: white;
-  transition: all 0.3s ease-in-out;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  letter-spacing: -0.1px;
+  transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: 0 4px 16px rgba(14,116,144,0.28);
 }
-.btn:hover{
-  background-color: var(--dark-color);
+
+.book-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(14,116,144,0.35);
+  filter: brightness(1.05);
+}
+
+.book-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.book-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
 }

@@ -1,74 +1,126 @@
 <div class="wrapper">
-  <div class="content rounded-3 py-4 text-center ">
-    <svg
-      #svgSection
-      class="animated-svg"
-      viewBox="0 0 12.82 15.98"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path fill="none" d="M-1-1h2.151v2.189H-1z"/>
-      <g>
-        <path
-          d="M5.16 13.64a5.93 5.93 0 01-.44 1.65 1.16 1.16 0 01-1.42.63c-.62-.31-.59-1.18-.55-1.88.11-2.33-.89-2.82-1.7-5S-.43 4.41.35 2.21a2.93 2.93 0 012-2 8 8 0 015 .58c.2.1.55-.13.73-.21A4.11 4.11 0 019 .25a3.15 3.15 0 012.29.28 3.5 3.5 0 011.23 1.68c.77 2.2.11 4.63-.7 6.82s-1.82 2.68-1.7 5c0 .7.07 1.57-.56 1.88a1.17 1.17 0 01-1.42-.63 8.55 8.55 0 01-.44-1.65 2.7 2.7 0 00-1.45-2.05 8 8 0 00-1.09 2.06z"
-          class="cls-1"
-        />
-      </g>
-    </svg>
-    <p class="serviceName mt-3">Dr.{{doctorName}}</p>
-    <p class="serviceTime">{{ time }}</p>
-  </div>
-  <form (ngSubmit)="bookAppointmentFormSubmit()" [formGroup]="bookAppointmentForm">
-    <div class="book-form">
-      <div class="row m-0 mt-3 justify-content-center">
-        <div class="col-md-5">
-          <input formControlName="firstName" class="form-control" placeholder="First Name *">
-        </div>
-        <div class="col-md-5">
-          <input formControlName="lastName" class="form-control" placeholder="Last Name *">
-        </div>
-      </div>
-      <div class="row m-0 mt-3 justify-content-center">
-        <div class="col-md-10">
-          <input formControlName="email" class="form-control" placeholder="Email *">
-        </div>
-      </div>
-      <div class="row m-0 mt-3 justify-content-center">
-        <div class="col-md-10">
-          <select formControlName="gender" class="form-select">
-            <option disabled value="">Gender *</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
 
-          </select>
-        </div>
+  <!-- Appointment Summary Banner -->
+  <div class="appt-summary">
+    <div class="appt-summary-inner">
+      <div class="appt-info">
+        <span class="appt-doctor">Dr. {{ doctorName }}</span>
+        <span class="appt-time">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          {{ time }}
+        </span>
       </div>
-      <div class="row m-0 mt-3 justify-content-center">
-        <div class="col-md-10 m-0 p-0 justify-content-center row">
-          <p class="form-check-label m-0 mb-1 text-start">Date of Birth</p>
-          <div class="col-md-6">
-            <select formControlName="month" class="form-select">
-              <option disabled value="">MM *</option>
-              @for (month of months; track $index){
-                <option [value]="month">{{month}}</option>
-              }
-            </select>
-          </div>
-          <div class="col-md-3">
-            <input formControlName="day" class=" form-control" placeholder="DD *">
-          </div>
-          <div class="col-md-3">
-            <input formControlName="year" class="col-md-3 form-control" placeholder="YYYY *">
-          </div>
-
-        </div>
-      </div>
-      <div class="row m-0 mt-3 justify-content-center">
-        <div class="col-md-10">
-          <input formControlName="phoneNumber" class="form-control" placeholder="Phone Number *" type="tel">
-        </div>
-      </div>
-      <button [disabled]="bookAppointmentForm.invalid" type="submit" class="btn w-25 mt-4">Book</button>
     </div>
+  </div>
+
+  <!-- Form -->
+  <form class="appt-form" (ngSubmit)="bookAppointmentFormSubmit()" [formGroup]="bookAppointmentForm">
+
+    <div class="form-section-label">Patient Information</div>
+
+    <!-- Name row -->
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">First Name</label>
+        <input
+          formControlName="firstName"
+          class="field-input"
+          placeholder="Ahmed"
+          [class.field-error]="bookAppointmentForm.get('firstName')?.invalid && bookAppointmentForm.get('firstName')?.touched">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Last Name</label>
+        <input
+          formControlName="lastName"
+          class="field-input"
+          placeholder="Ali"
+          [class.field-error]="bookAppointmentForm.get('lastName')?.invalid && bookAppointmentForm.get('lastName')?.touched">
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="field-group">
+      <label class="field-label">Email Address</label>
+      <input
+        formControlName="email"
+        class="field-input"
+        placeholder="ahmed@example.com"
+        type="email"
+        [class.field-error]="bookAppointmentForm.get('email')?.invalid && bookAppointmentForm.get('email')?.touched">
+    </div>
+
+    <!-- Gender -->
+    <div class="field-group">
+      <label class="field-label">Gender</label>
+      <select formControlName="gender" class="field-select"
+              [class.field-error]="bookAppointmentForm.get('gender')?.invalid && bookAppointmentForm.get('gender')?.touched">
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="field-group">
+      <label class="field-label">Date of Birth</label>
+      <div class="dob-row">
+        <select formControlName="month" class="field-select dob-month"
+                [class.field-error]="bookAppointmentForm.get('month')?.invalid && bookAppointmentForm.get('month')?.touched">
+          <option value="">Month</option>
+          @for (month of months; track $index) {
+            <option [value]="month">{{ month }}</option>
+          }
+        </select>
+        <input
+          formControlName="day"
+          class="field-input dob-day"
+          placeholder="DD"
+          maxlength="2"
+          [class.field-error]="bookAppointmentForm.get('day')?.invalid && bookAppointmentForm.get('day')?.touched">
+        <input
+          formControlName="year"
+          class="field-input dob-year"
+          placeholder="YYYY"
+          maxlength="4"
+          [class.field-error]="bookAppointmentForm.get('year')?.invalid && bookAppointmentForm.get('year')?.touched">
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="field-group">
+      <label class="field-label">Phone Number</label>
+      <div class="phone-wrap">
+        <span class="phone-prefix">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.87a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </span>
+        <input
+          formControlName="phoneNumber"
+          class="field-input phone-input"
+          placeholder="+20 100 000 0000"
+          type="tel"
+          [class.field-error]="bookAppointmentForm.get('phoneNumber')?.invalid && bookAppointmentForm.get('phoneNumber')?.touched">
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="book-btn"
+      [disabled]="bookAppointmentForm.invalid">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      Book Appointment
+    </button>
+
   </form>
 
 </div>

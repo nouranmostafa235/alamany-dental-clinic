@@ -17,6 +17,7 @@ import {AppointmentsService} from '../../../services/appointments-service';
 export class AppointmentDoctor implements OnInit {
   currentUrl: number=3
   allDoctors: any
+  overallRating: any
   constructor(
     private stepper: AppointmentStepperService,
     private router: Router,
@@ -29,11 +30,12 @@ export class AppointmentDoctor implements OnInit {
     this.stepper.setStep(url)
     this.getDoctors()
   }
-  nextStep(doctor: string, doctorImage: string , doctorId: string) {
+  nextStep(doctor: string, doctorImage: string , doctorId: string, doctorRate: any) {
     this.stepper.setStep(this.currentUrl+1)
     this.stepper.setDoctor(doctor)
     this.stepper.setDoctorImage(doctorImage)
     this.stepper.setDoctorId(doctorId)
+    this.stepper.setDoctorRate(doctorRate)
     this.router.navigate(['book-appointment/3']);
   }
   getDoctors(): void {

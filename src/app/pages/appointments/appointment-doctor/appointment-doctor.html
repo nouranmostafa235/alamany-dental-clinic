@@ -13,7 +13,7 @@
       <div
         class="doctor-card"
         [style.animation-delay]="i * 60 + 'ms'"
-        (click)="nextStep(doctor.firstName+' '+doctor.lastName, doctor.picture, doctor._id)">
+        (click)="nextStep(doctor.firstName+' '+doctor.lastName, doctor.picture, doctor._id,doctor.overallRating.averageRating)">
 
         <!-- Left accent bar -->
         <div class="card-accent"></div>
@@ -42,7 +42,7 @@
         <div class="card-right">
           <div class="rating-badge">
             <i class="fa fa-star"></i>
-            <span>4.5</span>
+            <span>{{ doctor.overallRating.averageRating }}</span>
           </div>
           <button
             type="button"
