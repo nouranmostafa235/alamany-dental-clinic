@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');*/
 
 /* ── Container ───────────────────────────────────────────────── */
 .calendar-container {
   width: 100%;
-  max-width: 360px;
+  /*max-width: 480px;*/
   margin: 0 auto;
   background: #ffffff;
   border-radius: 20px;
@@ -101,7 +101,7 @@
 
 /* ── Body ────────────────────────────────────────────────────── */
 .cal-body {
-  padding: 16px 16px 20px;
+  padding: 20px 20px 24px;   /* ← was 16px 16px 20px */
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -112,11 +112,14 @@
 .cal-days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 6px;
 }
 
 .cal-day-wrapper {
-  aspect-ratio: 1;
+
+    height: 40px;   /* ← fixed height, only width grows */
+
+  /*aspect-ratio: 1;*/
 }
 
 /* Base day cell */
