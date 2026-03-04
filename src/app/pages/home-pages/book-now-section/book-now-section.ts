@@ -2,9 +2,12 @@ import {Component, AfterViewInit, Inject, PLATFORM_ID} from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {isPlatformBrowser} from '@angular/common';
+import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-book-now-section',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './book-now-section.html',
   styleUrl: './book-now-section.css',
 })

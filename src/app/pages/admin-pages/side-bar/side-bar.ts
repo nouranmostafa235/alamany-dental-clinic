@@ -8,7 +8,6 @@ import {AuthService} from '../../../services/auth-service';
   imports: [
     RouterLink,
     RouterLinkActive,
-    NgClass
   ],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css',

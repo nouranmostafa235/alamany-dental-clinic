@@ -1,19 +1,48 @@
-<div class="py-5 service-wrapper">
-  <div class="ps-5 py-5 justify-content-between row ">
-    <div class="col-md-6 d-flex flex-column gap-2 pt-3 ps-5">
-      <h2 class="promise book-gsap" >Book Today</h2>
-      <p class="service-description">
-        Ready to join the dental revolution? Find an appointment that fits your schedule for the services
-        you actually need. Call <span><a class="text-decoration-none" href="tel:+20 1092184470">+20 1092184470</a></span>
-        or click below to book online!
-      </p>
-      <button class="btn rounded-pill py-2 ">BOOK AN APPOINTMENT</button>
-      <p class="service-description">or call <span><a class="text-decoration-none" href="tel:+20 1092184470">+20 1092184470</a></span>  </p>
-    </div>
-    <div class="cover gsap-cover position-relative ps-5 col-md-6">
-      <div class="background-layer mb-5 position-absolute bottom-0 start-0  end-0"></div>
-      <img class="position-relative" alt="" src="img/home3.jpeg">
-    </div>
+<div class="book-section">
+  <div class="container">
+    <div class="book-section__inner">
 
+      <!-- Text Side -->
+      <div class="book-section__text">
+
+        <span class="section-badge">Get Started</span>
+
+        <h2 class="book-section__title">
+          Book <em>Today</em>
+        </h2>
+
+        <p class="book-section__desc">
+          Ready to join the dental revolution? Find an appointment that
+          fits your schedule for the services you actually need.
+        </p>
+
+        <div class="book-section__actions">
+          <a routerLink="/book-appointment" class="book-section__btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book an Appointment
+          </a>
+
+          <a class="book-section__btn-ghost" href="tel:+201092184470">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            (+20) 1092184470
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Image Side -->
+      <div class="book-section__img-wrap">
+        <div class="book-section__img-bg"></div>
+        <img src="img/home3.jpeg" alt="Book an appointment" class="book-section__img">
+      </div>
+
+    </div>
   </div>
 </div>

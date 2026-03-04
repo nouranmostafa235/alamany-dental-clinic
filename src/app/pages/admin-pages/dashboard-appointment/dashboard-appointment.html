@@ -1,26 +1,49 @@
-<div class="container-fluid ">
-  <h2 class="title">Appointments</h2>
-  <p class="description">View and manage patient appointments.</p>
+<div class="page-wrapper">
 
-  <div class="container  card">
-    <ul class="nav nav-tabs w-100 border-0 justify-content-center rounded-3 mt-4" style="background-color: var(--blue-bg-color)">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/appointments"
-           [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" aria-current="page" >All</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="confirmed" routerLinkActive="active">Confirmed</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="cancelled" routerLinkActive="active">Cancelled</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="pending" routerLinkActive="active">Pending</a>
-      </li>
-    </ul>
-     <div class="mt-5 container">
-       <router-outlet></router-outlet>
-     </div>
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Appointments</h2>
+      <p class="page-subtitle">View and manage patient appointments.</p>
+    </div>
+  </div>
+
+  <!-- Tabs Card -->
+  <div class="appt-card">
+
+    <div class="appt-tabs">
+      <a class="appt-tab" routerLink="/admin/appointments"
+         [routerLinkActiveOptions]="{exact:true}" routerLinkActive="appt-tab--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        All
+      </a>
+      <a class="appt-tab" routerLink="confirmed" routerLinkActive="appt-tab--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Confirmed
+      </a>
+      <a class="appt-tab" routerLink="pending" routerLinkActive="appt-tab--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Pending
+      </a>
+      <a class="appt-tab" routerLink="cancelled" routerLinkActive="appt-tab--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        Cancelled
+      </a>
+    </div>
+
+    <div class="appt-content">
+      <router-outlet></router-outlet>
+    </div>
+
   </div>
 
 </div>

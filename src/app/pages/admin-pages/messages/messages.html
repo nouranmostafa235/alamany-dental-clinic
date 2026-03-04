@@ -1,44 +1,63 @@
-<div class="container-fluid ">
-  <h2 class="title">Messages</h2>
-  <p class="description">View and manage patient Messages.</p>
-  <div class="container  card">
-    <div class="mt-5 container">
-      @for (message of allMessages; track message._id) {
-        <div class="d-flex justify-content-between align-items-center message-card small-shadow p-3 mb-4 rounded-3">
-          <div class="d-flex gap-3">
-            <div class="text-center p-2 date-card text-white rounded-3">
-              <p class="m-0">Date</p>
-              <p class="m-0 fw-bold">Dec</p>
-              <p class="m-0 fw-bold">24,2025</p>
-            </div>
-            <div>
-              <p class="m-0 title">{{message.name}}</p>
-              <div class="d-flex gap-3">
-                <p class="m-0 description">
-                  <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
-                  {{ message.email }}
-                </p>
-                <p class="m-0 description">
-                  <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
-                  {{ message.phone }}
-                </p>
-              </div>
-              <p class="m-0 description"> <span style="color: var(--light-color)">
-              {{message.message}}
-      </span>
-              </p>
+<div class="page-wrapper">
 
-            </div>
-
-          </div>
-          <div >
-            <button (click)="deleteMessage(message._id)" class="fa fa-trash btn" style="color: #E80611"></button>
-          </div>
-        </div>
-      }
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Messages</h2>
+      <p class="page-subtitle">View and manage patient messages.</p>
     </div>
+    <span class="messages-count">{{ allMessages?.length || 0 }} messages</span>
   </div>
 
+  <!-- List -->
+  <div class="messages-list">
+
+    @if (!allMessages || allMessages.length === 0) {
+      <div class="empty-state">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>No messages yet</p>
+      </div>
+    }
+
+    @for (message of allMessages; track message._id) {
+      <div class="msg-card">
+        <div class="msg-card__body">
+
+          <!-- Content -->
+          <div class="msg-card__content">
+            <div class="msg-card__top">
+              <p class="msg-card__name">{{ message.name }}</p>
+              <div class="msg-card__meta">
+                <span class="msg-card__meta-chip">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  {{ message.email }}
+                </span>
+                <span class="msg-card__meta-chip">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                  {{ message.phone }}
+                </span>
+              </div>
+            </div>
+            <div class="d-flex gap-2 w-100 align-items-center">
+              <p class="msg-card__message">{{ message.message }}</p>
+              <button  (click)="deleteMessage(message._id)" class="msg-card__delete">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    }
+
+  </div>
 </div>
-
-

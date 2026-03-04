@@ -1,58 +1,91 @@
-<div class="container-fluid ">
-  <div class="d-flex justify-content-between align-items-center">
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="page-header">
     <div>
-      <h2 class="title">Doctor Management</h2>
-      <p class="description">Manage doctor registrations, profiles,
-        and verifications.</p>
+      <h2 class="page-title">Doctor Management</h2>
+      <p class="page-subtitle">Manage doctor registrations, profiles, and verifications.</p>
     </div>
-    <div>
-      <button (click)="openDialog()" class="btn doctor-btn">Create Doctor Profile</button>
-    </div>
+    <button (click)="openDialog()" class="create-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Create Doctor Profile
+    </button>
   </div>
 
-  <input [(ngModel)]="searchTerm" class="form-control mb-3 " placeholder="search doctors...">
-    <div class="row justify-content-between g-3 ">
-      @if (allDoctors && (allDoctors|async | filter:searchTerm:['firstName','email'])?.length === 0) {
-        <div class="col-12 text-center py-5">
-          <p class="text-muted">No doctors found</p>
-        </div>
-      }
-      @for (doctor of allDoctors|async | filter:searchTerm:['firstName','email']; track doctor._id) {
-        <div class="col-md-6">
-          <div class="doctor-list px-3 pt-3 rounded-3">
-            <div class="d-flex gap-3">
-              <div class="col-md-3">
-                <img class="img-thumbnail image rounded-3" [src]="doctor?.picture">
-              </div>
-              <div class="col-md-8 d-flex flex-column mb-3 gap-1">
-                <p class="m-0">Dr. {{ doctor?.firstName }} {{doctor?.lastName}}</p>
-                <p class="small-title m-0">{{ doctor?.specialization?.join(',') || '—'}}</p>
-                <p class="m-0 description apply text-muted">
-                  <i class="fa-regular fa-envelope" ></i>
-                  {{ doctor?.email }}</p>
-                <p class="m-0 description apply text-muted">
-                  <i class="fa fa-phone" ></i>
-                  {{ doctor?.phone }}</p>
-                <p class="m-0 description apply text-muted">
-                  <i class="fa fa-award" ></i>
-                  {{ doctor?.yearsOfExperience }} years experience</p>
-              </div>
-            </div>
+  <!-- Search -->
+  <div class="search-wrap">
+    <svg class="search-wrap__icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input [(ngModel)]="searchTerm" class="search-input" placeholder="Search by name or email…">
+  </div>
 
-            <hr>
-            <div class="d-flex my-2">
-              <button [routerLink]="['/doctor-profile',doctor?._id]" class="py-1 rounded-3 viewBtn me-3">
-                <i class="fa fa-eye me-2"></i>
-                View Profile
-              </button>
-              <button (click)="deleteDoctor(doctor?._id)" class="py-1 deleteBtn rounded-3"><i class="fa fa-trash" style="color: #E80611"></i></button>
+  <!-- Grid -->
+  <div class="doctors-grid">
+
+    @if (allDoctors && (allDoctors | async | filter:searchTerm:['firstName','email'])?.length === 0) {
+      <div class="empty-state">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <p>No doctors found</p>
+      </div>
+    }
+
+    @for (doctor of allDoctors | async | filter:searchTerm:['firstName','email']; track doctor._id) {
+      <div class="doctor-card">
+
+        <!-- Top: avatar + info -->
+        <div class="doctor-card__top">
+          <div class="doctor-card__img-wrap">
+            <img class="doctor-card__img" [src]="doctor?.picture" [alt]="doctor?.firstName">
+          </div>
+          <div class="doctor-card__info">
+            <p class="doctor-card__name">Dr. {{ doctor?.firstName }} {{ doctor?.lastName }}</p>
+            <span class="doctor-card__spec">{{ doctor?.specialization?.join(', ') || '—' }}</span>
+            <div class="doctor-card__meta">
+              <span class="doctor-card__meta-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+                {{ doctor?.email }}
+              </span>
+              <span class="doctor-card__meta-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                {{ doctor?.phone }}
+              </span>
+              <span class="doctor-card__meta-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                </svg>
+                {{ doctor?.yearsOfExperience }} yrs experience
+              </span>
             </div>
           </div>
-
-
         </div>
-      }
 
-    </div>
+        <!-- Actions -->
+        <div class="doctor-card__actions">
+          <button [routerLink]="['/doctor-profile', doctor?._id]" class="action-btn action-btn--view">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            View Profile
+          </button>
+          <button (click)="deleteDoctor(doctor?._id)" class="action-btn action-btn--delete">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+            </svg>
+            Delete
+          </button>
+        </div>
+
+      </div>
+    }
+
   </div>
-
+</div>

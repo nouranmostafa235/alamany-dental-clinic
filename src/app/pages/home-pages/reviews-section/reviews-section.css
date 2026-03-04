@@ -1,20 +1,185 @@
-.wrapper{
-  background-color: var(--blue-bg-color);
+/* ─── Section Wrapper ─────────────────────────────────── */
+.reviews-section {
+  background-color: var(--blue-bg-color, #e8f6f8);
+  padding: 80px 0 88px;
 }
-h2{
-  font-size: 52px;
-  font-weight: 500;
-  color: var(--dark-color);
+
+/* ─── Header ──────────────────────────────────────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: 52px;
 }
-.quote-icon{
-  width:40px;
-  height:40px;
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(13, 154, 173, 0.12);
+  color: var(--dark-bg-color, #0d2d38);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(13, 154, 173, 0.25);
+  margin-bottom: 14px;
+}
+
+.section-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  border: 1px solid var(--dark-bg-color);
+  background: var(--light-color, #0d9aad);
+  display: inline-block;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
-.review{
-  border: 1px solid var(--dark-bg-color);
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.65); }
 }
-.review p {
-  color: var(--dark-bg-color);
+
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: var(--dark-bg-color, #0d2d38);
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+
+.section-subtitle {
+  font-size: 15px;
+  color: #8a95a3;
+  margin: 0;
+}
+
+/* ─── Carousel ────────────────────────────────────────── */
+.reviews-carousel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+:host ::ng-deep .owl-dots {
+  margin-top: 28px !important;
+}
+
+:host ::ng-deep .owl-dot span {
+  width: 6px !important;
+  height: 6px !important;
+  background: #c5cdd8 !important;
+  transition: all 0.3s ease !important;
+  margin: 0 4px !important;
+}
+
+:host ::ng-deep .owl-dot.active span {
+  width: 22px !important;
+  border-radius: 4px !important;
+  background: var(--light-color, #0d9aad) !important;
+}
+
+:host ::ng-deep .owl-nav .owl-prev,
+:host ::ng-deep .owl-nav .owl-next {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: white !important;
+  border: 1.5px solid #dde3ec !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease !important;
+  color: var(--dark-bg-color, #0d2d38) !important;
+  font-size: 18px !important;
+}
+
+:host ::ng-deep .owl-nav .owl-prev:hover,
+:host ::ng-deep .owl-nav .owl-next:hover {
+  background: #f0f7f8 !important;
+  border-color: var(--light-color, #0d9aad) !important;
+  box-shadow: 0 4px 14px rgba(13, 79, 92, 0.15) !important;
+}
+
+/* ─── Review Card ─────────────────────────────────────── */
+.review-card {
+  margin: 8px 16px 16px;
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  border: 1px solid #eaedf2;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1),
+  box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(13, 79, 92, 0.13);
+}
+
+/* Big quote icon */
+.review-card__quote {
+  color: #dde8ec;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.review-card:hover .review-card__quote {
+  color: var(--light-color, #0d9aad);
+}
+
+/* Review text */
+.review-card__text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #4a5a6a;
+  font-style: italic;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Stars */
+.review-card__stars {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.review-card__stars .fa-star {
+  font-size: 14px;
+  color: #facc15;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 56px 0 64px;
+  }
+
+  .reviews-carousel {
+    max-width: 100%;
+  }
+
+  .review-card {
+    padding: 28px 22px 22px;
+    margin: 8px 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 28px;
+  }
+
+  .review-card__text {
+    font-size: 14px;
+  }
 }

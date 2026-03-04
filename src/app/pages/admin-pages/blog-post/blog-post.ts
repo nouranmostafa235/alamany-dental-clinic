@@ -53,6 +53,7 @@ export class BlogPost implements OnInit{
     const dialogRef = this.dialog.open(CreatBlogPostForm, {
       width: '800px',
       maxWidth: '95vw',
+      maxHeight:'90vh'
     });
 
     dialogRef.afterClosed().subscribe(result => {

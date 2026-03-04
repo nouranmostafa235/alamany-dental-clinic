@@ -1,71 +1,135 @@
-<div class="container-fluid ">
- <h2 class="title">Dashboard Overview</h2>
-  <p class="description">Welcome back! Here's what's happening with your dental clinic today.</p>
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
-      <div >
-        <p class="description m-0">Total Doctors</p>
-        <h5 class="fw-bold">{{ (totalDoctors$ | async)?.pagination?.total }}</h5>
-      </div>
-      <div class="icon sec-card d-flex justify-content-center
-       align-items-center rounded-3 text-white">
-        <i class="fa-solid fa-user-doctor"></i>
-      </div>
+<div class="dashboard">
+
+  <!-- Page Header -->
+  <div class="dashboard__header">
+    <div>
+      <h2 class="dashboard__title">Dashboard Overview</h2>
+      <p class="dashboard__subtitle">Welcome back! Here's what's happening with your dental clinic today.</p>
     </div>
-    <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
-      <div >
-        <p class="description m-0">Total Blogs</p>
-        <h5 class="fw-bold">{{ (totalBlogPosts$ | async)?.data.pagination?.totalBlogs }}</h5>
-      </div>
-      <div class="icon first-card d-flex justify-content-center
-       align-items-center rounded-3 text-white">
-        <i class="fa-solid fa-file"></i>
-      </div>
-    </div>
-    <div class="col-md-4 d-flex justify-content-between p-4 rounded-3 summary">
-      <div >
-        <p class="description m-0">Total Appointments</p>
-        <h5 class="fw-bold">{{ (totalAppointments$ | async)?.pagination?.total }}</h5>
-      </div>
-      <div class="icon third-card d-flex justify-content-center
-       align-items-center rounded-3 text-white">
-        <i class="fa-solid fa-calendar"></i>
-      </div>
+    <div class="dashboard__date">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      {{ today | date:'fullDate' }}
     </div>
   </div>
-  <div class="pending-container mt-5">
-    <div class="row mb-3 px-3 pt-2">
-      <div class="col-md-6">
-        <h5 class="title">Pending Confirmation</h5>
+
+  <!-- Stat Cards -->
+  <div class="stats-grid">
+
+    <div class="stat-card stat-card--teal">
+      <div class="stat-card__body">
+        <p class="stat-card__label">Total Doctors</p>
+        <h3 class="stat-card__value">{{ (totalDoctors$ | async)?.pagination?.total ?? '—' }}</h3>
+        <span class="stat-card__tag">Active specialists</span>
       </div>
-      <div class="col-md-6">
-        <input class="form-control " [(ngModel)]="searchTerm" placeholder="search by doctor or patient">
+      <div class="stat-card__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
       </div>
     </div>
-    @if (allAppointments$ && ((allAppointments$ | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
-      <div class="col-12 text-center py-5">
-        <p class="text-muted">No pending appointments found</p>
-      </div>
-    }
-    @for (appoint of (allAppointments$|async|filter:searchTerm:['firstName', 'lastName','doctorProfileId.firstName','doctorProfileId.lastName']); track $index) {
-      <div class="p-4 d-flex justify-content-between rounded-4 mb-3 pending">
-        <div class="d-flex gap-3">
-          <div class="calendar d-flex justify-content-center align-items-center icon">
-            <i class="fa fa-calendar" style="color: var(--dark-bg-color)"></i>
-          </div>
 
-          <div >
-            <p class="m-0">{{ appoint.firstName }} {{appoint.lastName}}</p>
-            <p class="description m-0">with dr. {{appoint.doctorProfileId.firstName}} {{appoint.doctorProfileId.lastName}}</p>
-            <p class="m-0 description apply text-muted">date: {{ appoint.appointmentDate | date:'fullDate' }}</p>
-          </div>
-        </div>
-        <div class="d-flex gap-3 ">
-          <button (click)="updateStatus(appoint._id,'confirmed')" class="btn btn-sm doctor-btn rounded-3 h-75">Confirm</button>
-          <button (click)="updateStatus(appoint._id,'cancelled')" class="btn btn-sm cancel rounded-3 h-75">Cancel</button>
-        </div>
+    <div class="stat-card stat-card--blue">
+      <div class="stat-card__body">
+        <p class="stat-card__label">Total Blogs</p>
+        <h3 class="stat-card__value">{{ (totalBlogPosts$ | async)?.data.pagination?.totalBlogs ?? '—' }}</h3>
+        <span class="stat-card__tag">Published posts</span>
       </div>
-    }
+      <div class="stat-card__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--purple">
+      <div class="stat-card__body">
+        <p class="stat-card__label">Total Appointments</p>
+        <h3 class="stat-card__value">{{ (totalAppointments$ | async)?.pagination?.total ?? '—' }}</h3>
+        <span class="stat-card__tag">All time bookings</span>
+      </div>
+      <div class="stat-card__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+    </div>
 
   </div>
+
+  <!-- Pending Appointments -->
+  <div class="pending-section">
+
+    <div class="pending-section__head">
+      <div>
+        <h5 class="pending-section__title">Pending Confirmation</h5>
+        <p class="pending-section__subtitle">Review and act on incoming appointment requests</p>
+      </div>
+      <div class="search-wrap">
+        <svg class="search-wrap__icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input class="search-input" [(ngModel)]="searchTerm" placeholder="Search by doctor or patient…">
+      </div>
+    </div>
+
+    <div class="pending-list">
+
+      @if (allAppointments$ && ((allAppointments$ | async | filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
+        <div class="empty-state">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <p>No pending appointments found</p>
+        </div>
+      }
+
+      @for (appoint of (allAppointments$ | async | filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']); track $index) {
+        <div class="appoint-row">
+
+          <div class="appoint-row__left">
+            <div class="appoint-row__avatar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="appoint-row__info">
+              <p class="appoint-row__name">{{ appoint.firstName }} {{ appoint.lastName }}</p>
+              <p class="appoint-row__doctor">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                Dr. {{ appoint.doctorProfileId.firstName }} {{ appoint.doctorProfileId.lastName }}
+              </p>
+              <p class="appoint-row__date">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                {{ appoint.appointmentDate | date:'fullDate' }}
+              </p>
+            </div>
+          </div>
+
+          <div class="appoint-row__actions">
+            <button (click)="updateStatus(appoint._id, 'confirmed')" class="appoint-btn appoint-btn--confirm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Confirm
+            </button>
+            <button (click)="updateStatus(appoint._id, 'cancelled')" class="appoint-btn appoint-btn--cancel">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+              Cancel
+            </button>
+          </div>
+
+        </div>
+      }
+
+    </div>
+  </div>
+
 </div>

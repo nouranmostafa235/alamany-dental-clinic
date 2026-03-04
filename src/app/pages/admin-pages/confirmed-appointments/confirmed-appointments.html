@@ -1,41 +1,48 @@
-<input class="form-control mb-4 " [(ngModel)]="searchTerm" placeholder="search appointment...">
+<!-- Search -->
+<div class="search-wrap">
+  <svg class="search-wrap__icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+  <input class="search-input" [(ngModel)]="searchTerm" placeholder="Search by patient or doctor…">
+</div>
 
-@if (allConfirmedAppointments$ && ((allConfirmedAppointments$ | async|filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
-  <div class="col-12 text-center py-5">
-    <p class="text-muted">No confirmed appointments found</p>
+@if (allConfirmedAppointments$ && ((allConfirmedAppointments$ | async | filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName'])?.length === 0)) {
+  <div class="empty-state">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <p>No confirmed appointments found</p>
   </div>
 }
-@for (all of allConfirmedAppointments$ | async |filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']; track all.id) {
-  <div class="d-flex justify-content-between small-shadow p-3 mb-4 rounded-3">
-    <div class="d-flex gap-3">
-      <div class="text-center p-2 date-card text-white rounded-3">
-        <p class="m-0">Date</p>
-        <p class="m-0 fw-bold">{{ all.appointmentDate | date:'MMM'}}</p>
-        <p class="m-0 fw-bold">{{ all.appointmentDate | date:'dd, yyyy'}}</p>
-      </div>
-      <div>
-        <p class="m-0 title">{{all.firstName }} {{all.lastName}}</p>
-        <p class="m-0 description">with <span style="color: var(--light-color)">
-        Dr. {{ all.doctorProfileId.firstName }} {{all.doctorProfileId.lastName}}
-      </span>
-        </p>
-        <div class="d-flex gap-3">
-          <p class="m-0 description">
-            <i class="fa-solid fa-xs fa-envelope me-1" style="color:var(--gray-color);"></i>
-            {{all.email }}
-          </p>
-          <p class="m-0 description">
-            <i class="fa-solid fa-xs fa-phone me-1" style="color:var(--gray-color)"></i>
-            {{ all.phoneNumber }}
-          </p>
+
+<div class="appt-list">
+  @for (appt of allConfirmedAppointments$ | async | filter:searchTerm:['firstName','lastName','doctorProfileId.firstName','doctorProfileId.lastName']; track appt.id) {
+    <div class="appt-item appt-item--confirmed">
+      <div class="appt-item__body">
+        <div class="appt-item__date">
+          <span class="appt-item__date-month">{{ appt.appointmentDate | date:'MMM' }}</span>
+          <span class="appt-item__date-day">{{ appt.appointmentDate | date:'dd' }}</span>
+          <span class="appt-item__date-year">{{ appt.appointmentDate | date:'yyyy' }}</span>
         </div>
+        <div class="appt-item__info">
+          <p class="appt-item__name">{{ appt.firstName }} {{ appt.lastName }}</p>
+          <p class="appt-item__doctor">with <span>Dr. {{ appt.doctorProfileId.firstName }} {{ appt.doctorProfileId.lastName }}</span></p>
+          <div class="appt-item__meta">
+            <span class="appt-item__meta-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              {{ appt.email }}
+            </span>
+            <span class="appt-item__meta-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              {{ appt.phoneNumber }}
+            </span>
+          </div>
+        </div>
+        <span class="status-badge status-badge--confirmed">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Confirmed
+        </span>
       </div>
     </div>
-    <div>
-    <span class="badge rounded-pill confirmed-badge">
-      <i class="fa-regular fa-circle-check"></i> Confirmed</span>
-    </div>
-  </div>
-}
-
-
+  }
+</div>

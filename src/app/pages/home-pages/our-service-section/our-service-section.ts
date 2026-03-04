@@ -5,10 +5,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {isPlatformBrowser} from '@angular/common';
 import {OurServicesService} from '../../../services/our-services-service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-our-service-section',
-  imports: [CarouselModule],
+  imports: [CarouselModule, RouterLink],
   templateUrl: './our-service-section.html',
   styleUrl: './our-service-section.css',
 })

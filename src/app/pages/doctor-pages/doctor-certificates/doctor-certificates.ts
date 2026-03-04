@@ -49,4 +49,6 @@ export class DoctorCertificates implements OnInit{
     this.activeImage = null;
     document.body.style.overflow = '';
   }
+
+  protected readonly length = length;
 }

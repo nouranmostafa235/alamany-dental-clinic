@@ -22,6 +22,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class DashboardHome implements OnInit {
   searchTerm = ''
+  today = new Date();
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
   private doctorService = inject(DoctorsService)
