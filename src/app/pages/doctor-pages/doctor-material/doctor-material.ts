@@ -15,30 +15,30 @@ import {AsyncPipe} from '@angular/common';
 export class DoctorMaterial {
   private doctorService = inject(DoctorsService);
   doctorData$ = this.doctorService.doctor$;
+  activeImage: string | null = null;
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    margin: 16,
-    stagePadding: 30,
     dots: true,
-    navSpeed: 700,
-    navText: ['<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>', '<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>'],
+    navSpeed: 400,
+    navText: ['&#8249;', '&#8250;'],
+    nav: true,
     responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 2
-      },
-      940: {
-        items: 2
-      }
+      0:   { items: 1 },
+      600: { items: 2 },
+      900: { items: 3 },
     },
-    nav: false
+  };
+  openImage(url: string): void {
+    this.activeImage = url;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeImage(): void {
+    this.activeImage = null;
+    document.body.style.overflow = '';
   }
 }

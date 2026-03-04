@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {BlogPostModal} from '../blog-post-modal/blog-post-modal';
@@ -18,6 +18,7 @@ import {FilterPipe} from '../../../pipes/filter-pipe';
   styleUrl: './blog-post.css',
 })
 export class BlogPost implements OnInit{
+  @Input() filteredBlogs : any;
   currentRoute: string = ''
   blogPost: any[]=[];
   searchTerm: string = '';
@@ -28,10 +29,18 @@ export class BlogPost implements OnInit{
   }
 
  ngOnInit(){
-
    this.currentRoute = this.router.url.split('/')[2];
-   this.loadBlogPosts()
+   if(!this.filteredBlogs){
+     console.log("djd")
+      this.loadBlogPosts()
+   }
+
  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['filteredBlogs']) {
+      console.log('Blogs updated:', this.filteredBlogs);
+    }
+  }
  loadBlogPosts(){
    this.blogService.getAll().subscribe({
      next: (data: any) => {

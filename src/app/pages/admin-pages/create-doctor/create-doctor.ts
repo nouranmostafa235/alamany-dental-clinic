@@ -16,6 +16,7 @@ import {MatInput} from '@angular/material/input';
 import {MaterialCategory} from '../../../enums/material-category';
 import {CropResult, ImageAdjuster, ImageAdjusterResult} from '../../../shared-components/image-adjuster/image-adjuster';
 import {ImagesAdjust} from '../../../services/images-adjust';
+import {BlogPostEnum} from '../../../enums/blog-post-enum';
 
 
 @Component({
@@ -40,8 +41,10 @@ export class CreateDoctor implements OnInit{
     'Professional',
     'Certification',
     'Materials',
-    'Office Hours'
+    'Office Hours',
+    'Previous Cases'
   ];
+  prevCaseCategory = Object.values(BlogPostEnum)
   days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   specializationList = Object.values(Specialization);
   materialCategories = Object.values(MaterialCategory);
@@ -77,12 +80,14 @@ export class CreateDoctor implements OnInit{
       certificates: this.fb.array([]),
       materials: this.fb.array([]),
       officeHours: this.fb.array([],Validators.required),
+      previousCases: this.fb.array([])
     })
   }
   ngOnInit() {
     this.addCertificate();
     this.addMaterial();
-    this.addOfficeHours()
+    this.addOfficeHours();
+    this.addPrevCase()
   }
   isStepValid(): boolean {
 
@@ -102,9 +107,7 @@ export class CreateDoctor implements OnInit{
     this.currentStep.update(s => s - 1);
   }
   createDoctor() {
-
     const formData = this.buildFormData();
-
     this.doctorService.createDoctor(formData).subscribe({
       next: res => console.log(res),
       error: err => console.error(err)
@@ -160,6 +163,18 @@ export class CreateDoctor implements OnInit{
       .get('material')
       ?.setValue(file);
   }
+  onBeforeCaseFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    this.prevCase.at(index)
+      .get('beforePhoto')
+      ?.setValue(file);
+  }
+  onAfterCaseFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    this.prevCase.at(index)
+      .get('afterPhoto')
+      ?.setValue(file);
+  }
   createCertificate(): FormGroup {
     return this.fb.group({
       name: [''],
@@ -208,6 +223,24 @@ export class CreateDoctor implements OnInit{
   removeOfficeHour(index: number) {
     this.officeHours.removeAt(index);
   }
+  createPrevCase(): FormGroup {
+    return this.fb.group({
+      beforePhoto: [null],
+      afterPhoto: [null],
+      title: [''],
+      treatmentType:['']
+
+    });
+  }
+  get prevCase(): FormArray {
+    return this.createDoctorForm.get('previousCases') as FormArray;
+  }
+  addPrevCase() {
+    this.prevCase.push(this.createPrevCase());
+  }
+  removePrevCase(index: number) {
+    this.prevCase.removeAt(index);
+  }
   buildFormData(): FormData {
 
     const formData = new FormData();
@@ -216,7 +249,8 @@ export class CreateDoctor implements OnInit{
     const professional = this.createDoctorForm.value.professionalInfo;
     const certificates = this.createDoctorForm.value.certificates;
     const materials = this.createDoctorForm.value.materials;
-    const officeHours = this.createDoctorForm.value.officeHours
+    const officeHours = this.createDoctorForm.value.officeHours;
+    const prevCase = this.createDoctorForm.value.previousCases
 
     // Personal Info
     formData.append('firstName', personal.firstName);
@@ -279,6 +313,25 @@ export class CreateDoctor implements OnInit{
         }))
       )
     );
+    prevCase.forEach((prev: any, index : number) => {
+      if (prev.beforePhoto || prev.afterPhoto) {
+        formData.append(
+          `caseData[${index}]`,
+          JSON.stringify({ title: prev.title, treatmentType: prev.treatmentType })
+        );
+      }
+    });
+
+    prevCase.forEach((prev: any) => {
+      if (prev.beforePhoto) {
+        formData.append('beforePhoto', prev.beforePhoto);
+      }
+    });
+    prevCase.forEach((prev: any) => {
+      if (prev.afterPhoto) {
+        formData.append('afterPhoto', prev.afterPhoto);
+      }
+    });
     return formData;
   }
 

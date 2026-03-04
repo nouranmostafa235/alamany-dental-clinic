@@ -224,6 +224,55 @@
 
         </div>
       }
+      @if (currentStep()===5){
+        <div class="certificates-section">
+          <div class="section-header">
+            <h3>Previous Cases</h3>
+            <button class="add-btn" (click)="addPrevCase()">
+              + Add Case
+            </button>
+          </div>
+
+          <div formArrayName="previousCases">
+            @for (cert of prevCase.controls; track $index) {
+              <div
+                [formGroupName]="$index"
+                class="certificate-card">
+
+                <div class="card-header">
+                  <h4>Case {{$index + 1}}</h4>
+                  @if (material.length > 1) {
+                    <button
+                      class="remove-btn"
+                      (click)="removePrevCase($index)">
+                      ✕
+                    </button>
+                  }
+
+                </div>
+                <input
+                  type="file"
+                  (change)="onBeforeCaseFileChange($event, $index)">
+                <input
+                  type="file"
+                  (change)="onAfterCaseFileChange($event, $index)">
+                <input
+                  placeholder="Case Title"
+                  formControlName="title">
+                <select formControlName="treatmentType" >
+                  <option value="">Category</option>
+                  @for (cat of prevCaseCategory; track $index) {
+                    <option [value]="cat">{{cat}}</option>
+                  }
+                </select>
+              </div>
+            }
+
+
+          </div>
+
+        </div>
+      }
     </form>
 
   </div>

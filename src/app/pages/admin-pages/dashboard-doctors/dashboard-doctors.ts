@@ -9,7 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {AsyncPipe, isPlatformBrowser} from '@angular/common';
 import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
 import {ImagesAdjust} from '../../../services/images-adjust';
-import {map} from 'rxjs';
+import {BehaviorSubject, map, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-doctors',
@@ -24,10 +24,16 @@ import {map} from 'rxjs';
 })
 export class DashboardDoctors implements OnInit {
   private doctorService = inject(DoctorsService)
-  allDoctors = this.doctorService.getAllDoctors().pipe(
-    map((res: any) => res.data ?? res)  // handle both shapes
+  private refresh$ = new BehaviorSubject<void>(undefined);
+  allDoctors = this.refresh$.pipe(
+    switchMap(() =>
+      this.doctorService.getAllDoctors().pipe(
+        map((res: any) => res.data ?? res)
+      )
+    )
   );
   searchTerm: string = ''
+
   private platformId = inject(PLATFORM_ID);
   constructor(private dialog: MatDialog,
 
@@ -40,6 +46,9 @@ export class DashboardDoctors implements OnInit {
       // this.getDoctors()
     }
 
+  }
+  refresh() {
+    this.refresh$.next();
   }
   openDialog() {
     this.dialog.open(CreateDoctor,{})
@@ -61,7 +70,7 @@ export class DashboardDoctors implements OnInit {
     dialogRef.afterClosed().subscribe(confirmed => {
       if (confirmed) {
         this.doctorService.deleteDoctor(id).subscribe({
-          next: () => this.getDoctors()
+          next: () => this.refresh()
         });
       }
     });

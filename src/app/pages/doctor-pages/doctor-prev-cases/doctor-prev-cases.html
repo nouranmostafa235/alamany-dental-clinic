@@ -1,0 +1,99 @@
+<div class="cases-section">
+
+  <div class="section-header">
+    <span class="section-badge">Portfolio</span>
+    <h6 class="section-title">Previous Cases</h6>
+    <p class="section-subtitle">Real patient outcomes documented by the doctor</p>
+  </div>
+
+  @if (doctorData$ | async; as doctorData) {
+    <div class="cases-grid">
+      @for (case of doctorData.previousCases; track $index) {
+        <div class="case-card">
+
+          <div class="case-card__images">
+
+            <!-- Before -->
+            <div class="case-card__img-wrap" (click)="openLightbox(case.beforePhoto.url, 'Before', case.title)">
+              <img [src]="case.beforePhoto.url" [alt]="'Before – ' + case.title" class="case-card__img">
+              <div class="case-card__img-label case-card__img-label--before">Before</div>
+              <div class="case-card__overlay">
+                <span class="case-card__view-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  View
+                </span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="case-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </div>
+
+            <!-- After -->
+            <div class="case-card__img-wrap" (click)="openLightbox(case.afterPhoto.url, 'After', case.title)">
+              <img [src]="case.afterPhoto.url" [alt]="'After – ' + case.title" class="case-card__img">
+              <div class="case-card__img-label case-card__img-label--after">After</div>
+              <div class="case-card__overlay">
+                <span class="case-card__view-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  View
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="case-card__body">
+            <div class="case-card__tag">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Documented
+            </div>
+            <p class="case-card__title">{{ case.title }}</p>
+          </div>
+
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <p>No cases available</p>
+    </div>
+  }
+
+  <!-- Lightbox -->
+  @if (activeImage) {
+    <div class="lightbox" (click)="closeLightbox()">
+      <div class="lightbox__content" (click)="$event.stopPropagation()">
+        <button class="lightbox__close" (click)="closeLightbox()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+        <img [src]="activeImage.url" [alt]="activeImage.label" class="lightbox__img">
+        <div class="lightbox__footer">
+          <span class="lightbox__badge" [class.lightbox__badge--after]="activeImage.label === 'After'">
+            {{ activeImage.label }}
+          </span>
+          <span class="lightbox__title">{{ activeImage.caseTitle }}</span>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

@@ -32,6 +32,7 @@ import {NotFoundPage} from './shared-components/not-found-page/not-found-page';
 import {BookingForm} from './pages/appointments/booking-form/booking-form';
 import {adminAuthGuard} from './guards/admin-auth-guard';
 import {BookingResult} from './pages/appointments/booking-result/booking-result';
+import {DoctorPrevCases} from './pages/doctor-pages/doctor-prev-cases/doctor-prev-cases';
 
 export const routes: Routes = [
   {path:'home', component:HomePage},
@@ -53,6 +54,7 @@ export const routes: Routes = [
       {path: '', component: DoctorCertificates},
       {path: 'material', component: DoctorMaterial},
       {path: 'office-hours', component: DoctorOfficeHourSection},
+      {path: 'previous-cases', component: DoctorPrevCases},
     ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},

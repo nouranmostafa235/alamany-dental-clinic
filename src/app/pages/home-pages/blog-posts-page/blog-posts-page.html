@@ -1,69 +1,49 @@
 <app-nav-bar></app-nav-bar>
-<div class="blog-post-page ">
-  <div class="container">
-    <section [style.background-image]="latestBlogSrc" class="blog-hero rounded-2">
-      <div class="overlay rounded-2">
-        <h1>Our Blog</h1>
-        <p class="service-description">
-          Bringing you the latest & greatest in oral care health.
+
+<div class="blog-page">
+
+  <!-- Hero -->
+  <section class="blog-hero" [style.background-image]="latestBlogSrc">
+    <div class="blog-hero__overlay">
+      <div class="blog-hero__content container">
+        <span class="blog-hero__eyebrow">Our Blog</span>
+        <h1 class="blog-hero__title">Insights for a<br><em>Healthier Smile</em></h1>
+        <p class="blog-hero__desc">
+          Bringing you the latest &amp; greatest in oral care health.
         </p>
+        <div class="blog-hero__scroll-hint">
+          <span>Scroll to explore</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </div>
       </div>
-    </section>
-     <div class="mt-5 mb-5">
-       <ul class="navbar-nav d-flex flex-row flex-wrap mx-auto w-75 justify-content-center gap-4 mb-2 mb-lg-0">
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'all' "
-              aria-current="page"
-              (click)="setActive('all')">All</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'dentalHealth' "
-              (click)="setActive('dentalHealth')">Dental Hygiene</a>
-         </li>
-
-         <li class="nav-item">
-           <a class="nav-link"
-              [class.active]="activeTag === 'services'"
-              (click)="setActive('services')">Dental Services</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link"
-              [class.active]="activeTag === 'flossing'"
-              (click)="setActive('flossing')"
-           >Flossing</a>
-         </li>
-
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'health' "
-              (click)="setActive('health')">Health</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'oralCare' "
-              (click)="setActive('oralCare')">Oral Care</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'teeth' "
-              (click)="setActive('teeth')">Sensitive Teeth</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'whitening' "
-              (click)="setActive('whitening')">Teeth Whitening</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'sensitive' "
-              (click)="setActive('sensitive')">Sensitive Teeth</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" [class.active]="activeTag === 'uncategorized' "
-              (click)="setActive('uncategorized')">Uncategorized</a>
-         </li>
-       </ul>
-     </div>
-    <div class="mb-5">
-      <app-blog-post></app-blog-post>
     </div>
+  </section>
 
+  <!-- Filter Tags -->
+  <div class="blog-filters">
+    <div class="container">
+      <div class="blog-filters__inner">
+        <a class="filter-tag" [class.filter-tag--active]="activeTag === 'all'"
+           (click)="setActive('all')">
+          All Posts
+        </a>
+        @for (tag of tags; track $index) {
+          <a class="filter-tag" [class.filter-tag--active]="activeTag === tag"
+             (click)="setActive(tag)">
+            {{ tag }}
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Posts -->
+  <div class="blog-content container">
+    <app-blog-post [filteredBlogs]="filteredBlogs"></app-blog-post>
   </div>
 
 </div>
+
 <app-footer></app-footer>

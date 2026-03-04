@@ -113,7 +113,7 @@ loading.show()
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       // Don't retry refresh/login/logout endpoints
-      if (error.status !== 401 || error.error.message !== 'Access token expired' || req.url.includes('/auth/')) {
+      if (error.status !== 401 && error.status !== 500 && req.url.includes('/auth/')) {
         return throwError(() => error);
       }
 

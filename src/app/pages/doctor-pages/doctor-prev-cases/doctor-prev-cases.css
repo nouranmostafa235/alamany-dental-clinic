@@ -1,5 +1,5 @@
 /* ─── Section Wrapper ─────────────────────────────────── */
-.certificates-section {
+.cases-section {
   padding: 8px 0 24px;
 }
 
@@ -13,15 +13,15 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: #e8f6f4;
-  color: #0d7a6e;
+  background: #f3eefb;
+  color: #6b21a8;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid #c5e8e3;
+  border: 1px solid #ddd0f5;
   margin-bottom: 10px;
 
   &::before {
@@ -29,7 +29,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #0d9a8a;
+    background: #9333ea;
     display: inline-block;
     animation: pulse-dot 2s ease-in-out infinite;
   }
@@ -54,58 +54,20 @@
   margin: 0;
 }
 
-/* ─── Carousel Wrapper ────────────────────────────────── */
-.carousel-wrapper {
-  padding: 0 8px 16px;
+/* ─── Cases Grid ──────────────────────────────────────── */
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
 
-  /* Style the owl-carousel dots */
-  ::ng-deep .owl-dots {
-    margin-top: 20px !important;
-
-    .owl-dot span {
-      width: 6px !important;
-      height: 6px !important;
-      background: #d0d7e2 !important;
-      transition: all 0.3s ease !important;
-      margin: 0 4px !important;
-    }
-
-    .owl-dot.active span {
-      width: 22px !important;
-      border-radius: 4px !important;
-      background: var(--light-color, #0d9aad) !important;
-    }
-  }
-
-  /* Style nav arrows */
-  ::ng-deep .owl-nav {
-    .owl-prev,
-    .owl-next {
-      width: 38px !important;
-      height: 38px !important;
-      border-radius: 50% !important;
-      background: white !important;
-      border: 1.5px solid #dde3ec !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      transition: all 0.25s ease !important;
-      color: var(--dark-bg-color, #0d2d38) !important;
-      font-size: 18px !important;
-
-      &:hover {
-        background: #f0f7f8 !important;
-        border-color: var(--light-color, #0d9aad) !important;
-        box-shadow: 0 4px 14px rgba(13, 79, 92, 0.15) !important;
-      }
-    }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
-/* ─── Certificate Card ────────────────────────────────── */
-.cert-card {
-  margin: 8px 16px 16px;
+/* ─── Case Card ───────────────────────────────────────── */
+.case-card {
   background: white;
   border-radius: 16px;
   overflow: hidden;
@@ -114,32 +76,53 @@
   transition:
     transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1),
     box-shadow 0.3s ease;
-  cursor: pointer;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(13, 79, 92, 0.14);
-
-    .cert-card__overlay {
-      opacity: 1;
-    }
-
-    .cert-card__img {
-      transform: scale(1.04);
-    }
+    box-shadow: 0 12px 32px rgba(13, 79, 92, 0.13);
   }
 }
 
-/* Image */
-.cert-card__img-wrap {
+/* ─── Before / After Images Row ───────────────────────── */
+.case-card__images {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 200px;
   position: relative;
-  width: 100%;
-  height: 240px;
-  overflow: hidden;
-  background: #f0f3f7;
+
+  @media (max-width: 400px) {
+    height: 160px;
+  }
 }
 
-.cert-card__img {
+/* Individual image wrapper */
+.case-card__img-wrap {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  background: #f0f3f7;
+  cursor: pointer;
+
+  &:first-child {
+    border-radius: 0;
+  }
+
+  &:hover .case-card__overlay {
+    opacity: 1;
+  }
+
+  &:hover .case-card__img {
+    transform: scale(1.05);
+  }
+
+  &:hover .case-card__view-btn {
+    transform: translateY(0);
+  }
+}
+
+.case-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -147,41 +130,98 @@
   transition: transform 0.4s ease;
 }
 
+/* Before / After label pill */
+.case-card__img-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.case-card__img-label--before {
+  background: rgba(220, 38, 38, 0.12);
+  color: #b91c1c;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  backdrop-filter: blur(4px);
+}
+
+.case-card__img-label--after {
+  background: rgba(13, 154, 100, 0.12);
+  color: #0d7a4e;
+  border: 1px solid rgba(13, 154, 100, 0.25);
+  backdrop-filter: blur(4px);
+}
+
 /* Hover overlay */
-.cert-card__overlay {
+.case-card__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(13, 45, 56, 0.45);
+  background: rgba(13, 45, 56, 0.42);
   backdrop-filter: blur(2px);
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
 }
 
-.cert-card__view-btn {
+.case-card__view-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   background: white;
   color: var(--dark-bg-color, #0d2d38);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 9px 20px;
+  padding: 7px 16px;
   border-radius: 50px;
   letter-spacing: 0.02em;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   transform: translateY(6px);
   transition: transform 0.3s ease;
+}
 
-  .cert-card:hover & {
-    transform: translateY(0);
+/* Center arrow between images */
+.case-card__arrow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: white;
+  border: 1.5px solid #dde3ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-bg-color, #0d2d38);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  flex-shrink: 0;
+
+  @media (max-width: 400px) {
+    width: 26px;
+    height: 26px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }
 
-/* Card Body */
-.cert-card__body {
+/* ─── Card Body ───────────────────────────────────────── */
+.case-card__body {
   padding: 14px 18px 16px;
   display: flex;
   align-items: center;
@@ -189,12 +229,12 @@
   border-top: 1px solid #f0f3f7;
 }
 
-.cert-card__verified-badge {
+.case-card__tag {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #e8f6f4;
-  color: #0d7a6e;
+  background: #f3eefb;
+  color: #6b21a8;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -208,7 +248,7 @@
   }
 }
 
-.cert-card__issuer {
+.case-card__title {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
@@ -307,9 +347,34 @@
   border-top: 1px solid #f0f3f7;
 }
 
-.lightbox__issuer {
+.lightbox__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(220, 38, 38, 0.10);
+  color: #b91c1c;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  flex-shrink: 0;
+
+  &.lightbox__badge--after {
+    background: rgba(13, 154, 100, 0.10);
+    color: #0d7a4e;
+    border-color: rgba(13, 154, 100, 0.2);
+  }
+}
+
+.lightbox__title {
   font-size: 14px;
   font-weight: 600;
   color: var(--dark-bg-color, #0d2d38);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,25 +1,49 @@
+<div class="availability-section">
 
-  <div class="container mt-5 mb-5">
-    @if (doctorData$ | async; as doctorData) {
-      @for (doctor of doctorData.officeHours; track $index) {
-        <div class="d-flex mt-4 justify-content-between office-hours rounded-4  p-4">
-          <div class="d-flex gap-2 align-items-center">
-            <div class="calendar">
-              <i class="fa-regular fa-calendar" style="color: white"></i>
-            </div>
-            <p class="m-0 days">{{ doctor.day }}</p>
-          </div>
-          <div class="d-flex gap-2 align-items-center">
-            <div class="clock">
-              <i class="fa-regular fa-clock" style="color: white"></i>
-            </div>
-            <p class="m-0 days">{{ doctor.open }} - {{ doctor.close }}</p>
-          </div>
-        </div>
-
-      }
-    }
-
-
+  <div class="section-header">
+    <span class="section-badge">Schedule</span>
+    <h6 class="section-title">Office Hours</h6>
+    <p class="section-subtitle">Weekly availability for appointments and consultations</p>
   </div>
 
+  @if (doctorData$ | async; as doctorData) {
+    <div class="hours-list">
+      @for (slot of doctorData.officeHours; track $index) {
+        <div class="hours-row">
+
+          <div class="hours-row__left">
+            <div class="hours-icon hours-icon--calendar">
+              <i class="fa-regular fa-calendar"></i>
+            </div>
+            <span class="hours-row__day">{{ slot.day }}</span>
+          </div>
+
+          <div class="hours-row__divider">
+            <span class="hours-row__dot"></span>
+            <span class="hours-row__line"></span>
+            <span class="hours-row__dot"></span>
+          </div>
+
+          <div class="hours-row__right">
+            <div class="hours-icon hours-icon--clock">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <span class="hours-row__time">{{ slot.open }} <span class="hours-row__sep">–</span> {{ slot.close }}</span>
+          </div>
+
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <p>No office hours available</p>
+    </div>
+  }
+
+</div>

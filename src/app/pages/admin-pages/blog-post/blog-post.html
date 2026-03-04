@@ -1,75 +1,112 @@
-<div class="container-fluid ">
+<div class="blog-list">
+
+  <!-- Blog Management Header (admin route only) -->
   @if (currentRoute === 'blog-posts') {
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="blog-list__admin-header">
       <div>
-      <h2 class="title">Blog Management</h2>
-      <p class="description">Create, edit, and manage blog posts for your dental clinic.</p>
-    </div>
-      <div>
-        <button (click)="openForm()" class="btn create">Create New Blog Post</button>
+        <h2 class="admin-title">Blog Management</h2>
+        <p class="admin-desc">Create, edit, and manage blog posts for your dental clinic.</p>
       </div>
+      <button (click)="openForm()" class="create-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        New Blog Post
+      </button>
     </div>
 
-    <input [(ngModel)]="searchTerm" class="form-control mb-3 " placeholder="search blog posts...">
+    <div class="search-wrap">
+      <svg class="search-wrap__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input [(ngModel)]="searchTerm" class="search-input" placeholder="Search blog posts...">
+    </div>
   }
 
-  <div class="row g-4 container">
-    @if (blogPost && (blogPost | filter:searchTerm:['title','tags'])?.length === 0) {
-      <div class="col-12 text-center py-5">
-        <p class="text-muted">No blogs found</p>
-      </div>
-    }
-    @for (blog of blogPost|filter:searchTerm:['title','tags']; track blog._id) {
-      <div class="card  border-0 col-md-6">
-        <div class="img-wrapper overflow-hidden rounded-top-3" style="height: 150px;">
-          <img [src]="blog.coverImage" class="w-100 h-100 object-fit-cover" alt="">
+  <!-- Grid -->
+  <div class="blog-grid">
+
+    @if (currentRoute === 'blog-posts') {
+
+      @if ((blogPost | filter:searchTerm:['title','tags'])?.length === 0) {
+        <div class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <p>No blog posts found</p>
         </div>
-        <div class="card-body">
-          <div class="d-flex gap-3">
-            <p class="description">
-              <i class="fa-regular fa-bookmark" style="color:var(--gray-color);"></i>
-              {{ blog.category }}
-            </p>
-            <p class="description">
-              <i class="fa-regular fa-calendar" style="color:var(--gray-color);"></i>
-              {{ blog.createdAt | date:'medium' }}
-            </p>
-          </div>
-          <h5 class="card-title" style="color: var(--dark-color)">{{ blog.title }}</h5>
-          <p class="card-text description">
-            {{blog.summary }}
-          </p>
-          <hr>
-          <div class="d-flex gap-2 mb-3">
-            @for (tag of blog.tags; track $index) {
-              <span class="badge fw-light rounded-pill" style="color: var(--light-color)"> {{ tag }}</span>
-            }
+      }
 
-          </div>
-          <div class="d-flex gap-1">
-            <button type="button" (click)="openModal(blog)"
-                    class="btn rounded-3 h-0 me-2" [ngClass]="currentRoute==='blog-posts'?'w-75':'w-100'" style="color: var(--dark-color)">
-              <i class="fa fa-eye" style="color: var(--dark-color)"></i>
-              Preview
-            </button>
-            @if (currentRoute === 'blog-posts'){
-              <button (click)="deleteBlogPost(blog._id)" class="btn rounded-3 d-flex align-items-center" style="color: #ED3F47">
-                <i class="fa fa-trash"></i>
-                Delete
-              </button>
-            }
+      @for (blog of blogPost | filter:searchTerm:['title','tags']; track blog._id) {
+        <ng-container *ngTemplateOutlet="blogCard; context: { $implicit: blog, isAdmin: true }"></ng-container>
+      }
 
-          </div>
+    } @else {
 
+      @if (filteredBlogs?.length === 0) {
+        <div class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c5cdd8" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <p>No blog posts found</p>
         </div>
+      }
 
-      </div>
+      @for (blog of filteredBlogs; track blog._id) {
+        <ng-container *ngTemplateOutlet="blogCard; context: { $implicit: blog, isAdmin: false }"></ng-container>
+      }
+
     }
 
   </div>
+</div>
+
+<!-- ─── Shared Blog Card Template ─────────────────────── -->
+<ng-template #blogCard let-blog let-isAdmin="isAdmin">
+  <div class="blog-card">
+
+    <div class="blog-card__img-wrap">
+      <img [src]="blog.coverImage" class="blog-card__img" [alt]="blog.title">
+      <div class="blog-card__category">
+        <i class="fa-regular fa-bookmark"></i>
+        {{ blog.category }}
+      </div>
+    </div>
+
+    <div class="blog-card__body">
+
+      <p class="blog-card__date">
+        <i class="fa-regular fa-calendar"></i>
+        {{ blog.createdAt | date:'mediumDate' }}
+      </p>
+
+      <h5 class="blog-card__title">{{ blog.title }}</h5>
+
+      <p class="blog-card__summary">{{ blog.summary }}</p>
+
+      <div class="blog-card__tags">
+        @for (tag of blog.tags; track $index) {
+          <span class="blog-tag">{{ tag }}</span>
+        }
+      </div>
+
+      <div class="blog-card__actions">
+        <button type="button" (click)="openModal(blog)" class="action-btn action-btn--preview"
+                [class.action-btn--full]="!isAdmin">
+          <i class="fa fa-eye"></i>
+          Preview
+        </button>
+        @if (isAdmin) {
+          <button (click)="deleteBlogPost(blog._id)" class="action-btn action-btn--delete">
+            <i class="fa fa-trash"></i>
+            Delete
+          </button>
+        }
+      </div>
+
+    </div>
 
   </div>
-
-<!--<div class="modal fade w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!-- <app-blog-post-modal></app-blog-post-modal>-->
-<!--</div>-->
+</ng-template>

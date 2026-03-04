@@ -1,7 +1,8 @@
-import { Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import {DoctorsService} from '../../../services/doctors-service';
 import {AsyncPipe} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-doctor-certificates',
@@ -12,35 +13,40 @@ import {AsyncPipe} from '@angular/common';
   templateUrl: './doctor-certificates.html',
   styleUrl: './doctor-certificates.css',
 })
-export class DoctorCertificates{
+export class DoctorCertificates implements OnInit{
+
+  activeImage: { url: string; issuer: string } | null = null;
   private doctorService = inject(DoctorsService);
   doctorData$ = this.doctorService.doctor$;
-  constructor() {
-  }
-
+  constructor(
+    private route: ActivatedRoute,
+  ) {}
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    margin: 16,
     dots: true,
-    navSpeed: 700,
-    navText: ['<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>', '<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>'],
+    navSpeed: 400,
+    navText: ['&#8249;', '&#8250;'],
+    nav: true,
     responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
+      0:   { items: 1 },
+      600: { items: 2 },
+      900: { items: 3 },
     },
-    nav: false
+  };
+  ngOnInit() {
+
+  }
+  openImage(url: string, issuer: string): void {
+    console.log(url)
+    this.activeImage = { url, issuer };
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeImage(): void {
+    this.activeImage = null;
+    document.body.style.overflow = '';
   }
 }

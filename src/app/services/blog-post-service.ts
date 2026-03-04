@@ -18,4 +18,7 @@ export class BlogPostService {
   deleteBlogPosts(id:any):Observable<any>{
     return this.http.delete(this.baseApiUrl+'blogs/'+id)
   }
+  getAllTags():Observable<any>{
+    return this.http.get(this.baseApiUrl+'blogs/tags')
+  }
 }
