@@ -14,7 +14,7 @@ import {isPlatformBrowser} from '@angular/common';
 export class DoctorReview implements OnInit{
   doctorData: any;
   allReviews: any = [];
-  totalNoOfRatings: number = 0;
+  totalNoOfRatings: any;
   overAllRate = 0
   platformId  = inject(PLATFORM_ID)
   constructor(private doctorService: DoctorsService, private cdr: ChangeDetectorRef) {
@@ -59,10 +59,14 @@ export class DoctorReview implements OnInit{
     this.doctorService.getReviews(id).subscribe(reviews => {
       this.allReviews = reviews?.data?.reviews;
       this.overAllRate = reviews?.data?.ratingData?.averageRating;
-      this.totalNoOfRatings = reviews.data.ratingData?.totalRatings;
+      this.totalNoOfRatings = this.formatRating(reviews.data.ratingData?.totalRatings) ;
       this.cdr.detectChanges();
       console.log(this.allReviews);
     })
+  }
+ formatRating(value: number): string {
+    if (Number.isInteger(value)) return value.toString();
+    return value.toFixed(1);
   }
   getStars(rating: number): number[] {
     return Array(5).fill(0).map((_, i) => i + 1);

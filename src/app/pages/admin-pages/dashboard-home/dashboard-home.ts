@@ -1,9 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {DoctorsService} from '../../../services/doctors-service';
 import {AppointmentsService} from '../../../services/appointments-service';
 import {BlogPostService} from '../../../services/blog-post-service';
-import {AsyncPipe, DatePipe} from '@angular/common';
-import {BehaviorSubject, map, switchMap} from 'rxjs';
+import {AsyncPipe, DatePipe, isPlatformBrowser} from '@angular/common';
+import {BehaviorSubject, map, of, switchMap} from 'rxjs';
 import {FilterPipe} from '../../../pipes/filter-pipe';
 import {FormsModule} from '@angular/forms';
 import {ConfirmationDialog} from '../../../shared-components/confirmation-dialog/confirmation-dialog';
@@ -22,17 +22,30 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class DashboardHome implements OnInit {
   searchTerm = ''
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
   private doctorService = inject(DoctorsService)
   private appointService = inject(AppointmentsService)
   private blogPostService = inject(BlogPostService)
   private refresh$ = new BehaviorSubject<void>(undefined);
-  totalDoctors$ = this.doctorService.getAllDoctors();
-  totalAppointments$ = this.appointService.getAllAppointments();
-  totalBlogPosts$ = this.blogPostService.getAll();
-  allAppointments$ = this.refresh$.pipe(
-    switchMap(() => this.appointService.getAllAppointments()),
-    map(res => res.data.filter((app: any) => app.status === 'pending'))
-  );
+  totalDoctors$ = this.isBrowser
+    ? this.doctorService.getAllDoctors()
+    : of({ data: [] });
+
+  totalAppointments$ = this.isBrowser
+    ? this.appointService.getAllAppointments()
+    : of({ data: [] });
+
+  totalBlogPosts$ = this.isBrowser
+    ? this.blogPostService.getAll()
+    : of({ data: [] });
+
+  allAppointments$ = this.isBrowser
+    ? this.refresh$.pipe(
+      switchMap(() => this.appointService.getAllAppointments()),
+      map(res => res.data.filter((app: any) => app.status === 'pending'))
+    )
+    : of([]);
   private dialog = inject(MatDialog)
   ngOnInit() {
 

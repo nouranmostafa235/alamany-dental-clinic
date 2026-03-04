@@ -58,30 +58,8 @@ export const routes: Routes = [
     ]},
   {path:'blog-posts' , component:BlogPostsPage},
   {path:'verify-email' , component:VerifyEmail},
-  {path:'admin',component:Dashboard ,canActivate:[adminAuthGuard], children:[
-    {
-    path:'' , component:DashboardHome
-    },
-      {
-        path:'doctors' , component:DashboardDoctors
-      },
-      {path:'patients' , component:PatientDashboard},
-      {path:'appointments' , component:DashboardAppointment,
-      children:[
-        {path:'', component:AllAppointments},
-        {path:'confirmed', component:ConfirmedAppointments},
-        {path:'cancelled', component:CancelledAppointment},
-        {path:'pending', component:PendingApointment}
-      ]},
-      {
-        path:'blog-posts' ,component:BlogPost
-      },
-      {
-        path:'services-management' ,component:ServicesMangement
-      },
-      {
-        path:'messages-management' ,component:Messages
-      }
-    ]},
+  {path:'admin',component:Dashboard ,canActivate:[adminAuthGuard],
+    loadChildren: () => import('./pages/admin-pages/admin.routes')
+      .then(m => m.ADMIN_ROUTES)},
   {path:'**' , component: NotFoundPage}
 ];

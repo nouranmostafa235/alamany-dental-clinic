@@ -1,0 +1,5 @@
+/home
+/login
+/blog-posts
+/verify-email
+/doctor-profile/1
