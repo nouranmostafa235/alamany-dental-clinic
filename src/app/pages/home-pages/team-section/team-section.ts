@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
-import {RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {DoctorsService} from '../../../services/doctors-service';
 import {isPlatformBrowser} from '@angular/common';
 
@@ -8,14 +8,14 @@ import {isPlatformBrowser} from '@angular/common';
   selector: 'app-team-section',
   imports: [
     CarouselModule,
-    RouterLink
   ],
   templateUrl: './team-section.html',
   styleUrl: './team-section.css',
 })
 export class TeamSection implements OnInit{
   allDoctors: any[] = [];
-  constructor(private doctorService:DoctorsService,@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private doctorService:DoctorsService, private router : Router,
+              @Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
@@ -58,5 +58,10 @@ export class TeamSection implements OnInit{
        this.allDoctors = data.data;
       }
     })
+  }
+  navigate(doctorId:any){
+    this.router.navigate(['/doctor-profile', doctorId], {
+      state: { returnUrl: this.router.url }
+    });
   }
 }

@@ -36,7 +36,6 @@ export class BlogPostsPage implements OnInit {
         this.latestBlogSrc = `url(${latestBlog.coverImage})`;
         this.filteredBlogs = this.allBlogPosts;
         this.cdr.markForCheck();
-        console.log(this.filteredBlogs,"parent");
       }
     })
     this.getAllTags()

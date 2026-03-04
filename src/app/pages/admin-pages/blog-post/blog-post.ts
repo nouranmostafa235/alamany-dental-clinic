@@ -31,14 +31,13 @@ export class BlogPost implements OnInit{
  ngOnInit(){
    this.currentRoute = this.router.url.split('/')[2];
    if(!this.filteredBlogs){
-     console.log("djd")
       this.loadBlogPosts()
    }
 
  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['filteredBlogs']) {
-      console.log('Blogs updated:', this.filteredBlogs);
+      // console.log('Blogs updated:', this.filteredBlogs);
     }
   }
  loadBlogPosts(){

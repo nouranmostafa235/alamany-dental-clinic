@@ -24,7 +24,6 @@ import {DatePipe} from '@angular/common';
 })
 export class BlogPostModal {
 constructor( @Inject(MAT_DIALOG_DATA) public data: any) {
-  console.log(data);
 }
 
 }

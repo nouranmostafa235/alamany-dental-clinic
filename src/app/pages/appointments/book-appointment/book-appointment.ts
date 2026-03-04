@@ -34,7 +34,6 @@ export class BookAppointment {
     this.popStateSub?.unsubscribe();
   }
   private onBackBrowser() {
-    console.log('Back Browser');
     if (this.wizard.getStep() > 1) {
       this.wizard.back();
     }

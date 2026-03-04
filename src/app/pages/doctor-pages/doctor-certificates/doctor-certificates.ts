@@ -40,7 +40,6 @@ export class DoctorCertificates implements OnInit{
 
   }
   openImage(url: string, issuer: string): void {
-    console.log(url)
     this.activeImage = { url, issuer };
     document.body.style.overflow = 'hidden';
   }

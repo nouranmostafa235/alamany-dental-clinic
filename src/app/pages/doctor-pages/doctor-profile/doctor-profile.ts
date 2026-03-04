@@ -1,7 +1,7 @@
 import {Component, inject, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {DoctorInfoSection} from '../doctor-info-section/doctor-info-section';
 import {Footer} from '../../../shared-components/footer/footer';
-import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DoctorReview} from '../doctor-review/doctor-review';
 import {DoctorsService} from '../../../services/doctors-service';
 import {isPlatformBrowser, Location} from '@angular/common';
@@ -23,15 +23,18 @@ export class DoctorProfile implements OnInit {
   doctorId: string|null = null;
   doctorData: any
   private location = inject(Location);
-
+  private returnUrl: any;
 
   constructor(private route: ActivatedRoute, private doctorService: DoctorsService,
-              @Inject(PLATFORM_ID) private platformId: Object) {}
+              @Inject(PLATFORM_ID) private platformId: Object,
+              private router: Router) {}
 
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
+    const navigation = this.router.getCurrentNavigation();
+    this.returnUrl = navigation?.extras.state?.['returnUrl'] || '/';
     this.route.paramMap.subscribe(params => {
       this.doctorId = params.get('id');
       this.getDoctorById(params.get('id'));
@@ -46,6 +49,6 @@ export class DoctorProfile implements OnInit {
     })
   }
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl(this.returnUrl);
   }
 }

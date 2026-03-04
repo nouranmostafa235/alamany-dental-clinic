@@ -61,7 +61,6 @@ export class DoctorReview implements OnInit{
       this.overAllRate = reviews?.data?.ratingData?.averageRating;
       this.totalNoOfRatings = this.formatRating(reviews.data.ratingData?.totalRatings) ;
       this.cdr.detectChanges();
-      console.log(this.allReviews);
     })
   }
  formatRating(value: number): string {

@@ -91,7 +91,6 @@ export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
     this.service.getServices().subscribe({
       next: data => {
         this.allServices = data.data.services
-        console.log(this.allServices)
       }
     })
   }

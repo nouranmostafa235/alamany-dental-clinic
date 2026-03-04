@@ -10,7 +10,7 @@
     <owl-carousel-o [options]="customOptions">
       @for (doctor of allDoctors; track doctor._id) {
         <ng-template carouselSlide>
-          <div class="doctor-card" [routerLink]="['/doctor-profile', doctor._id]">
+          <div class="doctor-card" (click)="navigate(doctor._id)">
 
             <div class="doctor-card__img-wrap">
               <img [src]="doctor.picture" class="doctor-card__img" [alt]="doctor.name">

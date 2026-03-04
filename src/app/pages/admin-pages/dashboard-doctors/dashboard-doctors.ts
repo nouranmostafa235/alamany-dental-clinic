@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {CreateServiceForm} from '../create-service-form/create-service-form';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateDoctor} from '../create-doctor/create-doctor';
@@ -14,7 +14,6 @@ import {BehaviorSubject, map, switchMap} from 'rxjs';
 @Component({
   selector: 'app-dashboard-doctors',
   imports: [
-    RouterLink,
     FilterPipe,
     FormsModule,
     AsyncPipe
@@ -36,7 +35,7 @@ export class DashboardDoctors implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
   constructor(private dialog: MatDialog,
-
+              private router:Router,
               private cdr: ChangeDetectorRef) {
 
   }
@@ -60,6 +59,11 @@ export class DashboardDoctors implements OnInit {
         this.cdr.detectChanges()
       }
     })
+  }
+  navigate(doctorId:any){
+    this.router.navigate(['/doctor-profile', doctorId], {
+      state: { returnUrl: this.router.url }
+    });
   }
   deleteDoctor(id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
