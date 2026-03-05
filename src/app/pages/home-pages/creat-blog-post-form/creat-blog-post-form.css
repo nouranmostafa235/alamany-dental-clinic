@@ -2,6 +2,7 @@
 .blog-form-wrap {
   background: #f4f6f9;
   padding: 32px 28px 40px;
+  width: 100%;
   /*min-height: 100%;*/
   max-height: 90vh;
   overflow-y: auto;

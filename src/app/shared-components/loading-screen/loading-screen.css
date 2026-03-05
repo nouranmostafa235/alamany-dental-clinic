@@ -1,64 +1,106 @@
-/* Full-screen overlay */
+/* ─── Backdrop ────────────────────────────────────────── */
 .loading-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* semi-transparent */
+  background: var(--dark-bg-color, #0d2d38);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 99999; /* above CDK overlay (1000) and Material dialog (1000+) */
   flex-direction: column;
+  animation: backdrop-in 0.2s ease;
 }
 
-/* Container for logo + animations */
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Spinner Container ───────────────────────────────── */
 .spinner-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-/* Logo */
+/* ─── Logo ────────────────────────────────────────────── */
 .logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  animation: logo-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(13, 154, 173, 0.4);
+}
+
+@keyframes logo-pulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(13, 154, 173, 0.5); }
+  50%  { transform: scale(1.06); box-shadow: 0 0 0 20px rgba(13, 154, 173, 0);  }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0   rgba(13, 154, 173, 0);   }
+}
+
+/* ─── Orbiting ring ───────────────────────────────────── */
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--light-color, #0d9aad);
+  animation: orbit-spin linear infinite;
+}
+
+.orbit-1 {
   width: 120px;
   height: 120px;
+  animation-duration: 1.4s;
+  border-top-color: rgba(13, 154, 173, 0.9);
+}
+
+.orbit-2 {
+  width: 150px;
+  height: 150px;
+  animation-duration: 2.2s;
+  animation-direction: reverse;
+  border-top-color: rgba(13, 154, 173, 0.45);
+}
+
+.orbit-3 {
+  width: 182px;
+  height: 182px;
+  animation-duration: 3s;
+  border-top-color: rgba(13, 154, 173, 0.2);
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Dots ────────────────────────────────────────────── */
+.loading-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 36px;
+}
+
+.loading-dots span {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  animation: logo-bounce 1.2s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.3);
+  animation: dot-wave 1.4s ease-in-out infinite;
 }
 
-/* Rings around logo */
-.ring {
-  position: absolute;
-  border: 4px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1.5s linear infinite;
-  opacity: 0.6;
-}
+.loading-dots span:nth-child(1) { animation-delay: 0s;    }
+.loading-dots span:nth-child(2) { animation-delay: 0.18s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.36s; }
 
-/* Different sizes and speeds for creativity */
-.ring1 { width: 180px; height: 180px; animation-duration: 1.5s; }
-.ring2 { width: 220px; height: 220px; animation-duration: 2s; }
-.ring3 { width: 260px; height: 260px; animation-duration: 2.5s; }
-
-/* Loading text */
-.loading-text {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
-  letter-spacing: 1px;
-}
-
-/* Animations */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes logo-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+@keyframes dot-wave {
+  0%, 80%, 100% { background: rgba(255, 255, 255, 0.2); transform: scale(1);    }
+  40%            { background: var(--light-color, #0d9aad); transform: scale(1.5); }
 }

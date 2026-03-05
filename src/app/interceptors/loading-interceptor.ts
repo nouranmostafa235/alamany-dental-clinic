@@ -98,13 +98,13 @@ import {TokenService} from '../services/token-service';
 import {AuthService} from '../services/auth-service';
 import {LoadingService} from '../services/loading-service';
 import {tap} from 'rxjs/operators';
-
-
+import {ToastrService} from 'ngx-toastr';
 let isRefreshing = false;
 const refreshSubject = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const tokenService = inject(TokenService);
+  const toaster = inject(ToastrService)
   const authService = inject(AuthService);
   const loading = inject(LoadingService);
   const token = tokenService.getToken();
@@ -112,8 +112,9 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
 loading.show()
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
+      handleErrorToast(error,toaster)
       // Don't retry refresh/login/logout endpoints
-      if (error.status !== 401 && error.status !== 500 && req.url.includes('/auth/')) {
+      if (error.status !== 401  || req.url.includes('/auth/')) {
         return throwError(() => error);
       }
 
@@ -129,14 +130,32 @@ loading.show()
       isRefreshing = true;
       refreshSubject.next(null);
 
+      // return authService.refresh().pipe(
+      //   switchMap(res => {
+      //     isRefreshing = false;
+      //     refreshSubject.next(res.data.accessToken);
+      //     return next(addToken(req, res.data.accessToken));
+      //   }),
+      //   catchError(err => {
+      //     isRefreshing = false;
+      //     return throwError(() => err);
+      //   })
+      // );
       return authService.refresh().pipe(
         switchMap(res => {
+          const newToken = res.data.accessToken;
           isRefreshing = false;
-          refreshSubject.next(res.data.accessToken);
-          return next(addToken(req, res.data.accessToken));
+          refreshSubject.next(newToken);
+          return next(addToken(req, newToken));
         }),
         catchError(err => {
           isRefreshing = false;
+          refreshSubject.next(null);
+
+          // refresh token expired
+          // tokenService.clear();
+          authService.logout(); // أو router.navigate(['/login'])
+
           return throwError(() => err);
         })
       );
@@ -147,6 +166,36 @@ loading.show()
   );
 
 };
+function handleErrorToast(error: HttpErrorResponse, toastr: ToastrService) {
+  const backendMessage = error.error?.message || error.error?.error || null;
+
+  switch (error.status) {
+    case 400:
+      toastr.error(backendMessage || 'Bad request. Please check your input.', 'Error');
+      break;
+    case 401:
+      toastr.warning(backendMessage || 'Session expired. Please log in again.', 'Unauthorized');
+      break;
+    case 403:
+      toastr.error(backendMessage || 'You do not have permission to do this.', 'Forbidden');
+      break;
+    case 404:
+      toastr.error(backendMessage || 'Resource not found.', 'Not Found');
+      break;
+    case 422:
+      toastr.error(backendMessage || 'Validation failed. Please check your input.', 'Validation Error');
+      break;
+    case 500:
+      toastr.error(backendMessage || 'Server error. Please try again later.', 'Server Error');
+      break;
+    case 0:
+      toastr.error('No internet connection or server is unreachable.', 'Network Error');
+      break;
+    default:
+      toastr.error(backendMessage || 'Something went wrong.', 'Error');
+  }
+
+}
 
 function addToken(req: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
   return req.clone({

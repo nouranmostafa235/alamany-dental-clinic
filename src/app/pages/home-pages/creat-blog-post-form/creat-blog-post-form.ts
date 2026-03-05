@@ -16,7 +16,6 @@ interface MediaFile {
   imports: [
     TagInputModule,
     FormsModule,
-    ImageAdjuster,
     ReactiveFormsModule
   ],
   templateUrl: './creat-blog-post-form.html',
@@ -28,9 +27,8 @@ export class CreatBlogPostForm {
   blogPostService = inject(BlogPostService);
   categoryList = Object.values(BlogPostEnum);
 
-  avatarPreviewUrl = signal<string | null>(null);
-  cropResult = signal<CropResult | null>(null);
-
+  coverFile: File | null = null;
+  coverPreview: string | null = null;
   // Additional images (max 10)
   imageFiles: MediaFile[] = [];
 
@@ -55,13 +53,27 @@ export class CreatBlogPostForm {
     this.createBlogPostForm.get('tags')?.setValue(this.items);
   }
 
-  /* ─── Cover image (via ImageAdjuster) ─────────────────── */
-  onImageCropped(result: CropResult) {
-    this.cropResult.set(result);
-    this.avatarPreviewUrl.set(result.croppedPreviewUrl);
-    this.createBlogPostForm.get('coverImage')?.setValue(result.originalFile);
-  }
 
+  onCoverSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    this.coverFile = file;
+    this.coverPreview = URL.createObjectURL(file);
+
+    this.createBlogPostForm.get('coverImage')?.setValue(file);
+  }
+  removeCover() {
+    if (this.coverPreview) {
+      URL.revokeObjectURL(this.coverPreview);
+    }
+
+    this.coverPreview = null;
+    this.coverFile = null;
+    this.createBlogPostForm.get('coverImage')?.setValue(null);
+  }
   /* ─── Additional images ───────────────────────────────── */
   onImagesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -153,6 +165,9 @@ export class CreatBlogPostForm {
 
   /* ─── Cleanup object URLs on destroy ─────────────────── */
   ngOnDestroy() {
+    if (this.coverPreview) {
+      URL.revokeObjectURL(this.coverPreview);
+    }
     this.imageFiles.forEach(f => URL.revokeObjectURL(f.preview));
     this.videoFiles.forEach(f => URL.revokeObjectURL(f.preview));
   }

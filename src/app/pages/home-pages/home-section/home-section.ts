@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
 import {NavBar} from '../../nav-bar/nav-bar';
 import {RouterLink} from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-home-section',
@@ -14,6 +15,11 @@ import {RouterLink} from '@angular/router';
   styleUrl: './home-section.css',
 })
 export class HomeSection {
+  isBrowser = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -25,7 +31,10 @@ export class HomeSection {
     pullDrag: false,
     dots: false,
     navSpeed: 700,
-    navText: ['<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>', '<i class="fa-solid fa-angle-right fa-xs" style="color: #ffffff;"></i>'],
+    navText: [
+      '<i class="fa-solid fa-angle-left"></i>',
+      '<i class="fa-solid fa-angle-right"></i>'
+    ]   ,
     responsive: {
       0: {
         items: 1

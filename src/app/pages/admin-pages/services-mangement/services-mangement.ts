@@ -42,7 +42,9 @@ export class ServicesMangement implements OnInit {
   }
   openDialog(service: any = null) {
     const dialogRef = this.dialog.open(CreateServiceForm, {
-      // width: '600px',
+      width: '900px',
+      maxWidth: '60vw',
+      maxHeight:'90vh',
       data: {
         mode: service ? 'edit' : 'create',
         service: service

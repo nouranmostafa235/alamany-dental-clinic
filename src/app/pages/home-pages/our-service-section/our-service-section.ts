@@ -14,7 +14,10 @@ import {RouterLink} from '@angular/router';
   styleUrl: './our-service-section.css',
 })
 export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object , private service: OurServicesService) {}
+  isBrowser = false;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object , private service: OurServicesService) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -51,33 +54,33 @@ export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
       return;
     }
     this.getAll()
-    gsap.registerPlugin(ScrollTrigger);
-    this.ctx = gsap.context(()=>{
-      gsap.from('.gsap-title', {
-        scrollTrigger: {
-          trigger: '.service-wrapper',
-          start: 'top 70%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out'
-      });
-      gsap.from('.gsap-image', {
-        scrollTrigger: {
-          trigger: '.service-wrapper',
-          start: 'top 70%',
-        },
-        x: 80,
-        opacity: 0,
-        duration: 1.2,
-        delay: 0.2,
-        ease: 'power3.out'
-      });
-    })
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
+    // gsap.registerPlugin(ScrollTrigger);
+    // this.ctx = gsap.context(()=>{
+    //   gsap.from('.gsap-title', {
+    //     scrollTrigger: {
+    //       trigger: '.service-wrapper',
+    //       start: 'top 70%',
+    //     },
+    //     y: 50,
+    //     opacity: 0,
+    //     duration: 1,
+    //     ease: 'power3.out'
+    //   });
+    //   gsap.from('.gsap-image', {
+    //     scrollTrigger: {
+    //       trigger: '.service-wrapper',
+    //       start: 'top 70%',
+    //     },
+    //     x: 80,
+    //     opacity: 0,
+    //     duration: 1.2,
+    //     delay: 0.2,
+    //     ease: 'power3.out'
+    //   });
+    // })
+    // setTimeout(() => {
+    //   ScrollTrigger.refresh();
+    // }, 100);
   }
 
   ngAfterViewInit() {

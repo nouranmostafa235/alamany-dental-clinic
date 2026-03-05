@@ -1,6 +1,27 @@
 <div class="home-page">
 
-  <!-- Overlay layer with nav + content -->
+  <!-- Background carousel (z-index: 1) -->
+  @if (isBrowser) {
+    <owl-carousel-o [options]="customOptions" class="home-page__carousel">
+      <ng-template carouselSlide>
+        <img src="img/home1.jpeg" class="home-page__slide-img" alt="Clinic slide 1">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="img/home2.jpeg" class="home-page__slide-img" alt="Clinic slide 2">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="img/home3.jpeg" class="home-page__slide-img" alt="Clinic slide 3">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="img/home5.png" class="home-page__slide-img" alt="Clinic slide 4">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="img/home6.png" class="home-page__slide-img" alt="Clinic slide 6">
+      </ng-template>
+    </owl-carousel-o>
+  }
+
+  <!-- Overlay layer with nav + content (z-index: 2) -->
   <div class="home-page__layer">
     <app-nav-bar></app-nav-bar>
 
@@ -34,31 +55,18 @@
         </a>
         <a class="home-page__btn-ghost" href="tel:+201092184470">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
           </svg>
           (+20) 1092184470
         </a>
       </div>
+
+<!--      <div class="home-page__scroll-hint">-->
+<!--        <div class="home-page__scroll-line"></div>-->
+<!--        Scroll-->
+<!--      </div>-->
+
     </div>
   </div>
-
-  <!-- Background carousel -->
-  <owl-carousel-o [options]="customOptions" class="home-page__carousel">
-    <ng-template carouselSlide>
-      <img src="img/home1.jpeg" class="home-page__slide-img" alt="Clinic slide 1">
-    </ng-template>
-    <ng-template carouselSlide>
-      <img src="img/home2.jpeg" class="home-page__slide-img" alt="Clinic slide 2">
-    </ng-template>
-    <ng-template carouselSlide>
-      <img src="img/home3.jpeg" class="home-page__slide-img" alt="Clinic slide 3">
-    </ng-template>
-    <ng-template carouselSlide>
-      <img src="img/home5.png" class="home-page__slide-img" alt="Clinic slide 4">
-    </ng-template>
-    <ng-template carouselSlide>
-      <img src="img/home6.png" class="home-page__slide-img" alt="Clinic slide 6">
-    </ng-template>
-  </owl-carousel-o>
 
 </div>

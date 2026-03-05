@@ -1,8 +1,12 @@
 /* ─── Wrapper ─────────────────────────────────────────── */
 .blog-list {
-  width: 100%;
+  padding: 32px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: #f4f6f9;
+  min-height: 100vh;
 }
-
 /* ─── Admin Header ────────────────────────────────────── */
 .blog-list__admin-header {
   display: flex;
@@ -15,10 +19,10 @@
 
 .admin-title {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--dark-bg-color, #0d2d38);
   letter-spacing: -0.02em;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
 }
 
 .admin-desc {
@@ -31,7 +35,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--dark-color, #0d2d38);
+  background: var(--dark-bg-color, #0d2d38);
   color: white;
   font-size: 13px;
   font-weight: 600;
@@ -53,7 +57,9 @@
 .create-btn:active {
   transform: translateY(0);
 }
-
+.create-btn {
+  justify-content: center;
+}
 /* ─── Search ──────────────────────────────────────────── */
 .search-wrap {
   position: relative;

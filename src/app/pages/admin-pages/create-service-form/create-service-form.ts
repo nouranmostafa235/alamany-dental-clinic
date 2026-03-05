@@ -18,6 +18,8 @@ export class CreateServiceForm implements OnInit {
   createForm: FormGroup
   serviceList = Object.values(ServiceEnum);
   isEditMode = false;
+  coverFile: File | null = null;
+  coverPreview: string | null = null;
   constructor(private service:OurServicesService, private fb:FormBuilder,
               private dialogRef: MatDialogRef<CreateServiceForm>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -72,12 +74,22 @@ export class CreateServiceForm implements OnInit {
 
   }
   onImageChange(event:any){
-    const file = event.target.files[0];
-    if (file) {
-      this.createForm.patchValue({
-        coverImage: file
-      });
-    }
-    this.createForm.get('coverImage')?.updateValueAndValidity();
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    this.coverFile = file;
+    this.coverPreview = URL.createObjectURL(file);
+    this.createForm.get('coverImage')?.setValue(file);
 }
+  removeCover() {
+    if (this.coverPreview) {
+      URL.revokeObjectURL(this.coverPreview);
+    }
+
+    this.coverPreview = null;
+    this.coverFile = null;
+    this.createForm.get('coverImage')?.setValue(null);
+  }
 }

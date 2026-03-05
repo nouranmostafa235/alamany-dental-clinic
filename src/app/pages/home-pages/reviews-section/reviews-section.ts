@@ -51,9 +51,9 @@ export class ReviewsSection implements AfterViewInit {
     }
   }
   ngAfterViewInit() {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+    // if (!isPlatformBrowser(this.platformId)) {
+    //   return;
+    // }
     gsap.registerPlugin(ScrollTrigger);
     gsap.from('.gsap-review', {
       scrollTrigger: {

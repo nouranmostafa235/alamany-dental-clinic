@@ -1,32 +1,63 @@
-.wrapper{
+/* ===== BASE LAYOUT ===== */
+.wrapper {
   background-color: var(--dark-bg-color);
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
 }
-.logo img{
+
+/* ===== LEFT PANEL — fixed on scroll ===== */
+.logo {
+  color: white;
+  width: 40%;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.logo img {
   width: 40%;
   cursor: pointer;
+  max-width: 220px;
 }
-.logo{
-  color: white;
-  height: 100vh;
-  width: 40%;
-}
-.side-div{
+
+/* ===== RIGHT PANEL — scrollable ===== */
+.side-div {
   background-color: #F5F5F5;
-  right: 0;
-  left: 40%;
-  top: 0;
-  bottom: 4%;
-}
-.back-btn {
+  margin-left: 40%;          /* offset by the fixed left panel width */
+  width: 60%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   position: relative;
+}
+
+.side-div > div {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 100;
   display: inline-flex;
   align-items: center;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-bottom: 1.5rem;
   overflow: hidden;
   border-radius: 50px;
 }
@@ -37,7 +68,6 @@
   gap: 8px;
   padding: 10px 20px 10px 14px;
   border-radius: 50px;
-
   color: #0d4f5c;
   font-size: 0.9rem;
   font-weight: 600;
@@ -69,22 +99,97 @@
   transition: opacity 0.3s ease;
 }
 
-/* Hover effects */
 .back-btn:hover .back-btn__track {
-
   padding-left: 10px;
 }
 
 .back-btn:hover .back-btn__arrow {
   transform: translateX(-3px) scale(1.1);
-  /*background: #1a6b7a;*/
 }
 
 .back-btn:hover .back-btn__glow {
   opacity: 1;
 }
 
-/* Active/click effect */
 .back-btn:active .back-btn__arrow {
   transform: translateX(-6px) scale(0.95);
+}
+
+/* ===== TABLET  (768px – 1023px) ===== */
+@media (max-width: 1023px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  /* Left panel: natural flow, no longer fixed */
+  .logo {
+    position: relative;
+    width: 100%;
+    min-height: 220px;
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  .logo img {
+    width: 28%;
+    max-width: 160px;
+  }
+
+  /* Right panel: full width, no offset */
+  .side-div {
+    margin-left: 0;
+    width: 100%;
+    min-height: auto;
+    border-radius: 24px 24px 0 0;
+    margin-top: -20px;        /* slight overlap for a card-stacked effect */
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
+  }
+
+  .side-div > div {
+    min-height: auto;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ===== MOBILE  (≤ 767px) ===== */
+@media (max-width: 767px) {
+  .logo {
+    min-height: 180px;
+    padding: 3.5rem 1rem 1.25rem;
+  }
+
+  .logo img {
+    width: 38%;
+    max-width: 130px;
+  }
+
+  .side-div {
+    border-radius: 20px 20px 0 0;
+    margin-top: -16px;
+  }
+
+  .side-div > div {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Compact back button on mobile */
+  .back-btn__track {
+    padding: 8px 14px 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .back-btn__arrow {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* ===== SMALL MOBILE  (≤ 380px) ===== */
+@media (max-width: 380px) {
+  .logo {
+    min-height: 160px;
+  }
+
+  .logo img {
+    width: 42%;
+  }
 }
