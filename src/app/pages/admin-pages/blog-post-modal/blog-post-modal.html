@@ -1,49 +1,80 @@
-<div class="bg-white rounded-3 p-3">
-  <h2 mat-dialog-title>
-    {{ data.blogPost.title }}
-  </h2>
-
-  <mat-dialog-content class="px-4">
-
-    <div class="image-wrapper mb-3">
+<div class="blog-modal-wrapper">
+  @if (data.blogPost.coverImage) {
+    <div class="modal-hero" >
       <img
-        class="rounded-3 w-100 object-fit-cover"
+        class="hero-image"
         [src]="data.blogPost.coverImage"
+        [alt]="data.blogPost.title"
       />
+      <div class="hero-overlay">
+        <div class="d-flex gap-2 flex-wrap px-3 pb-3">
+          @for (tag of data.blogPost.tags; track $index) {
+            <span class="tag-pill">{{ tag }}</span>
+          }
+        </div>
+      </div>
     </div>
+  }
 
-    <div class="d-flex gap-3 mb-3">
-      <p class="description">
+
+  <div class="modal-body-content px-4 pt-3 pb-2">
+
+    <h2 class="modal-blog-title">{{ data.blogPost.title }}</h2>
+
+    <div class="meta-row">
+      <span class="meta-item">
         <i class="fa-regular fa-bookmark"></i>
         {{ data.blogPost.category }}
-      </p>
-      <p class="description">
+      </span>
+      <span class="meta-divider">·</span>
+      <span class="meta-item">
         <i class="fa-regular fa-calendar"></i>
         {{ data.blogPost.createdAt | date }}
-      </p>
+      </span>
     </div>
-    <div class="d-flex gap-2 mb-3">
-      @for (tag of data.blogPost.tags; track $index) {
-        <span class="badge fw-light rounded-pill" style="color: var(--light-color)"> {{ tag }}</span>
+
+    <div class="summary-box">
+      <p>{{ data.blogPost.summary }}</p>
+    </div>
+
+    <div class="content-body">
+      <!-- Render text content -->
+      @if (data.blogPost.content) {
+        <p >{{ data.blogPost.content }}</p>
       }
 
+
+      <!-- Media Gallery: Images -->
+      @if (data.blogPost.images?.length) {
+        <div class="media-gallery">
+          @for (img of data.blogPost.images; track $index) {
+            <div class="media-item">
+              <img [src]="img" [alt]="'Image ' + ($index + 1)" class="gallery-image" />
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Media Gallery: Videos -->
+      @if (data.blogPost.videos?.length) {
+        <div class="video-list mt-3">
+          @for (video of data.blogPost.videos; track $index) {
+            <div class="video-wrapper">
+              <video controls class="blog-video">
+                <source [src]="video" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          }
+        </div>
+      }
     </div>
-    <hr />
 
-    <div class="p-4 rounded-3 mb-3" style="background-color: var(--blue-bg-color)">
-      <p class="card-text">
-        {{ data.blogPost.summary }}
-      </p>
-    </div>
+  </div>
 
-    <div class="content">
-      {{ data.blogPost.content }}
-    </div>
-
-  </mat-dialog-content>
-
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Close</button>
+  <mat-dialog-actions align="end" class="px-4 pb-3">
+    <button mat-button mat-dialog-close class="close-btn">
+      <i class="fa-solid fa-xmark"></i> Close
+    </button>
   </mat-dialog-actions>
-
 </div>
