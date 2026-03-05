@@ -1,24 +1,25 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, PLATFORM_ID, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
 import gsap from 'gsap';
-import MotionPathPlugin from 'gsap/MotionPathPlugin';
-import DrawSVGPlugin from 'gsap/DrawSVGPlugin';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import {isPlatformBrowser} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-counter-section',
   imports: [],
   templateUrl: './counter-section.html',
   styleUrl: './counter-section.css',
 })
-export class CounterSection implements AfterViewInit,OnDestroy {
+export class CounterSection implements AfterViewInit, OnDestroy {
   @ViewChild('svgSection') svgSection!: ElementRef;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   svgs = [
     {
       viewBox: '0 0 24 24',
-      path: '   M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z\n',
+      path: 'M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z',
       stroke: '#042D3C',
-      title: 'Layers',
+      title: 'Care',
       description: 'Gentle, Judgement Free Care'
     },
     {
@@ -39,70 +40,78 @@ export class CounterSection implements AfterViewInit,OnDestroy {
       viewBox: '0 0 24 24',
       path: 'M4 21C4 17.4735 6.60771 14.5561 10 14.0709M16.4976 16.2119C15.7978 15.4328 14.6309 15.2232 13.7541 15.9367C12.8774 16.6501 12.7539 17.843 13.4425 18.6868C13.8312 19.1632 14.7548 19.9983 15.4854 20.6353C15.8319 20.9374 16.0051 21.0885 16.2147 21.1503C16.3934 21.203 16.6018 21.203 16.7805 21.1503C16.9901 21.0885 17.1633 20.9374 17.5098 20.6353C18.2404 19.9983 19.164 19.1632 19.5527 18.6868C20.2413 17.843 20.1329 16.6426 19.2411 15.9367C18.3492 15.2307 17.1974 15.4328 16.4976 16.2119ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z',
       stroke: '#042D3C',
-      title: 'Refresh',
+      title: 'Patients',
       description: 'Thousands of Happy Patients'
     },
     {
       viewBox: '0 0 24 24',
       path: 'M12 20H16M12 20H8M12 20V16M12 16H5C4.44772 16 4 15.5523 4 15V6C4 5.44771 4.44772 5 5 5H19C19.5523 5 20 5.44772 20 6V15C20 15.5523 19.5523 16 19 16H12Z',
       stroke: '#042D3C',
-      title: 'Refresh',
+      title: 'Technology',
       description: 'Industry Leading Technology'
     },
-
   ];
-  ngAfterViewInit(): void {
-    // Only run animations in the browser
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
 
-    // Register ScrollTrigger plugin
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Wait one tick so Angular's @for loop finishes rendering the DOM
+    setTimeout(() => this.initAnimations(), 0);
+  }
+
+  private initAnimations(): void {
+    const section = this.svgSection?.nativeElement;
+    if (!section) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
-    // Reset all SVG paths to initial state
-    const paths = this.svgSection.nativeElement.querySelectorAll('.svg-path');
-    paths.forEach((path: SVGPathElement) => {
-      gsap.set(path, { strokeDashoffset: 1000 });
-    });
+    // ── SVG path draw-on animation ──────────────────────────
+    const paths = Array.from(section.querySelectorAll('.svg-path')) as SVGPathElement[];
 
-    // Animate each SVG path
+    paths.forEach((path, index) => {
+      // Get the actual path length so dasharray/dashoffset work correctly
+      const length = path.getTotalLength?.() ?? 1000;
 
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
 
-    paths.forEach((path: SVGPathElement, index: number) => {
       gsap.to(path, {
         strokeDashoffset: 0,
-        duration: 6,
+        duration: 2,
         ease: 'power2.inOut',
+        delay: index * 0.15,
         scrollTrigger: {
           trigger: path,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+          start: 'top 85%',
+          toggleActions: 'play none none none',
         },
-        delay: index * 0.2 // Stagger effect
       });
     });
 
-    // Animate the containers
-    const svgItems = this.svgSection.nativeElement.querySelectorAll('.svg-item');
+    // ── Card fade-up animation ──────────────────────────────
+    const svgItems = Array.from(section.querySelectorAll('.svg-item')) as HTMLElement[];
 
-    gsap.from(svgItems, {
-      opacity: 0,
-      y: 50,
-      duration: 0.9,
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: this.svgSection.nativeElement,
-        start: 'top 70%',
-        toggleActions: 'play none none none'
-      }
-    });
+    if (svgItems.length > 0) {
+      gsap.from(svgItems, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        },
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    // Clean up ScrollTrigger instances to prevent memory leaks
     if (isPlatformBrowser(this.platformId)) {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach(t => t.kill());
     }
-}
+  }
 }

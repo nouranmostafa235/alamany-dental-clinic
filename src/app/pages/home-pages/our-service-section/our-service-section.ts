@@ -24,8 +24,10 @@ export class OurServiceSection implements AfterViewInit , OnInit , OnDestroy {
     touchDrag: false,
     pullDrag: false,
     autoplay: true,
-    animateIn: 'fadeIn',
-    animateOut: 'fadeOut',
+    // animateIn: 'fadeIn',
+    // animateOut: 'fadeOut',
+    autoplayTimeout: 3000,   // controls how long each slide shows (ms)
+    autoplaySpeed: 500,      // controls the transition speed (ms)
     margin: 16,
     stagePadding: 30,
     dots: true,

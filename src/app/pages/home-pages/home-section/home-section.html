@@ -2,23 +2,23 @@
 
   <!-- Background carousel (z-index: 1) -->
   @if (isBrowser) {
-    <owl-carousel-o [options]="customOptions" class="home-page__carousel">
-      <ng-template carouselSlide>
+    <swiper-container appSwiper [swiperOptions]="swiperConfig" init="false" class="home-page__carousel">
+      <swiper-slide>
         <img src="img/home1.jpeg" class="home-page__slide-img" alt="Clinic slide 1">
-      </ng-template>
-      <ng-template carouselSlide>
+      </swiper-slide>
+      <swiper-slide>
         <img src="img/home2.jpeg" class="home-page__slide-img" alt="Clinic slide 2">
-      </ng-template>
-      <ng-template carouselSlide>
+      </swiper-slide>
+      <swiper-slide>
         <img src="img/home3.jpeg" class="home-page__slide-img" alt="Clinic slide 3">
-      </ng-template>
-      <ng-template carouselSlide>
+      </swiper-slide>
+      <swiper-slide>
         <img src="img/home5.png" class="home-page__slide-img" alt="Clinic slide 4">
-      </ng-template>
-      <ng-template carouselSlide>
+      </swiper-slide>
+      <swiper-slide>
         <img src="img/home6.png" class="home-page__slide-img" alt="Clinic slide 6">
-      </ng-template>
-    </owl-carousel-o>
+      </swiper-slide>
+    </swiper-container>
   }
 
   <!-- Overlay layer with nav + content (z-index: 2) -->
@@ -60,11 +60,6 @@
           (+20) 1092184470
         </a>
       </div>
-
-<!--      <div class="home-page__scroll-hint">-->
-<!--        <div class="home-page__scroll-line"></div>-->
-<!--        Scroll-->
-<!--      </div>-->
 
     </div>
   </div>

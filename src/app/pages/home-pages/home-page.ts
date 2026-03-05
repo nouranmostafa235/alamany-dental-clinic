@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, PLATFORM_ID} from '@angular/core';
+import {AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, PLATFORM_ID} from '@angular/core';
 import {HomeSection} from './home-section/home-section';
 import {CounterSection} from './counter-section/counter-section';
 import {OurServiceSection} from './our-service-section/our-service-section';
@@ -12,6 +12,7 @@ import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     HomeSection,
     CounterSection,

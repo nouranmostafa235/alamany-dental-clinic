@@ -1,54 +1,28 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
-import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
-import {NavBar} from '../../nav-bar/nav-bar';
-import {RouterLink} from '@angular/router';
-import {isPlatformBrowser} from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, PLATFORM_ID } from '@angular/core';
+import { NavBar } from '../../nav-bar/nav-bar';
+import { RouterLink } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { SwiperOptions } from 'swiper/types';
+import { SwiperDirective } from '../../../directives/swiper.directive';
 
 @Component({
   selector: 'app-home-section',
   imports: [
-    CarouselModule,
     NavBar,
-    RouterLink
+    RouterLink,
+    SwiperDirective
   ],
   templateUrl: './home-section.html',
   styleUrl: './home-section.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeSection {
-  isBrowser = false;
+  readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
-  customOptions: OwlOptions = {
+  swiperConfig: SwiperOptions = {
     loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    autoplay: true,
-    animateOut: 'fadeOut',
-    animateIn: 'fadeIn',
-    autoplaySpeed: 3000,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
-    navText: [
-      '<i class="fa-solid fa-angle-left"></i>',
-      '<i class="fa-solid fa-angle-right"></i>'
-    ]   ,
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
-    },
-    nav: false
-  }
+    autoplay: { delay: 4000, disableOnInteraction: false },
+    effect: 'fade',
+    speed: 800,
+  };
 }
