@@ -9,33 +9,9 @@
 
     @if (isBrowser) {
       <owl-carousel-o [options]="customOptions">
-        <ng-template carouselSlide>
-          <div class="doctor-card" >
-
-            <div class="doctor-card__img-wrap">
-              <img src="img/dr-amr.jpg" class="doctor-card__img" >
-              <div class="doctor-card__overlay">
-                <span class="doctor-card__view-btn">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                  View Profile
-                </span>
-              </div>
-            </div>
-
-            <div class="doctor-card__body">
-              <p class="doctor-card__name">dr amr</p>
-              <p class="doctor-card__specialty">doctor</p>
-            </div>
-
-          </div>
-        </ng-template>
         @for (doctor of allDoctors; track doctor._id) {
           <ng-template carouselSlide>
             <div class="doctor-card" (click)="navigate(doctor._id)">
-
               <div class="doctor-card__img-wrap">
                 <img [src]="doctor.picture" class="doctor-card__img" [alt]="doctor.name">
                 <div class="doctor-card__overlay">
@@ -50,8 +26,7 @@
               </div>
 
               <div class="doctor-card__body">
-                <p class="doctor-card__name">{{ doctor.name }}</p>
-                <p class="doctor-card__specialty">{{ doctor.specialty }}</p>
+                <p class="doctor-card__name">Dr. {{ doctor.firstName }} {{doctor.lastName}}</p>
               </div>
 
             </div>
