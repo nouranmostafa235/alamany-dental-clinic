@@ -1,14 +1,17 @@
-import { Component, inject, signal } from '@angular/core';
+import {Component, Inject, inject} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TagInputModule } from 'ngx-chips';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogPostEnum } from '../../../enums/blog-post-enum';
-import { CropResult, ImageAdjuster } from '../../../shared-components/image-adjuster/image-adjuster';
 import { BlogPostService } from '../../../services/blog-post-service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 interface MediaFile {
   file: File;
   preview: string;
+  safePreview?: SafeUrl;
 }
 
 @Component({
@@ -23,7 +26,6 @@ interface MediaFile {
 })
 export class CreatBlogPostForm {
   items: string[] = [];
-
   blogPostService = inject(BlogPostService);
   categoryList = Object.values(BlogPostEnum);
 
@@ -34,10 +36,12 @@ export class CreatBlogPostForm {
 
   // Videos (max 5)
   videoFiles: MediaFile[] = [];
-
+  isEditMode = false;
   createBlogPostForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<CreatBlogPostForm>) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<CreatBlogPostForm>,
+              @Inject(MAT_DIALOG_DATA) public data: any,private toaster: ToastrService,
+              private sanitizer: DomSanitizer) {
     this.createBlogPostForm = this.fb.group({
       title:      new FormControl('', [Validators.required]),
       content:    new FormControl('', [Validators.required]),
@@ -48,6 +52,42 @@ export class CreatBlogPostForm {
     });
   }
 
+  ngOnInit() {
+    if (this.data?.mode === 'edit') {
+      this.isEditMode = true;
+      const post = this.data.service;
+
+      this.createBlogPostForm.patchValue({
+        title:      post.title,
+        content:    post.content,
+        summary:    post.summary,
+        tags:       post.tags,
+        category:   post.category,
+        coverImage: post.coverImage ?? null,
+      });
+
+      this.items = post.tags ?? [];
+
+      if (post.coverImage) {
+        this.coverPreview = post.coverImage;
+      }
+
+      if (post.images?.length) {
+        this.imageFiles = post.images.map((url: string) => ({
+          file: null as any,
+          preview: url
+        }));
+      }
+
+      if (post.videos?.length) {
+        this.videoFiles = post.videos.map((url: string) => ({
+          file: null as any,
+          preview: url,
+          safePreview: this.sanitizer.bypassSecurityTrustUrl(url)
+        }));
+      }
+    }
+  }
   /* ─── Tags ────────────────────────────────────────────── */
   onTagChange() {
     this.createBlogPostForm.get('tags')?.setValue(this.items);
@@ -96,10 +136,10 @@ export class CreatBlogPostForm {
     });
   }
 
-  removeImage(index: number) {
-    URL.revokeObjectURL(this.imageFiles[index].preview);
-    this.imageFiles.splice(index, 1);
-  }
+  // removeImage(index: number) {
+  //   URL.revokeObjectURL(this.imageFiles[index].preview);
+  //   this.imageFiles.splice(index, 1);
+  // }
 
   /* ─── Videos ──────────────────────────────────────────── */
   onVideosSelected(event: Event) {
@@ -119,50 +159,89 @@ export class CreatBlogPostForm {
     const remaining = 5 - this.videoFiles.length;
     files.slice(0, remaining).forEach(file => {
       const preview = URL.createObjectURL(file);
-      this.videoFiles.push({ file, preview });
+      const safePreview = this.sanitizer.bypassSecurityTrustUrl(preview);
+      this.videoFiles.push({ file, preview,safePreview });
     });
   }
 
+  // removeVideo(index: number) {
+  //   URL.revokeObjectURL(this.videoFiles[index].preview);
+  //   this.videoFiles.splice(index, 1);
+  // }
+
   removeVideo(index: number) {
-    URL.revokeObjectURL(this.videoFiles[index].preview);
+    const removed = this.videoFiles[index];
+    if (removed.file !== null) {
+      URL.revokeObjectURL(removed.preview);
+    }
     this.videoFiles.splice(index, 1);
   }
 
+  removeImage(index: number) {
+    const removed = this.imageFiles[index];
+    if (removed.file !== null) {
+      URL.revokeObjectURL(removed.preview);
+    }
+    this.imageFiles.splice(index, 1);
+  }
   /* ─── Submit ──────────────────────────────────────────── */
   createBlog() {
     const formData = this.buildFormData();
-    this.blogPostService.createBlogPost(formData).subscribe({
-      next: () => this.dialogRef.close(true),
-      error: () => this.dialogRef.close(true),
-    });
+    if(this.isEditMode){
+      this.blogPostService.updateBlogPost(this.data.service._id,formData).subscribe({
+        next: () => {
+          this.toaster.success('Blog updated successfully!', 'Success');
+          this.dialogRef.close(true)
+        },
+        error: () => this.dialogRef.close(true),
+      });
+    }
+    else {
+      this.blogPostService.createBlogPost(formData).subscribe({
+        next: () => {
+          this.toaster.success('Blog added successfully!', 'Success');
+          this.dialogRef.close(true)
+        },
+        error: () => this.dialogRef.close(true),
+      });
+    }
+
   }
 
   buildFormData(): FormData {
     const formData = new FormData();
-    const { title, content, summary, category, tags, coverImage } = this.createBlogPostForm.value;
+    const { title, content, summary, category, tags } = this.createBlogPostForm.value;
 
     formData.append('title', title);
     formData.append('content', content);
     formData.append('summary', summary);
     formData.append('category', category);
-
-    // Tags as repeated fields (matches API expectation)
     (tags as string[]).forEach(tag => formData.append('tags', tag));
 
-    // Cover image
-    if (coverImage) {
-      formData.append('coverImage', coverImage);
+    // Only append if a new file was selected
+    if (this.coverFile) {
+      formData.append('coverImage', this.coverFile);
     }
 
-    // Additional images (field name: images, max 10)
-    this.imageFiles.forEach(({ file }) => formData.append('images', file));
+    // Only append new image files (skip null/server ones)
+    this.imageFiles.forEach(({ file, preview }) => {
+      if (file !== null) {
+        formData.append('images', file);
+      } else {
+        formData.append('images', preview);
+      }
+    });
 
-    // Videos (field name: videos, max 5)
-    this.videoFiles.forEach(({ file }) => formData.append('videos', file));
+    this.videoFiles.forEach(({ file, preview }) => {
+      if (file !== null) {
+        formData.append('videos', file);
+      } else {
+        formData.append('videos', preview);
+      }
+    });
 
     return formData;
   }
-
   /* ─── Cleanup object URLs on destroy ─────────────────── */
   ngOnDestroy() {
     if (this.coverPreview) {

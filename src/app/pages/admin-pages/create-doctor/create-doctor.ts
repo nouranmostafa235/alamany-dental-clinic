@@ -126,7 +126,7 @@ export class CreateDoctor implements OnInit{
           this.toaster.success('Doctor updated successfully!', 'Success');
         },
         error: err =>{
-          this.toaster.success('Failed to update doctor. Please try again.', 'Error');
+          // this.toaster.success('Failed to update doctor. Please try again.', 'Error');
           this.dialogRef.close(true)
         }
       });
@@ -138,7 +138,7 @@ export class CreateDoctor implements OnInit{
           this.toaster.success('Doctor added successfully!', 'Success');
         },
         error: err =>{
-          this.toaster.success('Failed to add doctor. Please try again.', 'Error');
+          // this.toaster.success('Failed to add doctor. Please try again.', 'Error');
           this.dialogRef.close(true)
         }
       });

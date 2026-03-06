@@ -303,3 +303,24 @@
 .empty-state p {
   margin: 0;
 }
+.action-btn--edit {
+  color: #0d9aad;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+}
+
+.action-btn--edit:hover {
+  background: #f0f9fa;
+  border-color: #0d9aad;
+  color: #0d9aad;
+}
+.action-btn--view {
+  flex: 1;
+  color: var(--dark-bg-color, #0d2d38);
+}
+
+.action-btn--view:hover {
+  background: #f0f7f8;
+  border-color: #b8dfe5;
+  color: var(--dark-bg-color, #0d2d38);
+}

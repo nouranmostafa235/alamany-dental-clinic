@@ -1,7 +1,7 @@
 <div class="blog-form-wrap">
 
   <div class="blog-form-header">
-    <h2 class="blog-form-title">Create Blog Post</h2>
+    <h2 class="blog-form-title">{{isEditMode?'Update Blog Post':'Create Blog Post'}}</h2>
     <p class="blog-form-subtitle">Fill in the details below to publish a new post</p>
   </div>
 
@@ -129,7 +129,7 @@
             <div class="media-previews">
               @for (img of imageFiles; track $index) {
                 <div class="media-thumb">
-                  <img [src]="img.preview" [alt]="img.file.name" class="media-thumb__img">
+                  <img [src]="img.preview"  class="media-thumb__img">
                   <button type="button" class="media-thumb__remove" (click)="removeImage($index)">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -159,14 +159,14 @@
             <div class="media-previews">
               @for (vid of videoFiles; track $index) {
                 <div class="media-thumb media-thumb--video">
-                  <video [src]="vid.preview" class="media-thumb__img"></video>
+                  <video [src]="vid.safePreview" class="media-thumb__img" controls></video>
                   <div class="media-thumb__play">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="white" stroke="none">
                       <polygon points="5 3 19 12 5 21 5 3"/>
                     </svg>
                   </div>
-                  <p class="media-thumb__name">{{ vid.file.name }}</p>
-                  <button type="button" class="media-thumb__remove" >
+                  <p class="media-thumb__name">{{ vid.file?.name ?? 'Existing video' }}</p>
+                  <button type="button" class="media-thumb__remove" (click)="removeVideo($index)" >
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
@@ -186,7 +186,8 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
-        Publish Blog Post
+        {{isEditMode?'Update Blog Post':'Publish Blog Post'}}
+
       </button>
     </div>
 

@@ -9,6 +9,7 @@ import {authInterceptor} from './interceptors/loading-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideToastr(),
     provideHttpClient(
       withFetch(),
       withInterceptors([authInterceptor])

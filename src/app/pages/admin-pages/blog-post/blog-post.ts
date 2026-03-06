@@ -48,11 +48,15 @@ export class BlogPost implements OnInit{
      }
    })
  }
-  openForm() {
+  openForm(blog: any = null) {
     const dialogRef = this.dialog.open(CreatBlogPostForm, {
       width: '900px',
       maxWidth: '60vw',
-      maxHeight:'90vh'
+      maxHeight:'90vh',
+      data:{
+        mode: blog ? 'edit' : 'create',
+        service: blog
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -4,6 +4,7 @@ import {TagInputModule} from 'ngx-chips';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {OurServicesService} from '../../../services/our-services-service';
 import {ServiceEnum} from '../../../enums/service-enum';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-service-form',
@@ -22,7 +23,7 @@ export class CreateServiceForm implements OnInit {
   coverPreview: string | null = null;
   constructor(private service:OurServicesService, private fb:FormBuilder,
               private dialogRef: MatDialogRef<CreateServiceForm>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any, private toaster: ToastrService) {
     this.createForm = this.fb.group({
       name : ['', [Validators.required]],
       description : ['', [Validators.required]],
@@ -60,13 +61,19 @@ export class CreateServiceForm implements OnInit {
 
     if(this.data?.mode === 'edit'){
       this.service.updateService(this.data.service._id,formData).subscribe({
-        next: data => this.dialogRef.close(true),
+        next: data =>{
+          this.toaster.success('Service updated successfully!', 'Success')
+          this.dialogRef.close(true)
+        },
         error: data => this.dialogRef.close(true),
       })
     }
     else {
       this.service.createService(formData).subscribe({
-        next: data => this.dialogRef.close(true),
+        next: data =>{
+          this.toaster.success('Service added successfully!', 'Success')
+          this.dialogRef.close(true)
+        } ,
         error: data => this.dialogRef.close(true),
       });
     }
