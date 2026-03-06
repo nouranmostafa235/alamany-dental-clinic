@@ -16,8 +16,6 @@ import {DatePipe} from '@angular/common';
     MatButton,
     MatDialogClose,
     DatePipe,
-    MatDialogContent,
-    MatDialogTitle
   ],
   templateUrl: './blog-post-modal.html',
   styleUrl: './blog-post-modal.css',

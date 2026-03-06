@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, Inject, inject, OnInit, signal} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -17,6 +17,8 @@ import {MaterialCategory} from '../../../enums/material-category';
 import {CropResult, ImageAdjuster, ImageAdjusterResult} from '../../../shared-components/image-adjuster/image-adjuster';
 import {ImagesAdjust} from '../../../services/images-adjust';
 import {BlogPostEnum} from '../../../enums/blog-post-enum';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -56,13 +58,15 @@ export class CreateDoctor implements OnInit{
   picturePreview = signal<string | null>(null);
   rawImageSrc: string | null = null;
   currentStep = signal(0);
+  isEditMode = false;
   private doctorImages = inject(ImagesAdjust);
   progressPercentage = computed(() =>
     ((this.currentStep()+1) / this.steps.length) * 100
   );
   createDoctorForm: FormGroup
   doctorService = inject(DoctorsService);
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private dialogRef: MatDialogRef<CreateDoctor>,
+              @Inject(MAT_DIALOG_DATA) public data: any,private toaster: ToastrService) {
     this.createDoctorForm = this.fb.group({
       personalInfo: this.fb.group({
         firstName: new FormControl('',Validators.required),
@@ -84,10 +88,17 @@ export class CreateDoctor implements OnInit{
     })
   }
   ngOnInit() {
-    this.addCertificate();
-    this.addMaterial();
-    this.addOfficeHours();
-    this.addPrevCase()
+    if (this.data?.mode === 'edit') {
+      this.isEditMode = true;
+     this.patchForm(this.data?.service)
+    }
+    else {
+      this.addCertificate();
+      this.addMaterial();
+      this.addOfficeHours();
+      this.addPrevCase()
+    }
+
   }
   isStepValid(): boolean {
 
@@ -108,10 +119,30 @@ export class CreateDoctor implements OnInit{
   }
   createDoctor() {
     const formData = this.buildFormData();
-    this.doctorService.createDoctor(formData).subscribe({
-      next: res => console.log(res),
-      error: err => console.error(err)
-    });
+    if(this.isEditMode){
+      this.doctorService.updateDoctor(this.data.service._id,formData).subscribe({
+        next: res => {
+          this.dialogRef.close(true)
+          this.toaster.success('Doctor updated successfully!', 'Success');
+        },
+        error: err =>{
+          this.toaster.success('Failed to update doctor. Please try again.', 'Error');
+          this.dialogRef.close(true)
+        }
+      });
+    }
+  else {
+      this.doctorService.createDoctor(formData).subscribe({
+        next: res => {
+          this.dialogRef.close(true)
+          this.toaster.success('Doctor added successfully!', 'Success');
+        },
+        error: err =>{
+          this.toaster.success('Failed to add doctor. Please try again.', 'Error');
+          this.dialogRef.close(true)
+        }
+      });
+    }
 
   }
   // onPictureChange(event: any) {
@@ -334,5 +365,75 @@ export class CreateDoctor implements OnInit{
     });
     return formData;
   }
+  patchForm(doctor: any) {
+    // ── Personal Info ──────────────────────────────────────
+    this.createDoctorForm.get('personalInfo')?.patchValue({
+      firstName: doctor.firstName,
+      lastName:  doctor.lastName,
+      email:     doctor.email,
+      phone:     doctor.phone,
+    });
 
+    // Show existing avatar
+    if (doctor.picture) {
+      this.avatarPreviewUrl.set(doctor.picture);
+    }
+
+    // ── Professional Info ──────────────────────────────────
+    this.createDoctorForm.get('professionalInfo')?.patchValue({
+      bio:               doctor.bio,
+      specialization:    doctor.specialization ?? [],
+      licenseNumber:     doctor.licenseNumber,
+      yearsOfExperience: doctor.yearsOfExperience,
+    });
+
+    // ── Certificates ───────────────────────────────────────
+    if (doctor.certificates?.length) {
+      this.certificates.clear();
+      doctor.certificates.forEach((cert: any) => {
+        this.certificates.push(this.fb.group({
+          name:            [cert.name],
+          issueDate:       [cert.issueDate],
+          certificateFile: [null]   // can't prefill file inputs
+        }));
+      });
+    }
+
+    // ── Materials ──────────────────────────────────────────
+    if (doctor.materials?.length) {
+      this.material.clear();
+      doctor.materials.forEach((mat: any) => {
+        this.material.push(this.fb.group({
+          category: [mat.category],
+          brand:    [mat.brand],
+          material: [null]
+        }));
+      });
+    }
+
+    // ── Office Hours ───────────────────────────────────────
+    if (doctor.officeHours?.length) {
+      this.officeHours.clear();
+      doctor.officeHours.forEach((oh: any) => {
+        this.officeHours.push(this.fb.group({
+          day:   [oh.day],
+          open:  [oh.open],
+          close: [oh.close]
+        }));
+      });
+    }
+
+    // ── Previous Cases ─────────────────────────────────────
+    if (doctor.previousCases?.length) {
+      this.prevCase.clear();
+      doctor.previousCases.forEach((c: any) => {
+        this.prevCase.push(this.fb.group({
+          beforePhoto:   [null],
+          afterPhoto:    [null],
+          title:         [c.title],
+          treatmentType: [c.treatmentType]
+        }));
+      });
+    }
+  }
 }

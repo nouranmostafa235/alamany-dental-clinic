@@ -177,3 +177,14 @@
 .close-btn:hover {
   background: #f5f5f5 !important;
 }
+.form-label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #0072ff;
+}

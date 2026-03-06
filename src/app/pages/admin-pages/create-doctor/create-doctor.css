@@ -272,3 +272,56 @@ input , select {
   }
 
 }
+.avatar {
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  padding: 0;
+  margin-bottom: 19px;
+  display: block;
+}
+.avatar-wrap {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.avatar-wrap {
+  display: inline-block;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.avatar-wrap img {
+  width: 190px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+.avatar-wrap button {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #0072ff;
+  background: transparent;
+  color: #0072ff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.avatar-wrap button:hover {
+  background: #0072ff;
+  color: white;
+}

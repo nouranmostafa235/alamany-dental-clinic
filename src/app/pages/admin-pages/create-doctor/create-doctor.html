@@ -43,7 +43,7 @@
           @if (avatarPreviewUrl()) {
             <div class="avatar-wrap">
               <img [src]="avatarPreviewUrl()" alt="Doctor avatar" class="avatar" />
-              <button (click)="avatarPreviewUrl.set(null)">Change photo</button>
+              <button class="btn change-btn" (click)="avatarPreviewUrl.set(null)">Change photo</button>
             </div>
           }
 

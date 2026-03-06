@@ -29,6 +29,9 @@ export class DoctorsService {
   setDoctorData(data:any){
     this.doctorData.next(data);
   }
+  updateDoctor(id:any, data: any):Observable<any>{
+    return this.http.put(`${this.baseApiUrl}doctors/${id}`, data)
+  }
   deleteDoctor(id:any):Observable<any>{
     return this.http.delete(`${this.baseApiUrl}doctors/${id}`)
   }

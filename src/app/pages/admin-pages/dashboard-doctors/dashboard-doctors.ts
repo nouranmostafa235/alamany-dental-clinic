@@ -49,8 +49,16 @@ export class DashboardDoctors implements OnInit {
   refresh() {
     this.refresh$.next();
   }
-  openDialog() {
-    this.dialog.open(CreateDoctor,{})
+  openDialog(doctor: any = null) {
+    const dialogRef= this.dialog.open(CreateDoctor,{
+      data: {
+        mode: doctor ? 'edit' : 'create',
+        service: doctor
+      }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.refresh();
+    });
   }
   getDoctors() {
     this.doctorService.getAllDoctors().subscribe({

@@ -275,3 +275,14 @@
     justify-content: center;
   }
 }
+.action-btn--edit {
+  color: #0d9aad;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+}
+
+.action-btn--edit:hover {
+  background: #f0f9fa;
+  border-color: #0d9aad;
+  color: #0d9aad;
+}
