@@ -12,6 +12,7 @@ import {AuthService} from '../../../services/auth-service';
 })
 export class Login {
   private route = inject(ActivatedRoute);
+  isLoading = false;
   loginForm: FormGroup = new FormGroup({
     email : new FormControl('', Validators.required),
     password : new FormControl('', Validators.required),
@@ -23,10 +24,17 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
   login(form:any) {
+    this.isLoading = true;
     this.auth.login(form.value).subscribe({
       next: (res) => {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
         this.router.navigate([returnUrl]);
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     })
   }

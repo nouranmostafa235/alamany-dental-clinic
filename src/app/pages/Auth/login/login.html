@@ -61,9 +61,14 @@
 
         <button
           type="submit"
-          [disabled]="loginForm.invalid"
+          [disabled]="loginForm.invalid || isLoading"
           class="btn submit-btn w-100 text-white rounded-3 py-2 mt-4">
-          Sign In
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          }
+
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+
         </button>
 
       </form>

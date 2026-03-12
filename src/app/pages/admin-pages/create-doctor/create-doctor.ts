@@ -78,7 +78,7 @@ export class CreateDoctor implements OnInit{
       professionalInfo: this.fb.group({
         yearsOfExperience: new FormControl(''),
         specialization: this.fb.control([]),
-        licenseNumber: new FormControl('', Validators.required),
+        licenseNumber: new FormControl(''),
         bio: new FormControl('',Validators.required),
       }),
       certificates: this.fb.array([]),

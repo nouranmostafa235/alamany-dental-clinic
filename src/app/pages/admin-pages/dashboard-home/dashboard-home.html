@@ -95,12 +95,12 @@
               </svg>
             </div>
             <div class="appoint-row__info">
-              <p class="appoint-row__name">{{ appoint.firstName }} {{ appoint.lastName }}</p>
+              <p class="appoint-row__name">{{ appoint?.firstName }} {{ appoint?.lastName }}</p>
               <p class="appoint-row__doctor">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                 </svg>
-                Dr. {{ appoint.doctorProfileId.firstName }} {{ appoint.doctorProfileId.lastName }}
+                Dr. {{ appoint?.doctorProfileId?.firstName }} {{ appoint?.doctorProfileId?.lastName }}
               </p>
               <p class="appoint-row__date">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

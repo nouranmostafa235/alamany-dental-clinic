@@ -109,7 +109,10 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   const loading = inject(LoadingService);
   const token = tokenService.getToken();
   const authReq = token ? addToken(req, token) : req;
-loading.show()
+  const skipLoadingUrls = ['/auth/login'];
+  const shouldShowLoading = !skipLoadingUrls.some(url => req.url.includes(url));
+
+  if (shouldShowLoading) loading.show();
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       handleErrorToast(error,toaster)
@@ -161,7 +164,7 @@ loading.show()
       );
     }),
     finalize(() => {
-        loading.hide();
+      if (shouldShowLoading) loading.hide();
     })
   );
 
