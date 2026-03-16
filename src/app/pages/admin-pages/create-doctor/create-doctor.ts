@@ -169,7 +169,7 @@ export class CreateDoctor implements OnInit{
     // 1. Store original File in form → will be sent to API
     this.createDoctorForm
       .get('personalInfo.picture')
-      ?.setValue(result.originalFile);
+      ?.setValue(result.croppedPreviewUrl);
 
     // // 2. Store previews for display
     // this.doctorImages.setImages({

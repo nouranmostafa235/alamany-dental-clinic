@@ -189,5 +189,18 @@ body{
   width: 100vw !important;
   height: 100vh !important;
 }
+.cdk-overlay-container {
+  z-index: 200 !important;
+}
 
+.loading-backdrop {
+  z-index: 999999 !important;
+}
 
+.cdk-overlay-backdrop {
+  z-index: 100 !important;
+}
+
+.cdk-overlay-pane {
+  z-index: 100 !important;
+}

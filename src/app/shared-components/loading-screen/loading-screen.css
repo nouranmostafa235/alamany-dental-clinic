@@ -5,11 +5,15 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--dark-bg-color, #0d2d38);
+
+  /* Semi-transparent + blur instead of solid fill */
+  background: rgba(13, 45, 56, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99999; /* above CDK overlay (1000) and Material dialog (1000+) */
   flex-direction: column;
   animation: backdrop-in 0.2s ease;
 }
@@ -47,39 +51,39 @@
 }
 
 /* ─── Orbiting ring ───────────────────────────────────── */
-.orbit {
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: var(--light-color, #0d9aad);
-  animation: orbit-spin linear infinite;
-}
+/*.orbit {*/
+/*  position: absolute;*/
+/*  border-radius: 50%;*/
+/*  border: 2px solid transparent;*/
+/*  border-top-color: var(--light-color, #0d9aad);*/
+/*  animation: orbit-spin linear infinite;*/
+/*}*/
 
-.orbit-1 {
-  width: 120px;
-  height: 120px;
-  animation-duration: 1.4s;
-  border-top-color: rgba(13, 154, 173, 0.9);
-}
+/*.orbit-1 {*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*  animation-duration: 1.4s;*/
+/*  border-top-color: rgba(13, 154, 173, 0.9);*/
+/*}*/
 
-.orbit-2 {
-  width: 150px;
-  height: 150px;
-  animation-duration: 2.2s;
-  animation-direction: reverse;
-  border-top-color: rgba(13, 154, 173, 0.45);
-}
+/*.orbit-2 {*/
+/*  width: 150px;*/
+/*  height: 150px;*/
+/*  animation-duration: 2.2s;*/
+/*  animation-direction: reverse;*/
+/*  border-top-color: rgba(13, 154, 173, 0.45);*/
+/*}*/
 
-.orbit-3 {
-  width: 182px;
-  height: 182px;
-  animation-duration: 3s;
-  border-top-color: rgba(13, 154, 173, 0.2);
-}
+/*.orbit-3 {*/
+/*  width: 182px;*/
+/*  height: 182px;*/
+/*  animation-duration: 3s;*/
+/*  border-top-color: rgba(13, 154, 173, 0.2);*/
+/*}*/
 
-@keyframes orbit-spin {
-  to { transform: rotate(360deg); }
-}
+/*@keyframes orbit-spin {*/
+/*  to { transform: rotate(360deg); }*/
+/*}*/
 
 /* ─── Dots ────────────────────────────────────────────── */
 .loading-dots {
