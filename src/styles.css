@@ -7,14 +7,17 @@
   --blue-bg-color : #F1F7FC;
   --dark-bg-color : #042D3C;
 }
-body{
+
+body {
   font-family: Nunito, sans-serif;
 }
+
 .title {
   color: var(--dark-color);
   font-weight: bold;
 }
-.small-title{
+
+.small-title {
   color: var(--light-color);
   font-size: 12px;
 }
@@ -23,42 +26,53 @@ body{
   color: var(--gray-color);
   font-size: 12px;
 }
-.small-shadow{
+
+.small-shadow {
   box-shadow: 0 15px 30px -11px rgba(0,0,0,0.10);
 }
-.btn-gradiant{
+
+.btn-gradiant {
   background: #00B7DB;
-  background: linear-gradient(90deg,rgba(0, 183, 219, 1) 0%, rgba(16, 98, 251, 1) 100%);
+  background: linear-gradient(90deg, rgba(0, 183, 219, 1) 0%, rgba(16, 98, 251, 1) 100%);
 }
-.confirmed-badge{
+
+.confirmed-badge {
   background-color: #DBFCE7;
   color: #349F60;
 }
-.cancel-badge{
+
+.cancel-badge {
   background-color: #edc8ca;
-  color:#ED3F47 ;
+  color: #ED3F47;
 }
-.pending-badge{
+
+.pending-badge {
   background-color: #FEF9C2;
   color: #C79949;
 }
-.date-card{
+
+.date-card {
   background: #0F69F8;
-  background: linear-gradient(180deg,rgba(15, 105, 248, 1) 0%, rgba(0, 183, 219, 1) 100%);
+  background: linear-gradient(180deg, rgba(15, 105, 248, 1) 0%, rgba(0, 183, 219, 1) 100%);
 }
+
 .date-card p {
   font-size: small;
 }
-.cancel{
+
+.cancel {
   border: 1px solid #d1d0d0;
 }
-.err-msg{
+
+.err-msg {
   color: red;
   font-size: 10px;
 }
+
 .cdk-overlay-pane .mat-mdc-select-panel {
   background-color: #ffffff !important;
 }
+
 /* make mat-form-field full width */
 .mat-mdc-form-field {
   width: 100%;
@@ -69,7 +83,6 @@ body{
 .mat-mdc-text-field-wrapper {
   border-radius: 8px !important;
   border: 1px solid #ddd !important;
-  /*padding: 0 12px !important;*/
   background-color: #fff;
 }
 
@@ -92,44 +105,46 @@ body{
 .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
   border-color: #000000 !important;
 }
-   .ngx-mat-timepicker-toggle {
-     .mat-icon-button {
-       width: 32px;
-       height: 32px;
-       line-height: 32px;
-     }
-   }
 
-   .mat-mdc-form-field {
-     .mat-mdc-text-field-wrapper {
-       padding: 0 !important;
-       background: transparent !important;
-     }
+.ngx-mat-timepicker-toggle {
+  .mat-icon-button {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+}
 
-     .mat-mdc-form-field-infix {
-       padding: 0.375rem 0.75rem !important;
-       min-height: unset !important;
-       border: 1px solid #dee2e6;
-       border-radius: 0.375rem;
-       background-color: #fff;
-       font-size: 1rem;
-       line-height: 1.5;
-     }
-     .mdc-line-ripple,
-   .mat-mdc-form-field-subscript-wrapper {
-     display: none !important;
-   }
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    padding: 0 !important;
+    background: transparent !important;
+  }
 
-     input.mat-mdc-input-element {
-       padding: 0 !important;
-       margin: 0 !important;
-       margin-bottom: 10px !important;
-     }
-   }
+  .mat-mdc-form-field-infix {
+    padding: 0.375rem 0.75rem !important;
+    min-height: unset !important;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background-color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 
-   .ngx-mat-timepicker-dial {
-     background-color: #0d6efd !important;
-   }
+  .mdc-line-ripple,
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+
+  input.mat-mdc-input-element {
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+.ngx-mat-timepicker-dial {
+  background-color: #0d6efd !important;
+}
 
 .ngx-mat-timepicker-clock {
   background-color: #e9f0ff !important;
@@ -155,52 +170,77 @@ body{
   color: #0d6efd !important;
   font-weight: 600 !important;
 }
-   .ngx-mat-timepicker-content,
-   .ngx-mat-timepicker-content__body,
-   timepicker-dialog,
-   .timepicker,
-   .timepicker__body,
-   .timepicker-overlay,
-   .cdk-overlay-pane,
-   [class*="timepicker"] {
-     background-color: #ffffff !important;
-     border-radius: 12px !important;
-   }
 
-   .cdk-overlay-pane .mat-mdc-dialog-container {
-     background-color: #ffffff !important;
-     --mdc-dialog-container-color: #ffffff !important;
-     border-radius: 12px !important;
-   }
+.ngx-mat-timepicker-content,
+.ngx-mat-timepicker-content__body,
+timepicker-dialog,
+.timepicker,
+.timepicker__body,
+.timepicker-overlay,
+.cdk-overlay-pane,
+[class*="timepicker"] {
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+}
+
+.cdk-overlay-pane .mat-mdc-dialog-container {
+  background-color: #ffffff !important;
+  --mdc-dialog-container-color: #ffffff !important;
+  border-radius: 12px !important;
+}
 
 .mat-mdc-dialog-surface {
   background-color: #ffffff !important;
   --mdc-dialog-container-color: #ffffff !important;
   border-radius: 12px !important;
 }
+
 .mat-mdc-dialog-container .mdc-dialog__surface {
   border-radius: 16px !important;
   overflow: hidden;
 }
+
 .cdk-overlay-container {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-}
-.cdk-overlay-container {
-  z-index: 200 !important;
+  z-index: 1000 !important;
 }
 
-.loading-backdrop {
-  z-index: 999999 !important;
+/* ─── Loading overlay via MatDialog ─────────────────────── */
+
+/* Blurred backdrop */
+.loading-backdrop-blur {
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  background: rgba(13, 45, 56, 0.55) !important;
 }
 
-.cdk-overlay-backdrop {
-  z-index: 100 !important;
+/* Make the dialog panel itself transparent */
+.loading-panel .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
-.cdk-overlay-pane {
-  z-index: 100 !important;
+.loading-panel .mdc-dialog__surface {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Override global white background for loading panel only */
+.loading-panel.cdk-overlay-pane .mat-mdc-dialog-container {
+  background-color: transparent !important;
+  --mdc-dialog-container-color: transparent !important;
+}
+/* In your admin layout component CSS or styles.css */
+@media (max-width: 768px) {
+  .admin-content,
+  .page-wrapper,
+  router-outlet + * {
+    padding-top: 56px; /* matches sidebar__mobile-bar height */
+  }
 }

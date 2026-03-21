@@ -169,7 +169,7 @@ export class CreateDoctor implements OnInit{
     // 1. Store original File in form → will be sent to API
     this.createDoctorForm
       .get('personalInfo.picture')
-      ?.setValue(result.croppedPreviewUrl);
+      ?.setValue(result.originalFile);
 
     // // 2. Store previews for display
     // this.doctorImages.setImages({
@@ -289,8 +289,12 @@ export class CreateDoctor implements OnInit{
     formData.append('email', personal.email);
     formData.append('phone', personal.phone);
 
-    if (personal.picture)
+    if (personal.picture){
+      // const file = new File([personal.picture], 'doctor-avatar.jpg', { type: 'image/jpeg' });
+      // formData.append('picture', file);
       formData.append('picture', personal.picture);
+    }
+
 
     // Professional Info
     formData.append('licenseNumber', professional.licenseNumber);

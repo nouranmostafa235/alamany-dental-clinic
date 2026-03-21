@@ -49,5 +49,5 @@ export class DoctorCertificates implements OnInit{
     document.body.style.overflow = '';
   }
 
-  protected readonly length = length;
+  // protected readonly length = length;
 }

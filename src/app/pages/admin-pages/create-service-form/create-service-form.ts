@@ -44,7 +44,6 @@ export class CreateServiceForm implements OnInit {
     }
   }
   createService(form: FormGroup) {
-
     const formData = new FormData();
 
     formData.append('name', form.value.name);

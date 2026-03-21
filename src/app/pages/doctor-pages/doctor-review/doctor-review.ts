@@ -24,6 +24,7 @@ export class DoctorReview implements OnInit{
       return;
     }
     this.doctorService.doctor$.subscribe(doctor => {
+      if (!doctor) return;
       this.doctorData = doctor;
       this.getReviews(this.doctorData._id)
 
@@ -58,8 +59,8 @@ export class DoctorReview implements OnInit{
   getReviews(id:any){
     this.doctorService.getReviews(id).subscribe(reviews => {
       this.allReviews = reviews?.data?.reviews;
-      this.overAllRate = reviews?.data?.ratingData?.averageRating;
-      this.totalNoOfRatings = this.formatRating(reviews.data.ratingData?.totalRatings) ;
+      this.overAllRate = parseFloat(reviews?.data?.ratingData?.averageRating?.toFixed(1));
+      this.totalNoOfRatings = this.formatRating(reviews?.data?.ratingData?.totalRatings) ;
       this.cdr.detectChanges();
     })
   }

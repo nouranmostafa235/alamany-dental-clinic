@@ -117,7 +117,9 @@ export class ImageAdjuster {
         this.resetTransform();
         this.imageSrc.set(src);
         // Draw after view updates
-        setTimeout(() => this.draw(), 0);
+        setTimeout(() => {
+          // this.setupCanvas();
+          this.draw()}, 0);
       };
       this.img.src = src;
     };
@@ -139,7 +141,7 @@ export class ImageAdjuster {
     ctx.rotate((this.rotation() * Math.PI) / 180);
     ctx.scale(this.scale(), this.scale());
 
-    const s = Math.min(size / this.img.width, size / this.img.height);
+    const s = Math.max(size / this.img.width, size / this.img.height);
     const w = this.img.width * s;
     const h = this.img.height * s;
     ctx.drawImage(this.img, -w / 2, -h / 2, w, h);
@@ -202,7 +204,21 @@ export class ImageAdjuster {
     this.originalFile = null;
     if (this.fileInputRef) this.fileInputRef.nativeElement.value = '';
   }
+  private setupCanvas() {
+    if (!this.isBrowser) return;
+    const canvas = this.canvasRef?.nativeElement;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const size = this.frameSize;
 
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
+
+    const ctx = canvas.getContext('2d')!;
+    ctx.scale(dpr, dpr); // ✅ scale all drawing to match screen density
+  }
   // ── Confirm / export ──────────────────────────────────────────────────────
   confirm() {
     if (!this.isBrowser || !this.originalFile) return;
@@ -215,24 +231,12 @@ export class ImageAdjuster {
     outputCanvas.height = size;
     const ctx = outputCanvas.getContext('2d')!;
 
-    // Clip to shape
-    ctx.save();
-    if (this.shape === 'circle') {
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size / 2 - 12, 0, Math.PI * 2);
-      ctx.clip();
-    } else if (this.shape === 'square') {
-      ctx.beginPath();
-      ctx.roundRect(12, 12, size - 24, size - 24, 8);
-      ctx.clip();
-    } else {
-      ctx.beginPath();
-      ctx.roundRect(24, 12, size - 48, size - 24, 8);
-      ctx.clip();
-    }
+    // ✅ White background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
 
+    // ✅ Just draw — no clipping, no frames
     ctx.drawImage(canvas, 0, 0);
-    ctx.restore();
 
     outputCanvas.toBlob((blob) => {
       if (!blob) { this.isSaving.set(false); return; }
@@ -243,7 +247,7 @@ export class ImageAdjuster {
         croppedPreviewUrl: url,
       });
       this.isSaving.set(false);
-    }, 'image/jpeg', 0.92);
+    }, 'image/png');
   }
 
   ngOnDestroy() {
