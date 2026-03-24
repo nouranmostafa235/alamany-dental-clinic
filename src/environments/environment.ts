@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://alamany-clinic-be.vercel.app/api/v1/'
+  apiBaseUrl: 'https://alamanyclinic-be-production.up.railway.app/api/v1/'
 };

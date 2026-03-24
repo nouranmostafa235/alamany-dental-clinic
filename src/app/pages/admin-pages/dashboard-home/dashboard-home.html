@@ -46,7 +46,7 @@
     <div class="stat-card stat-card--purple">
       <div class="stat-card__body">
         <p class="stat-card__label">Total Appointments</p>
-        <h3 class="stat-card__value">{{ (totalAppointments$ | async)?.pagination?.total ?? '—' }}</h3>
+        <h3 class="stat-card__value">{{ (totalAppointments$ | async)?.data.length ?? '—' }}</h3>
         <span class="stat-card__tag">All time bookings</span>
       </div>
       <div class="stat-card__icon">
